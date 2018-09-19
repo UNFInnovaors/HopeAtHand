@@ -1,0 +1,14 @@
+c:\users\willi\onedrive\desktop\hopeathand\HopeAtHand\WebApplication1\bin\Debug\netcoreapp2.1\HopeAtHand.deps.json
+c:\users\willi\onedrive\desktop\hopeathand\HopeAtHand\WebApplication1\bin\Debug\netcoreapp2.1\HopeAtHand.runtimeconfig.json
+c:\users\willi\onedrive\desktop\hopeathand\HopeAtHand\WebApplication1\bin\Debug\netcoreapp2.1\HopeAtHand.runtimeconfig.dev.json
+c:\users\willi\onedrive\desktop\hopeathand\HopeAtHand\WebApplication1\bin\Debug\netcoreapp2.1\HopeAtHand.dll
+c:\users\willi\onedrive\desktop\hopeathand\HopeAtHand\WebApplication1\bin\Debug\netcoreapp2.1\HopeAtHand.pdb
+c:\users\willi\onedrive\desktop\hopeathand\HopeAtHand\WebApplication1\obj\Debug\netcoreapp2.1\HopeAtHand.csprojAssemblyReference.cache
+c:\users\willi\onedrive\desktop\hopeathand\HopeAtHand\WebApplication1\obj\Debug\netcoreapp2.1\HopeAtHand.csproj.CoreCompileInputs.cache
+c:\users\willi\onedrive\desktop\hopeathand\HopeAtHand\WebApplication1\obj\Debug\netcoreapp2.1\HopeAtHand.RazorAssemblyInfo.cache
+c:\users\willi\onedrive\desktop\hopeathand\HopeAtHand\WebApplication1\obj\Debug\netcoreapp2.1\HopeAtHand.RazorAssemblyInfo.cs
+c:\users\willi\onedrive\desktop\hopeathand\HopeAtHand\WebApplication1\obj\Debug\netcoreapp2.1\HopeAtHand.AssemblyInfoInputs.cache
+c:\users\willi\onedrive\desktop\hopeathand\HopeAtHand\WebApplication1\obj\Debug\netcoreapp2.1\HopeAtHand.AssemblyInfo.cs
+c:\users\willi\onedrive\desktop\hopeathand\HopeAtHand\WebApplication1\obj\Debug\netcoreapp2.1\HopeAtHand.RazorTargetAssemblyInfo.cache
+c:\users\willi\onedrive\desktop\hopeathand\HopeAtHand\WebApplication1\obj\Debug\netcoreapp2.1\HopeAtHand.dll
+c:\users\willi\onedrive\desktop\hopeathand\HopeAtHand\WebApplication1\obj\Debug\netcoreapp2.1\HopeAtHand.pdb
