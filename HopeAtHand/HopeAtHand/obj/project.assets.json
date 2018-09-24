@@ -11507,11 +11507,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Willi\\source\\repos\\HopeAtHand\\HopeAtHand\\HopeAtHand.csproj",
+      "projectUniqueName": "C:\\Users\\Willi\\OneDrive\\Desktop\\HopeAtHand\\HopeAtHand\\HopeAtHand\\HopeAtHand.csproj",
       "projectName": "HopeAtHand",
-      "projectPath": "C:\\Users\\Willi\\source\\repos\\HopeAtHand\\HopeAtHand\\HopeAtHand.csproj",
+      "projectPath": "C:\\Users\\Willi\\OneDrive\\Desktop\\HopeAtHand\\HopeAtHand\\HopeAtHand\\HopeAtHand.csproj",
       "packagesPath": "C:\\Users\\Willi\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Willi\\source\\repos\\HopeAtHand\\HopeAtHand\\obj\\",
+      "outputPath": "C:\\Users\\Willi\\OneDrive\\Desktop\\HopeAtHand\\HopeAtHand\\HopeAtHand\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"

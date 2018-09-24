@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-
+using WebApplication1.Models;
 namespace HopeAtHand
 {
     public class Startup
@@ -21,6 +21,8 @@ namespace HopeAtHand
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.AddTransient<ILessonPlanRepository, LessonPlanRepository>();
+            services.AddCors();
 
             // In production, the React files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
@@ -43,6 +45,8 @@ namespace HopeAtHand
             }
 
             app.UseHttpsRedirection();
+            app.UseCors(options =>
+               options.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin());
             app.UseStaticFiles();
             app.UseSpaStaticFiles();
 

@@ -33,5 +33,11 @@ namespace WebApplication1.Models
         public int PoemId { get; set; }
         public int WritingAssignmentId { get; set; }
         public int ArtPieceId { get; set; }
+        public string Theme { get; set; }
+        public string Tag { get; set; }
+        public Poem poem { get; set; }
+        public WritingAssignment Writing { get; set; }
+        public ArtPiece artPiece { get; set; }
+
     }
 }
