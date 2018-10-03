@@ -11501,23 +11501,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Willi\\.nuget\\packages\\": {},
+    "C:\\Users\\Syed Wasim Ali\\.nuget\\packages\\": {},
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Willi\\OneDrive\\Desktop\\HopeAtHand\\HopeAtHand\\HopeAtHand\\HopeAtHand.csproj",
+      "projectUniqueName": "C:\\Users\\Syed Wasim Ali\\Desktop\\HopeAtHand1\\HopeAtHand\\HopeAtHand\\HopeAtHand.csproj",
       "projectName": "HopeAtHand",
-      "projectPath": "C:\\Users\\Willi\\OneDrive\\Desktop\\HopeAtHand\\HopeAtHand\\HopeAtHand\\HopeAtHand.csproj",
-      "packagesPath": "C:\\Users\\Willi\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Willi\\OneDrive\\Desktop\\HopeAtHand\\HopeAtHand\\HopeAtHand\\obj\\",
+      "projectPath": "C:\\Users\\Syed Wasim Ali\\Desktop\\HopeAtHand1\\HopeAtHand\\HopeAtHand\\HopeAtHand.csproj",
+      "packagesPath": "C:\\Users\\Syed Wasim Ali\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Syed Wasim Ali\\Desktop\\HopeAtHand1\\HopeAtHand\\HopeAtHand\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
       ],
       "configFilePaths": [
-        "C:\\Users\\Willi\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Syed Wasim Ali\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [

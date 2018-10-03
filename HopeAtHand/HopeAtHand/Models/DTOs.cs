@@ -10,4 +10,10 @@ namespace HopeAtHand.Models
         public string theme { get; set; }
         public string tags { get; set; }
     }
+
+    public class PoemDTO
+    {
+        public string theme { get; set; }
+        public string tags { get; set; }
+    }
 }

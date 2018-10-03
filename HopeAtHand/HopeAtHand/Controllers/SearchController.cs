@@ -5,26 +5,34 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using WebApplication1.Models;
 using HopeAtHand.Models;
 
-namespace WebApplication1.Controllers
+namespace HopeAtHand.Controllers
 {
     [Route("api/[controller]/[Action]")]
     public class SearchController : Controller
     {
         ILessonPlanRepository lessonPlanRepo;
+        IPoemRepo poemRepo;
 
-        public SearchController(ILessonPlanRepository less)
+        public SearchController(ILessonPlanRepository less, IPoemRepo mydependency)
         {
             lessonPlanRepo = less;
+            poemRepo = mydependency;
         }
         public IActionResult Poems()
         {
             var poemz = JsonConvert.SerializeObject(PoemRepo.Poems);
             return Ok(poemz);
         }
-        
+
+        [HttpPost]
+        public IActionResult GetPoemSearchText([FromBody] PoemDTO poemie)
+        {
+            Poem[] poemDTO = poemRepo.GetPoem(poemie.tags, poemie.theme).ToArray();
+            return Ok(poemDTO);
+        }
+
         public IActionResult WritingAssingnments()
         {
             return Ok(WrittingAssignmentRepo.WritingAssignments);
