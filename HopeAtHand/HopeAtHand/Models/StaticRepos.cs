@@ -40,10 +40,10 @@ namespace WebApplication1.Models
     {
         public static Dictionary<int, LessonPlan> LessonPLans => new Dictionary<int, LessonPlan>
         {
-            {0, new LessonPlan{ LessonPlanId = 0, ArtPieceId = 0, PoemId = 0, WritingAssignmentId =0, Theme="Female Empowerment", Tag="Flying" }},
-            {1, new LessonPlan{ LessonPlanId = 1, ArtPieceId = 1, PoemId = 1, WritingAssignmentId =1 }},
-            {2, new LessonPlan{ LessonPlanId = 2, ArtPieceId = 2, PoemId = 2, WritingAssignmentId =2 }},
-            {3, new LessonPlan{ LessonPlanId = 3, ArtPieceId = 3, PoemId = 3, WritingAssignmentId =3 }},
+            {0, new LessonPlan{ LessonPlanId = 0, ArtPieceId = 0, PoemId = 0, WritingAssignmentId =0, Theme="Female Empowerment", Tag="Flying", Name="Flying Around" }},
+            {1, new LessonPlan{ LessonPlanId = 1, ArtPieceId = 1, PoemId = 1, WritingAssignmentId =1, Theme="Male Empowerment", Tag="Racing", Name="No Cars Go"}},
+            {2, new LessonPlan{ LessonPlanId = 2, ArtPieceId = 2, PoemId = 2, WritingAssignmentId =2,  Theme="Self Acceptence", Tag="Movies", Name="This is sample data" }},
+            {3, new LessonPlan{ LessonPlanId = 3, ArtPieceId = 3, PoemId = 3, WritingAssignmentId =3, Theme="Connectivity", Tag = "Woods", Name="I Enjoy Making Sample Data" }},
         };
     }
 }
