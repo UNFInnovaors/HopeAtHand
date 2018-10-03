@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using WebApplication1.Models;
+using HopeAtHand.Models;
 
-namespace WebApplication1.Models
+namespace HopeAtHand.Models
 {
     public interface ILessonPlanRepository
     {

@@ -12,3 +12,17 @@ C:\Users\Willi\OneDrive\Desktop\HopeAtHand\HopeAtHand\HopeAtHand\bin\Debug\netco
 C:\Users\Willi\OneDrive\Desktop\HopeAtHand\HopeAtHand\HopeAtHand\obj\Debug\netcoreapp2.1\HopeAtHand.RazorTargetAssemblyInfo.cache
 C:\Users\Willi\OneDrive\Desktop\HopeAtHand\HopeAtHand\HopeAtHand\obj\Debug\netcoreapp2.1\HopeAtHand.dll
 C:\Users\Willi\OneDrive\Desktop\HopeAtHand\HopeAtHand\HopeAtHand\obj\Debug\netcoreapp2.1\HopeAtHand.pdb
+C:\Users\Syed Wasim Ali\Desktop\HopeAtHand1\HopeAtHand\HopeAtHand\obj\Debug\netcoreapp2.1\HopeAtHand.csprojAssemblyReference.cache
+C:\Users\Syed Wasim Ali\Desktop\HopeAtHand1\HopeAtHand\HopeAtHand\obj\Debug\netcoreapp2.1\HopeAtHand.csproj.CoreCompileInputs.cache
+C:\Users\Syed Wasim Ali\Desktop\HopeAtHand1\HopeAtHand\HopeAtHand\obj\Debug\netcoreapp2.1\HopeAtHand.RazorAssemblyInfo.cache
+C:\Users\Syed Wasim Ali\Desktop\HopeAtHand1\HopeAtHand\HopeAtHand\obj\Debug\netcoreapp2.1\HopeAtHand.RazorAssemblyInfo.cs
+C:\Users\Syed Wasim Ali\Desktop\HopeAtHand1\HopeAtHand\HopeAtHand\obj\Debug\netcoreapp2.1\HopeAtHand.AssemblyInfoInputs.cache
+C:\Users\Syed Wasim Ali\Desktop\HopeAtHand1\HopeAtHand\HopeAtHand\obj\Debug\netcoreapp2.1\HopeAtHand.AssemblyInfo.cs
+C:\Users\Syed Wasim Ali\Desktop\HopeAtHand1\HopeAtHand\HopeAtHand\obj\Debug\netcoreapp2.1\HopeAtHand.dll
+C:\Users\Syed Wasim Ali\Desktop\HopeAtHand1\HopeAtHand\HopeAtHand\obj\Debug\netcoreapp2.1\HopeAtHand.pdb
+C:\Users\Syed Wasim Ali\Desktop\HopeAtHand1\HopeAtHand\HopeAtHand\bin\Debug\netcoreapp2.1\HopeAtHand.deps.json
+C:\Users\Syed Wasim Ali\Desktop\HopeAtHand1\HopeAtHand\HopeAtHand\bin\Debug\netcoreapp2.1\HopeAtHand.runtimeconfig.json
+C:\Users\Syed Wasim Ali\Desktop\HopeAtHand1\HopeAtHand\HopeAtHand\bin\Debug\netcoreapp2.1\HopeAtHand.runtimeconfig.dev.json
+C:\Users\Syed Wasim Ali\Desktop\HopeAtHand1\HopeAtHand\HopeAtHand\bin\Debug\netcoreapp2.1\HopeAtHand.dll
+C:\Users\Syed Wasim Ali\Desktop\HopeAtHand1\HopeAtHand\HopeAtHand\bin\Debug\netcoreapp2.1\HopeAtHand.pdb
+C:\Users\Syed Wasim Ali\Desktop\HopeAtHand1\HopeAtHand\HopeAtHand\obj\Debug\netcoreapp2.1\HopeAtHand.RazorTargetAssemblyInfo.cache
