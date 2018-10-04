@@ -44,12 +44,12 @@ state={
     let renderingButton= <div></div>
     if (this.state.ShowPoem==true)
     {
-      renderingButton=<div><button  onClick={this.ShowPoemSearchHandler}> Search More </button> <br/> <br/></div>
+      renderingButton=<div><button  onClick={this.ShowPoemSearchHandler}> Search More Poetry</button> <br/> <br/></div>
     }
     else
     { renderingButton=
       <div> 
-      <div><button  onClick={this.ShowPoemSearchHandler}> Search More </button> <br/> <br/></div> 
+      <div><button  onClick={this.ShowPoemSearchHandler}> Search More Poetry</button> <br/> <br/></div> 
       <input onChange={this.searchValueHandler} type="text"></input>
       <br/>
       <br/>
