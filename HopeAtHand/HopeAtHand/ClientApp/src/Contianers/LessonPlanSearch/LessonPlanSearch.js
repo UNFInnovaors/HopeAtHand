@@ -4,8 +4,6 @@ import Classes from './LessonPlan.css';
 import axios from 'axios';
 
 class LessonPlanSearch extends Component{
-
-
 state = {
     Theme:0,
     Tags:'',
@@ -31,8 +29,7 @@ Search = () => {
     axios.post('https://localhost:44365/api/search/findlessonplan', lessie).then(res => {
         console.log(res)
         this.setState({Lessons:res.data})
-    })  
-}
+    })}
 SelectLesson = (event) => {
     this.setState({ChosenLesson: this.state.Lessons[Number(event.target.dataset.lesson)]})
 }
