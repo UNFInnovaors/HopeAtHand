@@ -16,4 +16,10 @@ namespace HopeAtHand.Models
         public string theme { get; set; }
         public string tags { get; set; }
     }
+
+    public class WritingAssignmentDTO
+    {
+        public string theme { get; set; }
+        public string tags { get; set; }
+    }
 }

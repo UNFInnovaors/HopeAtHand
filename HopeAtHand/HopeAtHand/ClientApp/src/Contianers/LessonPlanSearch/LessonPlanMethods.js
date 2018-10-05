@@ -1,5 +1,6 @@
 import React from 'react';
 import PoemSearch from '../../components/PoemSearch/PoemSearch';
+import WrittingAssignmentSearch from '../../components/WritingAssignment/WritingAssignment';
 import Classes from './LessonPlan.css';
 
 /** Takes in the current sate of LessonPlan and returns the formatted HTML to display the Lesson Plan */
@@ -16,10 +17,11 @@ const displayLessonPlan = LessonPlan => {
         <div className={'flex'}>
           <div>
             <h3>Poem : {LessonPlan.poem.title}</h3>
-            <PoemSearch />
+            <PoemSearch />            
           </div>
           <div>
             <h3>Writing Assignment : {LessonPlan.writing.title}</h3>
+            <WrittingAssignmentSearch />
           </div>
           <div>
             <h3>Art Piece : {LessonPlan.artPiece.title}</h3>

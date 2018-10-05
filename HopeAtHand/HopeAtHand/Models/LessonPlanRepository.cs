@@ -12,8 +12,6 @@ namespace HopeAtHand.Models
     }
     public class LessonPlanRepository : ILessonPlanRepository
     {
-       
-
         public IEnumerable<LessonPlan> FindLessonPlan(string Theme, string Tag)
         {
             IEnumerable<LessonPlan> lessonPlans = (IEnumerable<LessonPlan>)LessonPlanRepo.LessonPLans.Values.Where(l => l.Theme == Theme || l.Tag == Tag).ToList();

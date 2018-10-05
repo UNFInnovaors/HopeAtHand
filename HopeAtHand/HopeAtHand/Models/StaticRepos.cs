@@ -8,15 +8,14 @@ namespace HopeAtHand.Models
     public static class PoemRepo
     {
         public static Dictionary<int,Poem> Poems => new Dictionary<int,Poem>
-        {
-            
+        {            
             {0, new Poem {Author = "Amelia Airhart", PoemId = 0, Tag = "Flying", Theme = "Female Empowerment", Title = "Airplane Over the Sea" }},
             {1, new Poem {Author = "Dale Enrheart", PoemId = 1, Tag="Racing", Theme ="Male Empowerment", Title="Spinning In Circles"} },
             {2, new Poem {Author = "Tom Hanks", PoemId = 2, Tag="Movies", Theme = "Self Acceptence", Title="Why Am I Here"}},
             {3, new Poem {Author = "Lou Lawson", PoemId = 3, Tag="Woods", Theme = "Connectivity" , Title = "In The Woods"}}
         };
     }
-    public static class WrittingAssignmentRepo
+    public static class WritingAssignmentRepo
     {
         public static Dictionary<int, WritingAssignment> WritingAssignments => new Dictionary<int, WritingAssignment>
         {
