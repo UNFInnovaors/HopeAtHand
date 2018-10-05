@@ -23,6 +23,7 @@ namespace HopeAtHand
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddTransient<ILessonPlanRepository, LessonPlanRepository>();
             services.AddTransient<IPoemRepo, PoemRepository>();
+            services.AddTransient<IWritingAssignmentRepository, WritingAssignmentRepository>();
             services.AddCors();
 
             // In production, the React files will be served from this directory

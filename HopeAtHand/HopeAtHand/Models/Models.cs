@@ -37,7 +37,7 @@ namespace HopeAtHand.Models
         public string Tag { get; set; }
         public string Name { get; set; }
         public Poem poem { get; set; }
-        public WritingAssignment Writing { get; set; }
+        public WritingAssignment writing { get; set; }
         public ArtPiece artPiece { get; set; }
 
     }

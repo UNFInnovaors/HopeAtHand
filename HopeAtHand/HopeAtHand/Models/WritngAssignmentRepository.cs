@@ -10,11 +10,11 @@ namespace HopeAtHand.Models
         IEnumerable<WritingAssignment> GetWritingAssigment(string writingAssignmentTagResult, string writingAssignmentThemeResult);
     }
 
-    public class WritngAssignmentRepository : IWritingAssignmentRepository
+    public class WritingAssignmentRepository : IWritingAssignmentRepository
     {
         public IEnumerable<WritingAssignment> GetWritingAssigment(string writingAssignmentTagResult, string writingAssignmentThemeResult)
         {
-            IEnumerable<WritingAssignment> writingAssignments = (IEnumerable<WritingAssignment>)WritingAssignmentRepo.WritingAssignments.Values.Where(W => W.Tag == writingAssignmentTagResult || W.Theme == writingAssignmentThemeResult).ToList();
+            IEnumerable<WritingAssignment> writingAssignments = WritingAssignmentRepo.WritingAssignments.Values.Where(W => W.Tag == writingAssignmentTagResult || W.Theme == writingAssignmentThemeResult).ToList();
             return writingAssignments;
         }
     }

@@ -36,7 +36,6 @@ namespace HopeAtHand.Controllers
             return Ok(poemDTO);
         }
                
-        //TODO: Add your logic here
         public IActionResult WritingAssignments()
         {
             var writingAssignment = JsonConvert.SerializeObject(WritingAssignmentRepo.WritingAssignments);
@@ -68,7 +67,7 @@ namespace HopeAtHand.Controllers
             for (int x = 0; x < lessonDTO.Length; x++)
             {
                 lessonDTO[x].poem = PoemRepo.Poems.Where(p => p.Value.PoemId == lessonDTO[x].PoemId).FirstOrDefault().Value;
-                lessonDTO[x].Writing = WritingAssignmentRepo.WritingAssignments.Where(w => w.Value.WritingAssignmentId == lessonDTO[x].WritingAssignmentId).FirstOrDefault().Value;
+                lessonDTO[x].writing = WritingAssignmentRepo.WritingAssignments.Where(w => w.Value.WritingAssignmentId == lessonDTO[x].WritingAssignmentId).FirstOrDefault().Value;
                 lessonDTO[x].artPiece = ArtPiecesRepo.ArtPieces.Where(a => a.Value.ArtPieceId == lessonDTO[x].ArtPieceId).FirstOrDefault().Value;
             }
             return Ok(lessonDTO);
