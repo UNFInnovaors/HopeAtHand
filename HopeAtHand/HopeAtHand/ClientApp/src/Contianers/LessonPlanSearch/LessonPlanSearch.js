@@ -8,7 +8,8 @@ class LessonPlanSearch extends Component {
     Theme: 0,
     Tags: '',
     Lessons: [],
-    ChosenLesson: '' /** Stores Displayed Lesson */
+    ChosenLesson: '', /** Stores Displayed Lesson */
+    TestingThis: false
   };
   /** Changes the state of tags to */
   ChangeTags = event => {
