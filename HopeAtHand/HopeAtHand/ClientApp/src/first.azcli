@@ -1,0 +1,8 @@
+
+az login
+az group create  --name myResourceGroup  --location eastus
+az storage account create --name mystoragewmill1991 --resource-group myResourceGroup --location eastus --sku standard_LRS --encryption blob
+az storage account keys list --account-name mystoragewmill1991 --resource-group myResourceGroup --output table
+az set Azure_STORAGEACCOUNT mystoragewmill1991 
+az storage container create --name mystoragecontainer
+az storag e blob upload --container-name wmillstoragecontainer --name blobName --file ./first.azcli

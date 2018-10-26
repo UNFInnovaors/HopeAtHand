@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import DisplayLessonPlan from './LessonPlanMethods';
+import AutoComplete from '../UploadFileSmartContainer/UploadFileSmartContainer'
 import Classes from './LessonPlan.css';
 import axios from 'axios';
 
@@ -92,6 +93,7 @@ class LessonPlanSearch extends Component {
             <option value={'Self Acceptance'}>Self Acceptance</option>
             <option value={'Connectivity'}>Connectivity</option>
           </select>
+          <AutoComplete/>
           <label>Search for tags : </label>
           <input onChange={this.ChangeTags} type="text" />
           <button onClick={this.Search}>Submit</button>
