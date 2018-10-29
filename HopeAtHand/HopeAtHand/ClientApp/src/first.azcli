@@ -5,4 +5,8 @@ az storage account create --name mystoragewmill1991 --resource-group myResourceG
 az storage account keys list --account-name mystoragewmill1991 --resource-group myResourceGroup --output table
 az set Azure_STORAGEACCOUNT mystoragewmill1991 
 az storage container create --name mystoragecontainer
+setx storageconnnectionstring "DefaultEndpointsProtocol=https;AccountName=htmljs;AccountKey=hp6IODplmlb1asWA/VUmHFpxfEwneb5eJWlbYuI99APRhmatAfFosx0+eOClrBJi+aEqfOjPw53QK33bIlz4Gw==;EndpointSuffix=core.windows.net"
 az storag e blob upload --container-name wmillstoragecontainer --name blobName --file ./first.azcli
+az storage account generate-sas --permissions racwdl --resource-types sco --services b --expiry 2040-12-12 --account-name htmljs --account-key hp6IODplmlb1asWA/VUmHFpxfEwneb5eJWlbYuI99APRhmatAfFosx0+eOClrBJi+aEqfOjPw53QK33bIlz4Gw==
+az webapp create --name TestingUploadWill --resource-group myResourceGroup --plan testingUpLoadPlan
+az webapp deployment source config --name TestingUploadWill  --resource-group myResourceGroup --branch feature/upload-file --manual-integration --repo-url https://github.com/UNFInnovaors/HopeAtHand/tree/feature/upload-file

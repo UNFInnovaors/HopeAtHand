@@ -29,7 +29,7 @@ class LessonPlanSearch extends Component {
     };
     console.log(lessie);
     axios
-      .post('https://localhost:44365/api/search/findlessonplan', lessie)
+      .post('https://localhost:5001/api/search/findlessonplan', lessie)
       .then(res => {
         console.log(res);
         this.setState({ Lessons: res.data });

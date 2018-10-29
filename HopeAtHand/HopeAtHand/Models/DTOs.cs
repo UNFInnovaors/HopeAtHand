@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -15,5 +16,10 @@ namespace HopeAtHand.Models
     {
         public string theme { get; set; }
         public string tags { get; set; }
+    }
+
+    public class UploadFileDTO
+    {
+
     }
 }

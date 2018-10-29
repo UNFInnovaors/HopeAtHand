@@ -59,5 +59,10 @@ namespace HopeAtHand.Controllers
             }
             return Ok(lessonDTO);
         }
+        [HttpGet]
+        public IActionResult GetEnvior()
+        {
+            return Ok(Environment.GetEnvironmentVariable("storageconnectionstring"));
+        }
     }
 }
