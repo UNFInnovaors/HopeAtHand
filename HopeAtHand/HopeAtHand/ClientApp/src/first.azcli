@@ -9,4 +9,4 @@ setx storageconnnectionstring "DefaultEndpointsProtocol=https;AccountName=htmljs
 az storag e blob upload --container-name wmillstoragecontainer --name blobName --file ./first.azcli
 az storage account generate-sas --permissions racwdl --resource-types sco --services b --expiry 2040-12-12 --account-name htmljs --account-key hp6IODplmlb1asWA/VUmHFpxfEwneb5eJWlbYuI99APRhmatAfFosx0+eOClrBJi+aEqfOjPw53QK33bIlz4Gw==
 az webapp create --name TestingUploadWill --resource-group myResourceGroup --plan testingUpLoadPlan
-az webapp deployment source config --name TestingUploadWill  --resource-group myResourceGroup --branch feature/upload-file --manual-integration --repo-url https://github.com/UNFInnovaors/HopeAtHand/tree/feature/upload-file
+az webapp deployment source config --name TestingUploadWill  --resource-group myResourceGroup --branch feature/upload-file --manual-integration --repo-url https://github.com/UNFInnovaors/HopeAtHand/feature/upload-file

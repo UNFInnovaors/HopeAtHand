@@ -1,14 +1,10 @@
 import React, { Component } from 'react'
 import Select from 'react-select';
+import Filler from '../../components/HOC/Filler'
 import axios from 'axios'
 import 'azure-storage'
-
-const options = [
-  { value: 'chocolate', label: 'Chocolate' },
-  { value: 'strawberry', label: 'Strawberry' },
-  { value: 'vanilla', label: 'Vanilla' }
-];
-
+import UploadDumbContainer from './UploadDumbContainer/UploadDumbContainer'
+import { BlobService } from 'azure-storage';
 
 class UploadFileSmartContainer extends React.Component {
   state = {
@@ -20,16 +16,33 @@ class UploadFileSmartContainer extends React.Component {
     blobUri : 'https://htmljs.blob.core.windows.net',
     containerName:{type:"password",validation:["lower",{min:0, max:15}],placeHolder:"containerName", required:true, disabled:false, id:"Container"},
     FileToUpload:null,
-    BlobService:null
+    BlobService:null,
+    Images:null,
+    DocumentTypes:['Poem', 'Writing Template', 'Art Piece'],
+    SelectedDocumentType:null,
+    Themes:null,
+    DataAsKVP:{},
+    ShouldImageBeUploaded:false,
+    ImagesToUpload:[],
+
   }
 
   componentDidMount(){
-    if(this.state.BlobService === null )
+    /**if(this.state.BlobService === null )
     {
       var azure=require('azure-storage');
       var blobService = azure.createBlobService("DefaultEndpointsProtocol=https;AccountName=htmljs;AccountKey=hp6IODplmlb1asWA/VUmHFpxfEwneb5eJWlbYuI99APRhmatAfFosx0+eOClrBJi+aEqfOjPw53QK33bIlz4Gw==;EndpointSuffix=core.windows.net")
       this.setState({BlobService: blobService});
-    }
+    }*/
+  }
+  selectDocumentType = (event) => {
+    this.setState({SelectedDocumentType: event.target.value})
+  }
+  UpdateThemes=(newThemes)=> {
+    this.setState({Themes:newThemes})
+  }
+  showImageInterface = (event) => {
+    this.setState({ShouldImageBeUploaded: event.target.checked})
   }
   validator = (validationArray, id) => {
     console.log(validationArray, id)
@@ -50,10 +63,9 @@ class UploadFileSmartContainer extends React.Component {
       }
     }
   }
+
   createContainer = () => {
-
     let valid = true
-
     valid = this.validator(this.state.containerName["validation"],this.state.containerName["id"])
     if(valid !== false){
     var azure=require('azure-storage');
@@ -62,17 +74,22 @@ class UploadFileSmartContainer extends React.Component {
       publicAccessLevel: 'blob'
     }, 
       function(error, result, response) {
-      if (!error) {
-        // if result = true, container was created.
-        // if result = false, container already existed.
-        }
-      }); 
+      if (!error) {// if result = true, container was created.if result = false, container already existed.
+      }}); 
     }
   }
 
   selectFile = (event) => {
     console.log(event.target.files[0])
     this.setState({FileToUpload: event.target.files[0]})
+    //axios.get('https://htmljs.blob.core.windows.net/images/Itinerary.docx').then(res => console.log(res))
+    //this.listFile();
+  }
+  selectImage=(event) => {
+    let images = JSON.parse(JSON.stringify(this.state.ImagesToUpload));
+    images.push(event.target.files[0]);
+    console.log(images)
+    this.setState({ImagesToUpload:images});
   }
   uploadFile = () => {
     var azure=require('azure-storage');
@@ -81,14 +98,10 @@ class UploadFileSmartContainer extends React.Component {
     var file=this.state.FileToUpload;
     var bodyFormData = new FormData();
     bodyFormData.set('file',this.state.FileToUpload)
-    //var blobService = azure.createBlobService("DefaultEndpointsProtocol=https;AccountName=htmljs;AccountKey=hp6IODplmlb1asWA/VUmHFpxfEwneb5eJWlbYuI99APRhmatAfFosx0+eOClrBJi+aEqfOjPw53QK33bIlz4Gw==;EndpointSuffix=core.windows.net")
-    /*blobService.createBlockBlobFromLocalFile('firstcontainer', 'CodeSnippits.txt', '../../../../../../../../Desktop/CodeSnippits.txt', (error, result) => {
-        if(error) {
-            console.log(error)
-        } else {
-            console.log('Upload is successful');
-        }
-    });*/
+    for(let y = 0 ; y < this.state.ImagesToUpload.length; y++)
+    {
+      bodyFormData.set('file'+y +1, this.state.ImagesToUpload[y])
+    }
     axios.post('https://localhost:5001/api/blobCreator/createNewBlob',bodyFormData,{
       headers:{
         'Content-Type': 'multipart/form-data; boundary=absdfabs',
@@ -96,14 +109,94 @@ class UploadFileSmartContainer extends React.Component {
     }}).then(res => {
       console.log(res)
     })
-
+  }
+  listFile = () => {
+    var urls = axios.get('https://localhost:5001/api/blobCreator/CreateList').then(res => {console.log(res);
+                                                                                             this.setState({Images:res.data})})    
+  }
+  poemDataChangeHandler = (event) => {
+    console.log(typeof(event.target.dataset.input))
+    var someData = JSON.parse(JSON.stringify(this.state.DataAsKVP))
+    someData[event.target.dataset.input] = event.target.value
+    console.log(someData)
+    this.setState({DataAsKVP:someData})
+    /*switch(event.target.dataset){
+      case('1'):
+        //
+      break;
+      case('2'):
+        //
+      break;
+      case('3'):
+        //
+      break;
+    }*/
   }
   handleChange = (selectedOption) => {
     this.setState({ selectedOption });
     console.log(`Option selected:`, selectedOption);
   }
+  postData = () => {
+    console.log('this is state' , this.state)
+    let DTO = {
+      values: this.state.DataAsKVP,
+    }
+    var file=this.state.FileToUpload;
+    var bodyFormData = new FormData();
+    for(let key in this.state.DataAsKVP)
+    {
+      bodyFormData.set(key, this.state.DataAsKVP[key])
+    }
+    let themesForTransfer = ''
+    for(let x = 0 ;x < this.state.Themes.length; x++)
+    {
+      if(x !== this.state.Themes.length -1)
+      {
+        themesForTransfer += this.state.Themes[x].themeId + ','
+      }
+      else
+      {
+        themesForTransfer += this.state.Themes[x].themeId
+      }
+      console.log(themesForTransfer)
+    }
+    bodyFormData.set('theme', themesForTransfer)
+    bodyFormData.set('file', file)
+    for(let y = 0 ; y < this.state.ImagesToUpload.length; y++)
+    {
+      bodyFormData.set('file'+y +1, this.state.ImagesToUpload[y])
+    }
+
+    axios.post('https://localhost:5001/api/blobCreator/createNewBlob',bodyFormData,{
+      headers:{
+        'Content-Type': 'multipart/form-data; boundary=absdfabs',
+        'Content-Disposition': 'form-data'
+    }}).then(res => {
+      console.log(res)
+    })
+  }
   render() {
-    const { selectedOption } = this.state;
+    console.log('this is theme in the smart conntainner', this.state)
+    return(
+    <UploadDumbContainer documentTypes={this.state.DocumentTypes} 
+                        selectDocumentFunction={this.selectDocumentType} 
+                        selectedDocumentType={this.state.SelectedDocumentType}
+                        selectFile={this.selectFile}
+                        fileToUpload={this.state.FileToUpload}
+                        updateTheme={this.UpdateThemes}
+                        poemDataChangeHandler={this.poemDataChangeHandler} 
+                        postData={this.postData}
+                        shouldImagesBeUploaded={this.state.ShouldImageBeUploaded}
+                        uploadImage={this.selectImage}
+                        uploadedImages={this.state.ImagesToUpload}
+                        showImageInterface={this.showImageInterface} />
+                        
+    );
+  }
+}
+export default UploadFileSmartContainer
+
+/**  const { selectedOption } = this.state;
     const account = {
       name: "htmljs",
       sas:  "se=2040-12-12&sp=rwdlac&sv=2018-03-28&ss=b&srt=sco&sig=kof64cpIlp9%2BVwnJxOKhRJbixLKu0mbria10AbNvZuM%3D"
@@ -111,8 +204,14 @@ class UploadFileSmartContainer extends React.Component {
     const blobUri = 'https://' +account.name + '.blob.core.windows.net';
     var azure = require('azure-storage')
     /* global AzureStorage */
-    const blobService = azure.createBlobServiceWithSas(blobUri, account.sas);
-
+   /* const blobService = azure.createBlobServiceWithSas(blobUri, account.sas);
+    let images = <div></div>
+    if(this.state.Images !== null)
+    {
+      images = this.state.Images.map((ima,index) => {
+        return(<div><a href={ima}><img height={200} width={200} src={ima} alt={index} ></img></a><br></br></div>)
+      })
+    }
 
     return (
       <div>
@@ -135,8 +234,33 @@ class UploadFileSmartContainer extends React.Component {
         <button id="list-button">List</button>
 
         <button id="delete-button">Delete</button>
+        <br></br>
+        {images}
       </div>
     );
-  }
-}
-export default UploadFileSmartContainer
+    const options = [
+  { value: 'chocolate', label: 'Chocolate' },
+  { value: 'strawberry', label: 'Strawberry' },
+  { value: 'vanilla', label: 'Vanilla' }
+];
+
+
+    /*var file1 = document.getElementById('fileinput').files[0]
+    console.log('This is have the file turned out', file1, file1.name, typeof(file1))
+    var blobService = azure.createBlobService("DefaultEndpointsProtocol=https;AccountName=htmljs;AccountKey=hp6IODplmlb1asWA/VUmHFpxfEwneb5eJWlbYuI99APRhmatAfFosx0+eOClrBJi+aEqfOjPw53QK33bIlz4Gw==;EndpointSuffix=core.windows.net")
+    console.log(blobService, typeof(blobService))
+    blobService.createBlockBlobFromBrowserFile('firstcontainer',file1.name,file1, (error, result) => {
+      if(error) {
+          console.log(error)
+      } else {
+          console.log('Upload is successful');
+      }})*/
+  
+    
+    /*blobService.createBlockBlobFromLocalFile('firstcontainer', 'CodeSnippits.txt', '../../../../../../../../Desktop/CodeSnippits.txt', (error, result) => {
+        if(error) {
+            console.log(error)
+        } else {
+            console.log('Upload is successful');
+        }
+    });*/

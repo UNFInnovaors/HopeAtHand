@@ -20,6 +20,16 @@ namespace HopeAtHand.Models
 
     public class UploadFileDTO
     {
+        public Dictionary<string, string> values { get; set; }
+        public ThemesDTO themes { get; set; }
+    }
 
+    public class ThemeDto
+    {
+        
+    }
+    public class ThemesDTO
+    {
+        public Theme[] Themes { get; set; }
     }
 }
