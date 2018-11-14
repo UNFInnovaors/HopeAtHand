@@ -1,30 +1,37 @@
 import React, {Component} from 'react';
 import PoemSearch from '../../components/PoemSearch/PoemSearch';
 import Classes from './LessonPlan.css';
+import Typography from '@material-ui/core/Typography';
 
 /** Takes in the current sate of LessonPlan and returns the formatted HTML to display the Lesson Plan */
 class  displayLessonPlan extends Component {
+
+
   render(){
   console.log('This is props ', this.props.LessonPlan);
   if (this.props.LessonPlan === '') {
-    return <div> </div>;
+    return <div></div>;
   } else {
     return (
       <div>
         <div>
-          <h3>{this.props.LessonPlan.name}</h3>
+          <Typography variant="h5">{this.props.LessonPlan.name}</Typography>
         </div>
         <div className={'flex'}>
           <div>
-            <h3>Poem : {this.props.LessonPlan.poem.title}</h3>
+            <Typography variant="h5">Poem : {this.props.LessonPlan.poem.title}</Typography>
             <PoemSearch FindThePoem= {this.props.FindThePoem}/>
           </div>
+          <br/>
           <div>
-            <h3>Writing Assignment : {this.props.LessonPlan.writing.title}</h3>
+            <Typography variant="h5">Writing Assignment : {this.props.LessonPlan.writing.title}</Typography>
           </div>
+          <br/>
+           <br/>
           <div>
-            <h3>Art Piece : {this.props.LessonPlan.artPiece.title}</h3>
+            <Typography variant="h5">Art Piece : {this.props.LessonPlan.artPiece.title}</Typography>
           </div>
+          <br/>
         </div>
       </div>
     );

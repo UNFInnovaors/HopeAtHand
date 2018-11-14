@@ -2,6 +2,13 @@ import React, { Component } from 'react';
 import DisplayLessonPlan from './LessonPlanMethods';
 import Classes from './LessonPlan.css';
 import axios from 'axios';
+import {withStyles} from '@material-ui/core/styles';
+import InputBase from '@material-ui/core/InputBase';
+import AppBar from '@material-ui/core/AppBar';
+import Typography from '@material-ui/core/Typography';
+import Button from '@material-ui/core/Button';
+import Divider from '@material-ui/core/Divider';
+import Select from '@material-ui/core/Select';
 
 class LessonPlanSearch extends Component {
   state = {
@@ -62,14 +69,14 @@ class LessonPlanSearch extends Component {
       console.log(lesson);
       return (
         <div>
-          <h2>{lesson.name}</h2>
+          <Typography>{lesson.name}</Typography>
           <p>
             Poem : {lesson.poem.title} Writing Assignment:{' '}
             {lesson.writing.title} Art Piece : {lesson.artPiece.title}{' '}
           </p>
-          <button onClick={this.SelectLesson} data-lesson={index}>
+          <Button onClick={this.SelectLesson} data-lesson={index} color="primary">
             View Lesson
-          </button>
+          </Button>
         </div>
       );
     });
@@ -77,23 +84,33 @@ class LessonPlanSearch extends Component {
     return (
       <div>
         <div>
-          <h1>Search For Lesson Plans</h1>
-          <label>Choose a theme</label>
-          <select
+          <br/>
+          <Typography variant="h2" align="center">Search For Lesson Plans</Typography>
+          <br/>
+          <Divider/>
+          <br/>
+          <Button><Typography>Choose a theme</Typography></Button>
+          <Select
             onChange={event => this.ChangeTheme(event)}
             value={this.state.Theme}
+            native
+            inputProps={{
+              name: 'age',
+              id: 'age-native-simple'
+            }}
           >
             <option value={0} disabled>
-              Select A Theme
+            <Typography> Select A Theme </Typography> 
             </option>
-            <option value="Female Empowerment">Female Empowerment</option>
-            <option value={'Male Empowerment'}>Male Empowerment</option>
-            <option value={'Self Acceptance'}>Self Acceptance</option>
-            <option value={'Connectivity'}>Connectivity</option>
-          </select>
-          <label>Search for tags : </label>
+            <option value="Female Empowerment">Female Empowerment </option>
+            <option value={'Male Empowerment'}> Male Empowerment </option>
+            <option value={'Self Acceptance'}>Self Acceptance </option>
+            <option value={'Connectivity'}> Connectivity</option>
+          </Select>
+          <br/>
+          <Button margin='5px'><Typography> Search for tags : </Typography> </Button>
           <input onChange={this.ChangeTags} type="text" />
-          <button onClick={this.Search}>Submit</button>
+          <Button onClick={this.Search}>Submit</Button>
         </div>
         <div>{displayLessonPlans}</div>
         <div>{showLesson}</div>
