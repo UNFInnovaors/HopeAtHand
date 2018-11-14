@@ -1,16 +1,20 @@
 import React, { Component } from 'react';
-import LessonPlanSearch from './Contianers/LessonPlanSearch/LessonPlanSearch';
-import { withStyles } from '@material-ui/core/styles';
-import AppBar from '@material-ui/core/AppBar';
-import InputBase from '@material-ui/core/TextField';
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
+import LessonPlanSearch from './Containers/LessonPlanSearch/LessonPLanSmartContainer';
 import Button from '@material-ui/core/Button';
-import IconButton from '@material-ui/core/IconButton';
-import Grid from '@material-ui/core/Grid';
-import AccountCircle from '@material-ui/icons/AccountCircle';
 import ReuseableSelect from './components/UI Components/ReuseableSelect';
 import ReuseableQuestion from './components/UI Components/ReuseableQuestion';
+import AppBar from './components/AppBar/AppBar';
+import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
+import blue from '@material-ui/core/colors/blue';
+import pink from '@material-ui/core/colors/purple'
+
+let theme = createMuiTheme({
+  palette: {
+    primary: blue,
+    secondary: pink
+  },
+});
+
 
 export default class App extends Component {
   displayName = App.name;
@@ -21,18 +25,59 @@ export default class App extends Component {
       'Female Empowerment',
       'Male Empowerment'
     ],
-
+    Theme:null,
     QuestionProps: [
-      { QAsked: 'hEY MAKE THIS NOT EMPTY', validation: '', type: '' }
+      { QAsked: 'Should Not Be Empty', validation: '', type: '' }
     ],
 
     BaseQuestion: { QAsked: '', validation: '', type: '' }
   };
-
+  componentDidMount(){
+    let themez = createMuiTheme({
+      palette: {
+        primary: blue,
+        secondary: pink
+      },
+    });
+    this.setState({Theme:themez})
+  }
   GetTheOptionHandler = event => {
     console.log('this is the event of the handler you just set up', event);
     this.setState({ [event.target.name]: event.target.value });
   };
+  ChangePrimary = (event) => {
+
+  }
+
+  ChangeSecondary = (event) => {
+    let themez = JSON.parse(JSON.stringify(this.state.Theme))
+    console.log('this is themez', themez, event.target.value, themez.palette.primary)
+    let newTheme = createMuiTheme({
+      palette:{
+        primary: 
+          themez.palette.primary,
+        
+        secondary:{ 
+          main: event.target.value
+          }
+      }
+    })
+    this.setState({Theme:newTheme})
+  }
+
+  ChangePrimary =(event) => {
+    let themez = JSON.parse(JSON.stringify(this.state.Theme))
+    console.log('this is themez', themez, event.target.value, themez.palette.primary)
+    let newTheme = createMuiTheme({
+      palette:{
+        primary: { 
+          main: event.target.value
+          },
+          secondary:themez.palette.primary
+      }
+    })
+    this.setState({Theme:newTheme})
+  }
 
   GetQuestionValueHandler = event => {
     let newQuestion = JSON.parse(JSON.stringify(this.state.BaseQuestion));
@@ -56,46 +101,10 @@ export default class App extends Component {
     }
     return (
       <div>
-        <div>
-          <AppBar position="static">
-            <Grid container xs={12} spacing={12}>
-              <Grid item xs={2} style={{ marginTop: '8px' }}>
-                <Button variant="contained" fullWidth color="secondary">
-                  <Typography>LOGO</Typography>
-                </Button>
-              </Grid>
-              <Grid item xs={1} />
-              <Grid item xs={5}>
-                <InputBase
-                  style={{ margin: '8px' }}
-                  placeholder="Search..."
-                  variant="outlined"
-                  fullWidth
-                />
-              </Grid>
-              <Grid item xs={1} />
-              <Grid item xs={2} style={{ marginTop: '8px' }}>
-                <Button variant="contained" fullWidth color="secondary">
-                  <Typography>LOGOUT</Typography>
-                </Button>
-              </Grid>
-
-              <Grid item xs={1}>
-                <IconButton style={{ margin: '3px' }}>
-                  <AccountCircle style={{}} />
-                </IconButton>
-              </Grid>
-            </Grid>
-          </AppBar>
-        </div>
-        <LessonPlanSearch />
-        <ReuseableSelect
-          defaults={this.state.SelectArrayProps[0]}
-          valuesForOptions={this.state.SelectArrayProps}
-          changeStateOfOptions={this.GetTheOptionHandler}
-        />
-        {something}
-        <Button factorize={this.GetQuestionValueHandler}>Add a Question</Button>
+        <MuiThemeProvider theme={(this.state.Theme === null ? theme : this.state.Theme)}>
+          <AppBar/>
+          <LessonPlanSearch changeSecondary={this.ChangeSecondary} changePrimary={this.ChangePrimary} />
+        </MuiThemeProvider>
       </div>
     );
   }

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import DisplayLessonPlan from './LessonPlanMethods';
+import DisplayLessonPlan from '../../Containers/LessonPlanSearch/LessonPlanMethods';
 import Classes from './LessonPlan.css';
 import axios from 'axios';
 import {withStyles} from '@material-ui/core/styles';

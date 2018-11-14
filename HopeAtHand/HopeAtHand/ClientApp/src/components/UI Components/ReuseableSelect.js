@@ -29,15 +29,16 @@ class ReuseableSelect extends Component {
   };
   render() {
     return (
-      <div>
         <FormControl
           variant="filled"
           error={this.state.selectedValue === this.state.themes[0]}
+          fullWidth
         >
           <Select
             native //props.native
             value={this.state.selectedValue} //props. defaults
             onChange={this.handleChange} //props. handler
+            fullWidth
           >
             {this.props.valuesForOptions.map(
               (aTheme, index) => (
@@ -52,7 +53,6 @@ class ReuseableSelect extends Component {
             )}
           </Select>
         </FormControl>
-      </div>
     );
   }
 }

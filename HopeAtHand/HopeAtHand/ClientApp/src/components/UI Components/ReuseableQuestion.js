@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
-import { FormControl } from '../../../../../../../../node_modules/@material-ui/core';
+import { FormControl } from '@material-ui/core'
 
 class ReuseableQ extends Component {
 
