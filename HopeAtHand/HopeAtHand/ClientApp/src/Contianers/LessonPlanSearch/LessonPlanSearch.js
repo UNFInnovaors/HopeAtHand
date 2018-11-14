@@ -82,7 +82,7 @@ class LessonPlanSearch extends Component {
     });
 
     return (
-      <div>
+      <div> 
         <div>
           <br/>
           <Typography variant="h2" align="center">Search For Lesson Plans</Typography>
