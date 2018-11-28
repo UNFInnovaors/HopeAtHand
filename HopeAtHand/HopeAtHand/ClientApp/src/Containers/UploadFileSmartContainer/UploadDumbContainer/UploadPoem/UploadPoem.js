@@ -1,37 +1,59 @@
 import React, { Component } from 'react';
 import Filler from '../../../../components/HOC/Filler'
-import { Button, TextField, Grid } from '@material-ui/core'
+import { Button, TextField, Grid, Typography, Paper } from '@material-ui/core'
 import SearchSelect from '../../../../components/UI/ThemeSelect/ThemeSelect'
 const poem = (props) => {
     let createForm = <div></div>
-    if(props.fileToUpload !== null)
-    {
         createForm=
             <Filler>
-                <Grid container xs={12} spacing={24}>
+                <Grid container xs={12}>
+                    <Grid container item xs={12}>
+                        <Grid item xs={12}>
+                            <Typography variant='h2'>Poem Information and Themes</Typography>
+                        </Grid>
+                    </Grid>
+                    <Grid item container spacing={24} xs={12}>
                     <Grid item xs={4}>
-                        <label>Poem Name : <input onChange={props.poemDataChangeHandler} data-input="name"></input></label>
+                        <TextField fullWidth label="Please enter the Poem's Name" onChange={props.poemDataChangeHandler} data-input="name"></TextField>
                     </Grid>
                     <Grid item xs={4}>
-                        <label>Poem Author : <input onChange={props.poemDataChangeHandler} data-input="author"></input></label>
+                        <TextField fullWidth label="Please enter the Author's Name" onChange={props.poemDataChangeHandler} data-input="author"></TextField>
                     </Grid>
                     <Grid item xs={4}>
-                        <label>Poem Source : <input onChange={props.poemDataChangeHandler} data-input="source"></input></label>
+                        <TextField fullWidth label="Please enter the source of the poem" onChange={props.poemDataChangeHandler} data-input="source"></TextField>
+                    </Grid>
+                
+                    <Grid container item xs={12}>
+                        <Grid item xs={4}>
+                            <Typography style={{marginTop:'8px'}} variant="display1">Choose Themes :</Typography>
+                        </Grid>
+                        <Grid item xs={8} justify='center'><SearchSelect updateThemes={props.updateTheme}></SearchSelect></Grid>
+                    </Grid>
+                    <Grid container xs={12}>
+                        <Grid item xs={3}>
+                            <Button variant="contained" onClick={props.postData}>Submit</Button>
+                        </Grid>
                     </Grid>
                 </Grid>
-                <Grid container xs={12}>
-                    <Grid item xs={11}><SearchSelect updateThemes={props.updateTheme}></SearchSelect></Grid>
-                </Grid>
-                <Grid container xs={12}>
-                    <Grid item xs={3}>
-                        <Button variant="contained" onClick={props.postData}>Submit</Button>
-                    </Grid>
                 </Grid>
             </Filler>
-    }
+    
     return(
     <Filler>
-        <input onChange={props.selectFile}
+        <Grid container xs={12}>
+
+                {createForm}
+        </Grid>
+    </Filler>
+    )
+}
+export default poem
+
+
+
+/*
+            <Paper  style={(props.selectedDocumentType !== null ?{padding:'16px'} : {display:'None'} )}></Paper>
+<input onChange={props.selectFile}
             style={{ display: 'none' }}
             id="raised-button-file"
             multiple
@@ -46,11 +68,4 @@ const poem = (props) => {
             <Grid item xs={3}>
                 <input value={(props.fileToUpload === null ? "" : props.fileToUpload.name)}></input>
             </Grid>
-        </Grid>
-        <Grid container xs={12}>
-            {createForm}
-        </Grid>
-    </Filler>
-    )
-}
-export default poem
+        </Grid>*/

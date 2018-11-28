@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import LessonPlanSearch from './Contianers/LessonPlanSearch/LessonPlanSearch'
-import UploadFiles from './Contianers/UploadFileSmartContainer/UploadFileSmartContainer'
+import LessonPlanSearch from './Containers/LessonPlanSearch/LessonPlanSearch'
+import UploadFiles from './Containers/UploadFileSmartContainer/UploadFileSmartContainer'
 import DumbContainer from './Containers/Test/Test'
 
 export default class App extends Component {
@@ -8,7 +8,7 @@ export default class App extends Component {
 
   render() {
     return (
-      <Test/>  
+      <UploadFiles/>
     );
   }
 }

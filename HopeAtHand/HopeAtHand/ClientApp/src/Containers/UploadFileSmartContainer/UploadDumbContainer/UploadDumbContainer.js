@@ -2,7 +2,7 @@ import React from 'react'
 import Poem from './UploadPoem/UploadPoem'
 import Writing from './UploadWritingTemplate/UploadWritingAssignment'
 import Art from './ArtPiece/UploadArtPiece'
-import { Grid } from '@material-ui/core'
+import { Grid, Paper } from '@material-ui/core'
 
 import Filler from '../../../components/HOC/Filler';
 import UploadImage from './UploadImage/UploadImage';
@@ -42,19 +42,24 @@ const uploadDocumentDumbContainer = (props) => {
                 </Grid>
                 <Grid item xs={1}></Grid>
             </Grid>
-            <Grid container>
-                <Grid item xs={1}></Grid>   
-                <Grid item xs={10}>{uploadComponent}</Grid>
+            <Paper style={props.selectedDocumentType !== null ? {padding:'32px', margin:'32px'} : {display:'None'}}>
+            <Grid container spacing={24}>
+                <Grid container item xs={6}>
+                    <Grid item xs={1}></Grid>   
+                    <Grid item xs={11}>{uploadComponent}</Grid>
+                </Grid>
+                <Grid container item xs={6}>
+                    <Grid item xs={1}></Grid>   
+                    <Grid item xs={11}><UploadImage fileToUpload={props.fileToUpload} 
+                                                    shouldImagesBeUploaded={props.shouldImagesBeUploaded}
+                                                    uploadImage={props.uploadImage}
+                                                    uploadedImages={props.uploadedImages}
+                                                    showImageInterface={props.showImageInterface}
+                                                    selectedDocumentType = {props.selectedDocumentType}></UploadImage></Grid>
+
+                </Grid>
             </Grid>
-            <Grid container>
-                <Grid item xs={1}></Grid>   
-                <Grid item xs={10}><UploadImage fileToUpload={props.fileToUpload} 
-                                                shouldImagesBeUploaded={props.shouldImagesBeUploaded}
-                                                uploadImage={props.uploadImage}
-                                                uploadedImages={props.uploadedImages}
-                                                showImageInterface={props.showImageInterface}></UploadImage></Grid>
-                <Grid item xs={1}></Grid>
-            </Grid>
+            </Paper>
         </Filler>
     );
 }

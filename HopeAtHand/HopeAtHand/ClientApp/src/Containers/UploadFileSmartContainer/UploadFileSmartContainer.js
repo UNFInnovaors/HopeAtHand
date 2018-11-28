@@ -35,6 +35,7 @@ class UploadFileSmartContainer extends React.Component {
       this.setState({BlobService: blobService});
     }*/
   }
+  /** The selected Document type is used to determine what eact upload form should be displayed.  */
   selectDocumentType = (event) => {
     this.setState({SelectedDocumentType: event.target.value})
   }

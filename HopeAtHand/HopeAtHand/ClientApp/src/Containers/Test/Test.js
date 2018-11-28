@@ -15,9 +15,11 @@ class SmartTest extends Component
     }
 
     render(){
+        return(
         <DumbTest initial={this.state.Initial}
                   statements={this.state.Statements}
                   onStatementAdded={this.AddStatementsHandler}/>
+                  );
     }
 }
 
