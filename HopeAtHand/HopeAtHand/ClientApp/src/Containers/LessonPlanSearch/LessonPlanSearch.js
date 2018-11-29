@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import DisplayLessonPlan from './LessonPlanMethods';
+import AutoComplete from '../UploadFileSmartContainer/UploadFileSmartContainer'
 import Classes from './LessonPlan.css';
 import axios from 'axios';
 import {withStyles} from '@material-ui/core/styles';
@@ -15,7 +16,8 @@ class LessonPlanSearch extends Component {
     Theme: 0,
     Tags: '',
     Lessons: [],
-    ChosenLesson: '' /** Stores Displayed Lesson */
+    ChosenLesson: '', /** Stores Displayed Lesson */
+    WhyTheFuckIsn:false
   };
   /** Changes the state of tags to */
   ChangeTags = event => {
@@ -34,7 +36,7 @@ class LessonPlanSearch extends Component {
     };
     console.log(lessie);
     axios
-      .post('https://localhost:44365/api/search/findlessonplan', lessie)
+      .post('https://localhost:5001/api/search/findlessonplan', lessie)
       .then(res => {
         console.log(res);
         this.setState({ Lessons: res.data });
@@ -82,7 +84,7 @@ class LessonPlanSearch extends Component {
     });
 
     return (
-      <div>
+      <div> 
         <div>
           <br/>
           <Typography variant="h2" align="center">Search For Lesson Plans</Typography>

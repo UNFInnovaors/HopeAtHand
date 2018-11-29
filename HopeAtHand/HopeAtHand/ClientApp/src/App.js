@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import LessonPlanSearch from './Contianers/LessonPlanSearch/LessonPlanSearch';
 import { withStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import InputBase from '@material-ui/core/TextField';
@@ -11,11 +10,23 @@ import Grid from '@material-ui/core/Grid';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import ReuseableSelect from './components/UI Components/ReuseableSelect';
 import ReuseableQuestion from './components/UI Components/ReuseableQuestion';
+import CreateSmartComponent from './Containers/CreateLessonPlan/CreateSmart';
+import Filler from './components/HOC/Filler';
+import ThemeBox from './components/UI/ThemeBox/ThemeBox';
 
 export default class App extends Component {
   displayName = App.name;
 
-  state = {
+  render() {
+    return (
+      <Filler>
+        <CreateSmartComponent />
+      </Filler>
+    );
+  }
+}
+
+/*state = {
     SelectArrayProps: [
       'Select a Theme',
       'Female Empowerment',
@@ -88,7 +99,6 @@ export default class App extends Component {
             </Grid>
           </AppBar>
         </div>
-        <LessonPlanSearch />
         <ReuseableSelect
           defaults={this.state.SelectArrayProps[0]}
           valuesForOptions={this.state.SelectArrayProps}
@@ -101,3 +111,4 @@ export default class App extends Component {
   }
 }
 //onClick={this.GetQuestionValueHandler}
+*/
