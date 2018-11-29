@@ -19,9 +19,7 @@ const createAction = (props) => {
         break;   
     }
     return <Grid container item xs={12}>
-                <Grid item xs={1}></Grid>
-                <Grid item xs={10}>{action}</Grid>
-                <Grid item xs={1}></Grid>
+                <Grid item xs={12}>{action}</Grid>
             </Grid>
 }
 

@@ -28,10 +28,8 @@ const uploadDocumentDumbContainer = (props) => {
         break;
     }
     return(
-        <Filler>
-            <Grid container spacing={24}>
-                <Grid item xs={1}></Grid>
-                <Grid item xs={10}>
+        <Grid container item>
+                <Grid item xs={11}>
                     <select onChange={props.selectDocumentFunction} value={props.selectedDocumentType}>
                         <option value={null} disabled selected>Select The Document Type To Upload</option>
                         {props.documentTypes.map((doc,index) => {
@@ -39,10 +37,6 @@ const uploadDocumentDumbContainer = (props) => {
                         })}
                     </select>
                 </Grid>
-                <Grid item xs={1}></Grid>
-            </Grid>
-            <Paper style={props.selectedDocumentType !== null ? {padding:'32px', margin:'32px'} : {display:'None'}}>
-            <Grid container spacing={24}>
                 <Grid container item xs={6}>
                     <Grid item xs={1}></Grid>   
                     <Grid item xs={11}>{uploadComponent}</Grid>
@@ -57,10 +51,7 @@ const uploadDocumentDumbContainer = (props) => {
                                                     selectedDocumentType = {props.selectedDocumentType}></UploadImage></Grid>
 
                 </Grid>
+            <Grid item xs={1}></Grid>
             </Grid>
-            </Paper>
-        </Filler>
     );
 }
-
-export default uploadDocumentDumbContainer

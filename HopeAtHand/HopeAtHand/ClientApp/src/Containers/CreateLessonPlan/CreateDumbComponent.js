@@ -106,9 +106,12 @@ class CreateDumbComponent extends Component {
                         <Grid item xs={4}><Button variant="outlined" fullWidth onClick={() => this.props.changeAction("search")}>Search For Components To Add</Button></Grid>
                         <Grid item xs={1}></Grid>
                     </Grid>
-                    <Grid container item>
-                        <Action action={this.props.action} changeAction={this.props.changeAction}></Action>
-                    </Grid>
+                    {(this.props.action !== null ?
+                        <Paper style={{padding:28, width:'100%', margin:'5%', marginBottom: '1%', marginTop: '1%' }}>
+                            <Action action={this.props.action} changeAction={this.props.changeAction}></Action>
+                        </Paper> :
+                    <div></div> )}
+                   
                     {(this.props.components.length === 0 ? 
                         <Paper style={{padding:28, width:'100%', margin:'5%', marginBottom: '1%', marginTop: '1%' }}>
                             <Grid item xs={12}>
