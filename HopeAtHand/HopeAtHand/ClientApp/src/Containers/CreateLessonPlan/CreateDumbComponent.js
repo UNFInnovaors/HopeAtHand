@@ -7,6 +7,9 @@ import ThemeSelect from '../../components/UI/ThemeSelect/ThemeSelect';
 import DoneIcon from '@material-ui/icons/Done';
 
 class CreateDumbComponent extends Component {
+    componentDidMount(){
+        console.log(this.props, "this is props in the dumb boi")
+    }
     state = {
         CreateForm : {
             Controls : [
@@ -68,10 +71,12 @@ class CreateDumbComponent extends Component {
         SelectedThemes:["Hello", "Dolly"]
     }
     handelChange = event => {
-
+        console.log(this.props)
+        this.props.AlterThemes(event)
     }
     render(){
         //let CreateForm = (this.state.CreateForm.Controls)
+        console.log('this is props in dumb', this.props)
         let form = this.state.CreateForm.Controls
         let chips = this.state.SelectedThemes.map((theme, index) => <Chip variant="outlined" key={index} color={"primary"} label={theme} deleteIcon={<DoneIcon />}/>)
         return(
@@ -85,7 +90,7 @@ class CreateDumbComponent extends Component {
                         <Grid xs={4} item><TextField value={form[0].value} placeholder="Please choose the name of your lesson plan" fullWidth error={form[0].error} helperText={form[0].errorMessage} 
                                             type={form[0].config.type} label={form[0].label} fullWidth hidden={form[0].hidden} onClick={this.handelChange}> 
                                             </TextField></Grid>
-                        <Grid xs={6} item><ThemeSelect /></Grid>
+                        <Grid xs={6} item><ThemeSelect updateThemes={this.handelChange}/></Grid>
                     </Grid>
                     <Grid container item spacing={24}>
                         {chips}
@@ -95,7 +100,7 @@ class CreateDumbComponent extends Component {
             </Filler>
             
         )
-        }
+    }
 }
 
 export default CreateDumbComponent

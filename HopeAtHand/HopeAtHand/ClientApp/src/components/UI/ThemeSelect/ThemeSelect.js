@@ -1,41 +1,37 @@
-import React, {Component } from 'react'
-import { Grid } from '@material-ui/core'
+import React, { Component } from 'react';
+import { Grid } from '@material-ui/core';
 import Select from 'react-select';
 import axios from 'axios';
 
-class ThemeSelect extends Component{
+class ThemeSelect extends Component {
+  state = {
+    Themes: [''],
+    selectedOption: ['']
+  };
 
-    state ={
-        Themes : [""],
-        selectedOption: [""]
-    }
-    
-    componentDidMount(){
+  componentDidMount() {
+    axios.get('https://localhost:44365/api/theme/getthemes').then(response => {
+      console.log(response);
+      this.setState({ Themes: response.data.themes });
+    });
+  }
 
-    axios.get('https://localhost:5001/api/theme/getthemes').then( response => { 
-        console.log(response);
-        this.setState({Themes : response.data.themes})})
-    }
+  handleChange = selectedOption => {
+    this.setState({ selectedOption });
+    console.log(`Option selected:`, selectedOption);
+    this.props.updateThemes(selectedOption);
+  };
 
-    handleChange = (selectedOption) => {
-        this.setState({ selectedOption });
-        console.log(`Option selected:`, selectedOption);
-        this.props.updateThemes(selectedOption)
-      }
-
-    render(){
-        console.log('Themes')
-        return(
-            
-                <Select
-                    onChange={this.handleChange}
-                    options={this.state.Themes}
-                    isMulti={true}
-                    placeholder={"Select A Theme"}
-                
-                />
-            
-        )
-    }
+  render() {
+    console.log('This is props', this.props);
+    return (
+      <Select
+        onChange={this.handleChange}
+        options={this.state.Themes}
+        isMulti={true}
+        placeholder={'Select A Theme'}
+      />
+    );
+  }
 }
-export default ThemeSelect
+export default ThemeSelect;
