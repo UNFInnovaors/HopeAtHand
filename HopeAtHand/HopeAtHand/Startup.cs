@@ -24,7 +24,8 @@ namespace HopeAtHand
             services.AddTransient<ILessonPlanRepository, LessonPlanRepository>();
             services.AddTransient<IPoemRepo, PoemRepository>();
             services.AddCors();
-
+            services.AddOptions();
+            services.Configure<AzureStorageConfig>(Configuration.GetSection("AzureStorageConfig"));
             // In production, the React files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
             {
