@@ -7,20 +7,56 @@ class CreateSmartContainer extends Component {
     IsNew: true,
     LessonPLanName: '',
     DocumentTypes: ['Poem', 'Writing Template', 'Art Piece'],
-    SelectedThemes: []
+    SelectedThemes: [],
+    LessonPLanComponents : [],
+    Action : null,
   };
 
-  AlterThemes = (SelectedThemes) => {
-    console.log(SelectedThemes, 'These are the selected themes');
-    this.setState({ SelectedThemes: SelectedTheme });
+  AddThemes = (ATheme) => {
+    console.log("asdfasf",ATheme, "This is a selected Themes")
+    let newList = new Array();
+    newList=[1]
+    if(this.state.SelectedThemes.length === 0){
+      console.log('This is here')
+      newList.push(ATheme)
+    }
+    else{
+      console.log('This is ow here')
+      newList = [1,2,3, ATheme];
+    }
+    
+    console.log('This is the new list ',  newList)
+    this.setState({SelectedThemes : newList})
+  }
+
+  ChangeAction = (action) => {
+    this.setState({Action:action})
+  }
+  
+ /* RemoveThemes = (RemoveTheme, index) => {
+    console.log(indexOf(RemoveTheme));
+    let newList = [...this.state.SelectedThemes]
+    newList.splice(newList.findIndex((el => { 
+      return el.value === RemoveTheme.value
+    })))
+    this.setState({SelectedThemes : newList})
+  } */
+  RemoveThemes = () => {
+    console.log("hmmm")
   }
   render() {
+    console.log(this.state.SelectedThemes, "Hello")
     return (
       <Filler>
         <CreateDumbComponent
           isNew={this.state.IsNew}
           documentTypes={this.state.DocumentTypes}
-          AlterThemes={this.AlterThemes}
+          alterThemes={this.AddThemes}
+          deleteTheme={this.RemoveThemes}
+          themes={this.state.SelectedThemes}
+          components={this.state.LessonPLanComponents}
+          action={this.state.Action}
+          changeAction={this.ChangeAction}
         ></CreateDumbComponent>
       </Filler>
     );

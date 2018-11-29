@@ -10,8 +10,9 @@ import Grid from '@material-ui/core/Grid';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import ReuseableSelect from './components/UI Components/ReuseableSelect';
 import ReuseableQuestion from './components/UI Components/ReuseableQuestion';
-import CreateSmartComponent from './Containers/CreateLessonPlan/CreateDumbComponent';
+import CreateSmartComponent from './Containers/CreateLessonPlan/CreateSmart';
 import Filler from './components/HOC/Filler';
+import ThemeBox from './components/UI/ThemeBox/ThemeBox';
 
 export default class App extends Component {
   displayName = App.name;

@@ -10,7 +10,7 @@ class ThemeSelect extends Component {
   };
 
   componentDidMount() {
-    axios.get('https://localhost:44365/api/theme/getthemes').then(response => {
+    axios.get('https://localhost:5001/api/theme/getthemes').then(response => {
       console.log(response);
       this.setState({ Themes: response.data.themes });
     });
@@ -18,7 +18,6 @@ class ThemeSelect extends Component {
 
   handleChange = selectedOption => {
     this.setState({ selectedOption });
-    console.log(`Option selected:`, selectedOption);
     this.props.updateThemes(selectedOption);
   };
 
@@ -28,8 +27,9 @@ class ThemeSelect extends Component {
       <Select
         onChange={this.handleChange}
         options={this.state.Themes}
-        isMulti={true}
+        isMulti={false}
         placeholder={'Select A Theme'}
+        hideSelectedOptions={true}
       />
     );
   }
