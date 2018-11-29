@@ -41,4 +41,21 @@ namespace HopeAtHand.Models
         public ArtPiece artPiece { get; set; }
 
     }
+    public class AzureStorageConfig
+    {
+        public string AccountName { get; set; }
+        public string AccountKey { get; set; }
+        public string ConnectionString { get; set; }
+        public string QueueName { get; set; }
+        public string ImageContainer { get; set; }
+        public string ThumbnailContainer { get; set; }
+    }
+    public class Theme
+    {
+        public int ThemeId { get; set; }
+        public string Value { get; set; }
+        public string Label { get; set; }
+        public string For   { get; set; } = "All";
+    }
 }
+

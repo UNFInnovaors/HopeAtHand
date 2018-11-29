@@ -1,5 +1,11 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import Typography from '@material-ui/core/Typography';
+import Button from '@material-ui/core/Button';
+import Select from '@material-ui/core/Select';
+import FormControl from '@material-ui/core/FormControl';
+import InputLabel from '@material-ui/core/InputLabel';
+
 class PoemSearch extends Component {
   //ANYTHING AFTER COMPONENT BUT BEFORE RENDER IS STATE AND HANDLER STUFF/ HELPER METHOD
 
@@ -51,53 +57,63 @@ class PoemSearch extends Component {
     if (this.state.ShowPoem == true) {
       renderingButton = (
         <div>
-          <button onClick={this.ShowPoemSearchHandler}>
-            {' '}
-            Search More Poetry
-          </button>{' '}
-          <br /> <br />
+          <Button onClick={this.ShowPoemSearchHandler}>
+            <Typography> Search More Poetry </Typography>
+          </Button>
+          <br />
+          <br />
         </div>
       );
     } else {
       renderingButton = (
         <div>
           <div>
-            <button onClick={this.ShowPoemSearchHandler}>
-              {' '}
+            <Button onClick={this.ShowPoemSearchHandler}>
               Search More Poetry
-            </button>{' '}
-            <br /> <br />
+            </Button>
+            <br />
+            <br />
           </div>
           <input onChange={this.searchValueHandler} type="text" />
           <br />
           <br />
-          <select onChange={this.SelectHandler}>
-            <option value="Female Empowerment">Female Empowerment</option>
-            <option value="Male Empowerment">Male Empowerment</option>
-            <option value="Self Acceptance">Self Acceptance</option>
-            <option value="Connectivity">Connectivity</option>
-          </select>
+          <FormControl variant="filled">
+            <Select
+              native
+              onChange={this.SelectHandler}
+              inputProps={{
+                name: 'age',
+                id: 'age-native-simple'
+              }}
+            >
+              <option value={'Female Empowerment'}>Female Empowerment</option>
+              <option value={'Male Empowerment'}>Male Empowerment</option>
+              <option value={'Self Acceptance'}>Self Acceptance</option>
+              <option value={'Connectivity'}>Connectivity</option>
+            </Select>
+          </FormControl>
           <br />
           <br />
-          <button onClick={this.searchTermHandler}> Submit </button>
+          <Button onClick={this.searchTermHandler} color="primary"> Submit </Button>
         </div>
       );
     }
 
     let poemsearchresult = '';
     if (this.state.PoemSearchResult.length === 0) {
-      poemsearchresult = <p>Sorry nothing was found</p>;
+      poemsearchresult = (
+        <Typography variant="h6">Sorry nothing was found</Typography>
+      );
     } else {
       poemsearchresult = this.state.PoemSearchResult.map(localName => {
         console.log('this is the localname', localName);
 
         return (
           <div>
-            {' '}
             {localName.title}
-            <button onClick={() => this.FindThePoem(localName)}>
+            <Button onClick={() => this.FindThePoem(localName)}>
               Choose the new poem
-            </button>
+            </Button>
           </div>
         );
       });
