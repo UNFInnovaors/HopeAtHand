@@ -32,6 +32,7 @@ class ThemeSelect extends Component{
                     options={this.state.Themes}
                     isMulti={true}
                     placeholder={"Select A Theme"}
+                
                 />
             
         )

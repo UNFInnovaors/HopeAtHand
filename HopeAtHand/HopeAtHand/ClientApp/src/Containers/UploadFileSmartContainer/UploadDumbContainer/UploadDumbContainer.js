@@ -3,7 +3,6 @@ import Poem from './UploadPoem/UploadPoem'
 import Writing from './UploadWritingTemplate/UploadWritingAssignment'
 import Art from './ArtPiece/UploadArtPiece'
 import { Grid, Paper } from '@material-ui/core'
-
 import Filler from '../../../components/HOC/Filler';
 import UploadImage from './UploadImage/UploadImage';
 
