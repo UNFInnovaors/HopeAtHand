@@ -1,8 +1,13 @@
 import React, { Component } from 'react';
 import CreateSmartComponent from './Containers/CreateLessonPlan/CreateSmart';
-import LessonPlanSearch from './Containers/LessonPlanSearch/LessonPLanSmartContainer'
+import LessonPLanSmartContainer from './Containers/LessonPlanSearch/LessonPLanSmartContainer'
+import UploadFileSmartContainer from './Containers/UploadFileSmartContainer/UploadFileSmartContainer'
+import Admin from './Containers/Admin/AdminSmart'
+import LogIn from './Containers/LogInForm/LoginSmartContainer'
+import { Route, Redirect } from 'react-router-dom'
 import Filler from './components/HOC/Filler';
 import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
+import {Paper} from '@material-ui/core'
 import blue from '@material-ui/core/colors/blue';
 import pink from '@material-ui/core/colors/purple'
 import AppBar from './components/AppBar/AppBar'
@@ -19,7 +24,8 @@ export default class App extends Component {
   displayName = App.name;
   
   state = {
-    Theme:null
+    Theme: theme,
+    UserName : null
   }
   
   componentDidMount(){
@@ -32,6 +38,13 @@ export default class App extends Component {
     this.setState({Theme:themez})
   }
 
+  Login = () => {
+    console.log("Login was called")
+    this.setState({UserName : "Hello"})
+  }
+  LogOut = () => {
+    this.setState({UserName : null})
+  }
   ChangeSecondary = (event) => {
     let themez = JSON.parse(JSON.stringify(this.state.Theme))
     console.log('this is themez', themez, event.target.value, themez.palette.primary)
@@ -63,18 +76,49 @@ export default class App extends Component {
   }
 
   render() {
+    if(false) //this.state.UserName === null
+    {
+      return (
+        <Filler>
+          <MuiThemeProvider theme={this.state.Theme}>
+          <Paper  style={{height : '100%', paddingBottom:'5%'}}>
+            <AppBar  LoggedIn ={this.state.UserName}/>
+            <LogIn login={this.Login}/>
+          </Paper>
+          </MuiThemeProvider>
+        </Filler>
+      )
+    } else {
     return (
       <Filler>
         <MuiThemeProvider theme={this.state.Theme}>
-          <AppBar/>
-          <CreateSmartComponent changeSecondary={this.ChangeSecondary} changePrimary={this.ChangePrimary} />
-
+        <Paper  style={{height : '100%', paddingBottom:'5%'}}>
+          <AppBar logOut={this.LogOut} LoggedIn ={this.state.UserName}/>
+          
+          <Route path="/" exact render={(props) => 
+        <CreateSmartComponent/>
+              }/>
+        <Route path="/Create" exact render={(props) => 
+        <CreateSmartComponent/>
+              }/>
+        <Route path="/Search" exact render={(props) => 
+          <LessonPLanSmartContainer/>}>
+        </Route>
+    
+        <Route path="/Upload" exact render={(props) => 
+          <UploadFileSmartContainer/>}>
+        </Route>
+        <Route path="/Admin" exact render={(props) => 
+          <Admin/>}>
+        </Route>
+        </Paper>
         </MuiThemeProvider>
       </Filler>
     );
   }
 }
 /*</Filler>
+<Route path="" render={(props) => <Redirect to="/"/>}> </Route>
 state = {
   SelectArrayProps: [
     'Select a Theme',
@@ -123,5 +167,4 @@ render() {
 }
 //onClick={this.GetQuestionValueHandler}
 */
-
-
+}

@@ -2,7 +2,8 @@ import React from 'react'
 import Poem from './UploadPoem/UploadPoem'
 import Writing from './UploadWritingTemplate/UploadWritingAssignment'
 import Art from './ArtPiece/UploadArtPiece'
-import { Grid, Paper } from '@material-ui/core'
+import { Grid, Paper, Typography, Button } from '@material-ui/core'
+import ReusableSelect from '../../../components/UI Components/ReuseableSelect'
 import Filler from '../../../components/HOC/Filler';
 import UploadImage from './UploadImage/UploadImage';
 
@@ -28,30 +29,42 @@ const uploadDocumentDumbContainer = (props) => {
         break;
     }
     return(
-        <Grid container item>
-                <Grid item xs={11}>
-                    <select onChange={props.selectDocumentFunction} value={props.selectedDocumentType}>
-                        <option value={null} disabled selected>Select The Document Type To Upload</option>
-                        {props.documentTypes.map((doc,index) => {
-                            return <option key={index} value={doc}>{doc}</option>
-                        })}
-                    </select>
-                </Grid>
-                <Grid container item xs={6}>
-                    <Grid item xs={1}></Grid>   
-                    <Grid item xs={11}>{uploadComponent}</Grid>
-                </Grid>
-                <Grid container item xs={6}>
-                    <Grid item xs={1}></Grid>   
-                    <Grid item xs={11}><UploadImage fileToUpload={props.fileToUpload} 
-                                                    shouldImagesBeUploaded={props.shouldImagesBeUploaded}
-                                                    uploadImage={props.uploadImage}
-                                                    uploadedImages={props.uploadedImages}
-                                                    showImageInterface={props.showImageInterface}
-                                                    selectedDocumentType = {props.selectedDocumentType}></UploadImage></Grid>
+        <Grid container item spacing={24}>
+        <Grid item xs={12}><Typography variant="h2" align="center">Upload</Typography></Grid>
+        <Grid item xs={3}></Grid>
+            <Grid item xs={6}>
+                <ReusableSelect 
+                    label="Choose A Document Type To Upload"
+                    changeStateOfOptions={props.selectDocumentFunction} 
+                    value={props.selectedDocumentType} 
+                    valuesForOptions={props.documentTypes} >
+                </ReusableSelect>
+            </Grid>
+            <Grid item xs={3}></Grid>
 
-                </Grid>
+            <Grid container item xs={7}>
+                <Grid item xs={1}></Grid>   
+                <Grid item xs={11}>{uploadComponent}</Grid>
+            </Grid>
+            <Grid container item xs={5}>
+                <Grid item xs={1}></Grid>   
+                <Grid item xs={11}><UploadImage fileToUpload={props.fileToUpload} 
+                                                shouldImagesBeUploaded={props.shouldImagesBeUploaded}
+                                                uploadImage={props.uploadImage}
+                                                uploadedImages={props.uploadedImages}
+                                                showImageInterface={props.showImageInterface}
+                                                selectedDocumentType = {props.selectedDocumentType}></UploadImage></Grid>
+
+            </Grid>
             <Grid item xs={1}></Grid>
+            {( props.selectedDocumentType !== null ?
+            <Grid container item xs={12} spacing={24}>
+                <Grid xs={4}></Grid>
+                    <Grid item xs={4}>
+                        <Button color="secondary" fullWidth variant="contained" onClick={props.postData}>Upload Document</Button>
+                    </Grid>
+                <Grid xs={4}></Grid>
+            </Grid> : "")}
             </Grid>
     );
 }

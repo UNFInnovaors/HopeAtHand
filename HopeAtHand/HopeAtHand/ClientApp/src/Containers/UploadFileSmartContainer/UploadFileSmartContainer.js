@@ -18,7 +18,7 @@ class UploadFileSmartContainer extends React.Component {
     FileToUpload:null,
     BlobService:null,
     Images:null,
-    DocumentTypes:['Poem', 'Writing Template', 'Art Piece'],
+    DocumentTypes:['Please Choose The Document Type To Upload','Poem', 'Writing Template', 'Art Piece'],
     SelectedDocumentType:null,
     Themes:null,
     DataAsKVP:{},
@@ -36,8 +36,8 @@ class UploadFileSmartContainer extends React.Component {
     }*/
   }
   /** The selected Document type is used to determine what eact upload form should be displayed.  */
-  selectDocumentType = (event) => {
-    this.setState({SelectedDocumentType: event.target.value})
+  selectDocumentType = (value) => {
+    this.setState({SelectedDocumentType: value})
   }
   UpdateThemes=(newThemes)=> {
     this.setState({Themes:newThemes})
@@ -103,7 +103,7 @@ class UploadFileSmartContainer extends React.Component {
     {
       bodyFormData.set('file'+y +1, this.state.ImagesToUpload[y])
     }
-    axios.post('https://localhost:5001/api/blobCreator/createNewBlob',bodyFormData,{
+    axios.post('https://localhost:44365/api/blobCreator/createNewBlob',bodyFormData,{
       headers:{
         'Content-Type': 'multipart/form-data; boundary=absdfabs',
         'Content-Disposition': 'form-data'
@@ -112,10 +112,11 @@ class UploadFileSmartContainer extends React.Component {
     })
   }
   listFile = () => {
-    var urls = axios.get('https://localhost:5001/api/blobCreator/CreateList').then(res => {console.log(res);
+    var urls = axios.get('https://localhost:44365/api/blobCreator/CreateList').then(res => {console.log(res);
                                                                                              this.setState({Images:res.data})})    
   }
   poemDataChangeHandler = (event) => {
+    console.log(event.target)
     console.log(typeof(event.target.dataset.input))
     var someData = JSON.parse(JSON.stringify(this.state.DataAsKVP))
     someData[event.target.dataset.input] = event.target.value
@@ -163,12 +164,10 @@ class UploadFileSmartContainer extends React.Component {
     }
     bodyFormData.set('theme', themesForTransfer)
     bodyFormData.set('file', file)
-    for(let y = 0 ; y < this.state.ImagesToUpload.length; y++)
-    {
+    for(let y = 0 ; y < this.state.ImagesToUpload.length; y++){
       bodyFormData.set('file'+y +1, this.state.ImagesToUpload[y])
     }
-
-    axios.post('https://localhost:5001/api/blobCreator/createNewBlob',bodyFormData,{
+    axios.post('https://localhost:44365/api/blobCreator/createNewBlob',bodyFormData,{
       headers:{
         'Content-Type': 'multipart/form-data; boundary=absdfabs',
         'Content-Disposition': 'form-data'

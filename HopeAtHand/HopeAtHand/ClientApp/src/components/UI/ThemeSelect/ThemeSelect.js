@@ -10,7 +10,7 @@ class ThemeSelect extends Component {
   };
 
   componentDidMount() {
-    axios.get('https://localhost:5001/api/theme/getthemes').then(response => {
+    axios.get('https://localhost:44365/api/theme/getthemes').then(response => {
       console.log(response);
       this.setState({ Themes: response.data.themes });
     });

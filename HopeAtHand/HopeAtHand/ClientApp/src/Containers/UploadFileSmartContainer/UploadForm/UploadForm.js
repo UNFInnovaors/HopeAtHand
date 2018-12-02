@@ -14,10 +14,10 @@ class UploadForm extends Component
         return(
             <Filler>
                 <Grid container spacing={24}>
-                    <Grid container item xs={12} spacing={24}>
+                    <Grid container item xs={12}>
                         <Typography variant='h2'>Upload {this.props.documentType}</Typography>
                     </Grid>
-                    <Grid container item xs={12} spacing={24}>
+                    <Grid container item xs={12} >
                         <Grid item xs={1}></Grid>
                         <Grid item xs={4}>
                             <TextField fullWidth label></TextField>

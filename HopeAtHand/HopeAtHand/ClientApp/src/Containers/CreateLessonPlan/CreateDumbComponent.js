@@ -108,7 +108,7 @@ class CreateDumbComponent extends Component {
                     </Grid>
                     {(this.props.action !== null ?
                         <Paper style={{padding:28, width:'100%', margin:'5%', marginBottom: '1%', marginTop: '1%' }}>
-                            <Action action={this.props.action} changeAction={this.props.changeAction}></Action>
+                            <Action action={this.props.action} isUpload={true} changeAction={this.props.changeAction}></Action>
                         </Paper> :
                     <div></div> )}
                    

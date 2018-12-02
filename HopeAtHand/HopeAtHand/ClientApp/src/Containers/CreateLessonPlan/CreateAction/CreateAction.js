@@ -9,10 +9,10 @@ const createAction = (props) => {
     switch(props.action)
     {
         case('search') :
-            action = <LessonPlanSearch/>
+            action = <LessonPlanSearch isUpload={props.isUpload}/>
         break;
         case('create') :
-            action = <Upload/>
+            action = <Upload isUpload={props.isUpload}/>
         break;
         default :
             action=<div></div>

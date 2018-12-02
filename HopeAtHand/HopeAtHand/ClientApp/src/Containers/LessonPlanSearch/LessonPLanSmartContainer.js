@@ -7,7 +7,7 @@ class LessonPLanSmartContainer extends Component{
     state = {
         Theme: 0,
         Tags: '',
-        Lessons: [],
+        Lessons: null,
         ChosenLesson: '' /** Stores Displayed Lesson */,
         ChosenOption : null,
       };
@@ -30,7 +30,7 @@ class LessonPLanSmartContainer extends Component{
             tags: this.state.Tags
         };
         axios
-            .post('https://localhost:5001/api/search/findlessonplan', lessie)
+            .post('https://localhost:44365/api/search/findlessonplan', lessie)
             .then(res => {
             console.log(res);
             this.setState({ Lessons: res.data });
@@ -63,6 +63,7 @@ class LessonPLanSmartContainer extends Component{
                     tags = {this.state.Tags} 
                     lessons = {this.state.Lessons}
                     chosenLesson = {this.state.ChosenLesson}
+                    selectedOption={this.state.ChosenOption}
                     //State is above, handlers are below
                     changeTags = {this.ChangeTags}
                     changeTheme = {this.ChangeTheme}
@@ -72,7 +73,8 @@ class LessonPLanSmartContainer extends Component{
                     changeSecondary = {this.props.changeSecondary}
                     changePrimary = {this.props.changePrimary}
                     changeOption = {this.ChangeOption}
-                    selectedOption={this.state.ChosenOption}
+                    //Props
+                    isUpload={this.props.isUpload}
 
                 />
             </div>)

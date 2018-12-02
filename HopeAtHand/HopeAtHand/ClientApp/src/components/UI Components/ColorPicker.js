@@ -14,7 +14,7 @@ class ColorPicker extends Component{
     render(){
 
         return(
-            <Grid container xs={12}>
+            <Grid container spacing={24}>
                 <Grid item xs={1}></Grid>
                 <Grid item xs={5}>
                     <label htmlFor='primChange'>

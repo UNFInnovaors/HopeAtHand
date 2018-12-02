@@ -4,7 +4,9 @@ import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import FilledInput from '@material-ui/core/FilledInput';
-
+/*To Use this component you must include a prop for :
+  valuesForOptions and changeStateOfOptions
+*/
 class ReuseableSelect extends Component {
   state = {
     themes: [
@@ -30,15 +32,18 @@ class ReuseableSelect extends Component {
   render() {
     return (
         <FormControl
-          variant="filled"
+          variant="standard"
           error={this.state.selectedValue === this.state.themes[0]}
           fullWidth
+          
         >
           <Select
-            native //props.native
+            //native //props.native
             value={this.state.selectedValue} //props. defaults
             onChange={this.handleChange} //props. handler
             fullWidth
+            
+            label={(this.props.label !== null ? this.props.label : "")}
           >
             {this.props.valuesForOptions.map(
               (aTheme, index) => (

@@ -5,7 +5,7 @@ import SearchSelect from '../../../../components/UI/ThemeSelect/ThemeSelect'
 const poem = (props) => {
     let createForm = <div></div>
         createForm=
-            <Filler>
+            
                 <Grid container xs={12}>
                     <Grid container item xs={12}>
                         <Grid item xs={12}>
@@ -13,36 +13,25 @@ const poem = (props) => {
                         </Grid>
                     </Grid>
                     <Grid item container spacing={24} xs={12}>
-                    <Grid item xs={4}>
-                        <TextField fullWidth label="Please enter the Poem's Name" onChange={props.poemDataChangeHandler} data-input="name"></TextField>
+                    <Grid item xs={6}>
+                        <TextField fullWidth label="Please enter the Poem's Name" onChange={props.poemDataChangeHandler} inputProps={{"data-input" : "name"}}></TextField>
                     </Grid>
-                    <Grid item xs={4}>
-                        <TextField fullWidth label="Please enter the Author's Name" onChange={props.poemDataChangeHandler} data-input="author"></TextField>
+                    <Grid item xs={6}>
+                        <TextField fullWidth label="Please enter the Author's Name" onChange={props.poemDataChangeHandler} inputProps={{"data-input" : "author"}}></TextField>
                     </Grid>
-                    <Grid item xs={4}>
-                        <TextField fullWidth label="Please enter the source of the poem" onChange={props.poemDataChangeHandler} data-input="source"></TextField>
-                    </Grid>
-                
-                    <Grid container item xs={12}>
-                        <Grid item xs={4}>
-                            <Typography style={{marginTop:'8px'}} variant="display1">Choose Themes :</Typography>
-                        </Grid>
-                        <Grid item xs={8} justify='center'><SearchSelect updateThemes={props.updateTheme}></SearchSelect></Grid>
-                    </Grid>
-                    <Grid container xs={12}>
-                        <Grid item xs={3}>
-                            <Button variant="contained" onClick={props.postData}>Submit</Button>
-                        </Grid>
+                    <Grid item xs={3}></Grid>
+                    <Grid item xs={6}>
+                        <TextField fullWidth label="Please enter the source of the poem" onChange={props.poemDataChangeHandler} inputProps={{"data-input" : "source"}}></TextField>
                     </Grid>
                 </Grid>
-                </Grid>
-            </Filler>
+            </Grid>
+           
     
     return(
     <Filler>
-        <Grid container xs={12}>
-
+        <Grid container xs={12} spacing={24}>
                 {createForm}
+        
         </Grid>
     </Filler>
     )

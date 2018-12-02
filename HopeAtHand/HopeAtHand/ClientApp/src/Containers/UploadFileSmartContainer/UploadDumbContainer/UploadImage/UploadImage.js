@@ -44,9 +44,11 @@ const uploadImage = (props) => {
         multiple
         type="file"
     />
+    
+    {(props.selectedDocumentType === null ?  "" :<Typography variant="h4" style={{marginBottom:'18px'}}>Upload Image</Typography>)}
     <Grid container spacing={24}>
         <Grid item xs={2}>
-            <label style={{width: '100%'}} htmlFor="raised-button-file_img">
+            <label style={{width:'100%'}} htmlFor="raised-button-file_img">
                 <Button fullWidth variant="contained" color={"primary"} component="span">Upload</Button>
             </label> 
         </Grid>
