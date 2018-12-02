@@ -65,11 +65,16 @@ const lessonPlanSearchDumbComponent = (props) => {
         });
     
         return (
-          <Grid container spacing={32}> 
+          <Grid container spacing={12}> 
+            <Grid container item spacing={32}>
+              <Grid item xs={12}><Typography variant="h4" align='center'>Search To Upload  {(props.selectedOption != null ? props.selectedOption : "" )}</Typography></Grid>
+              
+            </Grid>
+            <hr/>
             <Grid container item spacing={16}>
               <Grid item container xs={4} alignItems ='center'>
                 <Grid item xs={4}><Typography variant="h4" align='center'>Search For : </Typography></Grid>
-                <Grid item xs={4}> <ReuseableSelect valuesForOptions={['Lesson Plans', 'Poems', 'Writing Assignments', 'Art Pieces']}/> </Grid>
+                <Grid item xs={4}> <ReuseableSelect changeStateOfOptions={props.changeOption} valuesForOptions={['Choose What To Search For','Lesson Plans', 'Poems', 'Writing Assignments', 'Art Pieces', 'All']}/> </Grid>
                 <Grid item xs={4}>
                 </Grid>
               </Grid>
@@ -101,7 +106,7 @@ const lessonPlanSearchDumbComponent = (props) => {
             
             <div>{displayLessonPlans}</div>
             <div>{showLesson}</div>
-            <Grid container item xs={12} spacing={24}>
+            <Grid container item xs={12} spacing={24} style={{marginTop:'5%'}}>
               <ColorPicker changeSecondary={props.changeSecondary} changePrimary={props.changePrimary}/>
             </Grid>
           </Grid>

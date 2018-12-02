@@ -1,11 +1,6 @@
 import React, { Component } from 'react';
 import DisplayLessonPlan from './LessonPlanMethods';
-import AutoComplete from '../UploadFileSmartContainer/UploadFileSmartContainer'
-import Classes from './LessonPlan.css';
 import axios from 'axios';
-import {withStyles} from '@material-ui/core/styles';
-import InputBase from '@material-ui/core/InputBase';
-import AppBar from '@material-ui/core/AppBar';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import Divider from '@material-ui/core/Divider';
@@ -17,11 +12,7 @@ class LessonPlanSearch extends Component {
     Tags: '',
     Lessons: [],
     ChosenLesson: '', /** Stores Displayed Lesson */
-<<<<<<< HEAD:HopeAtHand/HopeAtHand/ClientApp/src/Contianers/LessonPlanSearch/LessonPlanSearch.js
-    TestingThis: false
-=======
     WhyTheFuckIsn:false
->>>>>>> 960539c7c896bcea606dbacbe77fd66e41f56230:HopeAtHand/HopeAtHand/ClientApp/src/Containers/LessonPlanSearch/LessonPlanSearch.js
   };
   /** Changes the state of tags to */
   ChangeTags = event => {

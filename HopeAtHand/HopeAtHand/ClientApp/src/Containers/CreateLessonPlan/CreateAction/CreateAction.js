@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import LessonPlanSearch from '../../LessonPlanSearch/LessonPlanSearch';
+import LessonPlanSearch from '../../LessonPlanSearch/LessonPLanSmartContainer';
 import Upload from '../../UploadFileSmartContainer/UploadFileSmartContainer'
 import { Grid } from '@material-ui/core';
 

@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import PoemSearch from '../../components/PoemSearch/PoemSearch';
+import PoemSearch from '../PoemSearch/PoemSearch';
 import Classes from './LessonPlan.css';
 import Typography from '@material-ui/core/Typography';
 

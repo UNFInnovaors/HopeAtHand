@@ -55,3 +55,4 @@ const uploadDocumentDumbContainer = (props) => {
             </Grid>
     );
 }
+export default uploadDocumentDumbContainer

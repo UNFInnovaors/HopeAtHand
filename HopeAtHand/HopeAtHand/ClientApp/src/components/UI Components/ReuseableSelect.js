@@ -25,7 +25,7 @@ class ReuseableSelect extends Component {
   
   handleChange = event => {
     this.setState({ selectedValue: event.target.value });
-    this.props.changeStateOfOptions(event);
+    this.props.changeStateOfOptions(event.target.value);
   };
   render() {
     return (

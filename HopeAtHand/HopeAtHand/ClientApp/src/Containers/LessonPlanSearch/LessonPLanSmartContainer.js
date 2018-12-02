@@ -8,7 +8,8 @@ class LessonPLanSmartContainer extends Component{
         Theme: 0,
         Tags: '',
         Lessons: [],
-        ChosenLesson: '' /** Stores Displayed Lesson */
+        ChosenLesson: '' /** Stores Displayed Lesson */,
+        ChosenOption : null,
       };
 
     componentDidMount(){
@@ -50,6 +51,10 @@ class LessonPLanSmartContainer extends Component{
     chosenLesson.poem = selectedPoem;
     this.setState({ ChosenLesson: chosenLesson });
     };
+
+    ChangeOption = (option) => {
+        this.setState({ChosenOption : option})
+    }
     render(){
         console.log('This is state in the smart component', this.state)
         return(<div>
@@ -66,6 +71,8 @@ class LessonPLanSmartContainer extends Component{
                     changePoemHandler = {this.ChangePoemHandler}
                     changeSecondary = {this.props.changeSecondary}
                     changePrimary = {this.props.changePrimary}
+                    changeOption = {this.ChangeOption}
+                    selectedOption={this.state.ChosenOption}
 
                 />
             </div>)
