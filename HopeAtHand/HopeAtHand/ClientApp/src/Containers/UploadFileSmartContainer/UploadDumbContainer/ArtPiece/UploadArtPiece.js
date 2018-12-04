@@ -19,13 +19,6 @@ const poem = (props) => {
                         <Grid item xs={6}>
                             <TextField fullWidth label="Please enter the art supplies required" onChange={props.poemDataChangeHandler} inputProps={{"data-input" : "supplies"}}></TextField>
                         </Grid>
-                    
-                        <Grid container item xs={12}>
-                            <Grid item xs={4}>
-                                <Typography style={{marginTop:'8px'}} variant="display1">Choose Themes :</Typography>
-                            </Grid>
-                            <Grid item xs={8} justify='center'><SearchSelect updateThemes={props.updateTheme}></SearchSelect></Grid>
-                        </Grid>
                     </Grid>
                 </Grid>
             </Filler>

@@ -59,6 +59,7 @@ class LessonPlanSearch extends Component {
         <DisplayLessonPlan
           FindThePoem={this.ChangePoemHandler}
           LessonPlan={this.state.ChosenLesson}
+          addComponent={this.props.addComponent}
         />
       );
     }

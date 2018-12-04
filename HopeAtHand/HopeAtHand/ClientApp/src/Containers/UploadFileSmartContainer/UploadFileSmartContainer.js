@@ -167,29 +167,38 @@ class UploadFileSmartContainer extends React.Component {
     for(let y = 0 ; y < this.state.ImagesToUpload.length; y++){
       bodyFormData.set('file'+y +1, this.state.ImagesToUpload[y])
     }
+    /*
     axios.post('https://localhost:44365/api/blobCreator/createNewBlob',bodyFormData,{
       headers:{
         'Content-Type': 'multipart/form-data; boundary=absdfabs',
         'Content-Disposition': 'form-data'
     }}).then(res => {
       console.log(res)
-    })
+    })*/
+    this.props.addComponent(bodyFormData);
   }
   render() {
     console.log('this is theme in the smart conntainner', this.state)
     return(
-    <UploadDumbContainer documentTypes={this.state.DocumentTypes} 
+    <UploadDumbContainer 
+                        //Properties
+                        themes={this.state.Themes} 
+                        documentTypes={this.state.DocumentTypes} 
+                        fileToUpload={this.state.FileToUpload}
+                        shouldImagesBeUploaded={this.state.ShouldImageBeUploaded}
+                        uploadedImages={this.state.ImagesToUpload}
+                        showImageInterface={this.showImageInterface}
+                        //Methods
                         selectDocumentFunction={this.selectDocumentType} 
                         selectedDocumentType={this.state.SelectedDocumentType}
                         selectFile={this.selectFile}
-                        fileToUpload={this.state.FileToUpload}
                         updateTheme={this.UpdateThemes}
                         poemDataChangeHandler={this.poemDataChangeHandler} 
                         postData={this.postData}
-                        shouldImagesBeUploaded={this.state.ShouldImageBeUploaded}
                         uploadImage={this.selectImage}
-                        uploadedImages={this.state.ImagesToUpload}
-                        showImageInterface={this.showImageInterface} />
+                        changeThemes={this.state.handleChange}
+                        //Props
+                        addComponent={this.props.addComponent} />
                         
     );
   }

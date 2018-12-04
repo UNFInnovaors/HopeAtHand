@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
 import PoemSearch from '../PoemSearch/PoemSearch';
 import Classes from './LessonPlan.css';
-import { Typography, Grid, Paper, Divider } from '@material-ui/core';
+import { Typography, Grid, Paper, Divider, Button } from '@material-ui/core';
+import Filler from '../../components/HOC/Filler';
 
 /** Takes in the current sate of LessonPlan and returns the formatted HTML to display the Lesson Plan */
 class  displayLessonPlan extends Component {
@@ -25,6 +26,15 @@ class  displayLessonPlan extends Component {
               <Typography variant="h5" align="center">Poem : {this.props.LessonPlan.poem.title}</Typography>
               <Divider/>
               <PoemSearch FindThePoem= {this.props.FindThePoem}/>
+              {(this.props.isUpload === true ? 
+              <Grid container>
+                <Grid xs={3}> </Grid>
+                <Grid xs={6}>
+                  <Button fullWidth onClick={() => this.props.addComponent(this.props.LessonPlan.artPiece)} variant="contained" color="primary">Save To New Lesson Plan</Button> 
+                </Grid>
+                <Grid xs={3}></Grid>
+              </Grid>
+               : "")}
             </Grid>
           </Paper>
         </Grid>
@@ -33,6 +43,15 @@ class  displayLessonPlan extends Component {
             <Grid item xs={12}>
               <Typography variant="h5" align="center">Writing Assignment : {this.props.LessonPlan.writing.title}</Typography>
               <Divider/>
+              {(this.props.isUpload === true ? 
+              <Grid container>
+                <Grid xs={3}> </Grid>
+                <Grid xs={6}>
+                  <Button fullWidth onClick={() => this.props.addComponent(this.props.LessonPlan.artPiece)} variant="contained" color="primary">Save To New Lesson Plan</Button> 
+                </Grid>
+                <Grid xs={3}></Grid>
+              </Grid> 
+              : "")}
             </Grid>
           </Paper>
         </Grid>
@@ -41,6 +60,14 @@ class  displayLessonPlan extends Component {
             <Grid item xs={12}>
               <Typography variant="h5" align="center">Art Piece : {this.props.LessonPlan.artPiece.title}</Typography>
               <Divider/>
+              {(this.props.isUpload === true ? 
+                <Grid container>
+                  <Grid xs={3}> </Grid>
+                  <Grid xs={6}>
+                    <Button fullWidth onClick={() => this.props.addComponent(this.props.LessonPlan.artPiece)} variant="contained" color="primary">Save To New Lesson Plan</Button> 
+                  </Grid>
+                  <Grid xs={3}></Grid>
+                </Grid>: "")}
             </Grid>
           </Paper>
         </Grid>

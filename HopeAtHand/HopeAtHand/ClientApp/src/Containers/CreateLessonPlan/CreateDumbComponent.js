@@ -7,6 +7,7 @@ import ThemeSelect from '../../components/UI/ThemeSelect/ThemeSelect';
 import ThemeBox from '../../components/UI/ThemeBox/ThemeBox'
 import DoneIcon from '@material-ui/icons/Done';
 import Action from './CreateAction/CreateAction'
+import Components from './ComponentsForDDisplay/ComponentsForDisplay'
 import { Paper } from '@material-ui/core';
 
 class CreateDumbComponent extends Component {
@@ -108,7 +109,7 @@ class CreateDumbComponent extends Component {
                     </Grid>
                     {(this.props.action !== null ?
                         <Paper style={{padding:28, width:'100%', margin:'5%', marginBottom: '1%', marginTop: '1%' }}>
-                            <Action action={this.props.action} isUpload={true} changeAction={this.props.changeAction}></Action>
+                            <Action addComponent={this.props.addComponent} action={this.props.action} isUpload={true} changeAction={this.props.changeAction}></Action>
                         </Paper> :
                     <div></div> )}
                    
@@ -118,9 +119,7 @@ class CreateDumbComponent extends Component {
                                 <Typography align="center" variant="h5">This Lesson Plan Has No Components</Typography>
                             </Grid> 
                         </Paper>
-                         : <p>Hello</p>)}
-                   
-                        
+                         : <Grid item xs={12}><Components components={this.props.components}></Components></Grid>)}     
                     
                 </Grid>
                 
@@ -129,5 +128,7 @@ class CreateDumbComponent extends Component {
         )
     }
 }
-
+/*<Grid container item xs={12}> <Paper style={{padding:'24px', width:'90%'}}>{this.props.components.map((item, index) => {
+                             return <Grid key={index} item container xs={4}><Components item={item}/></Grid>
+                         })}</Paper></Grid>)}  */
 export default CreateDumbComponent

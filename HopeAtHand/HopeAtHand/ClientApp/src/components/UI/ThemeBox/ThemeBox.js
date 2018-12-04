@@ -1,7 +1,8 @@
 import React, {Component} from 'react'
 import Filler from '../../HOC/Filler';
 import { Paper, Grid, Table, Typography, Chip, TableRow } from '@material-ui/core';
-
+/*in order to use this component you need to following properties this.props.themes ...
+    Eventually this component should also take in an onclick handler for removing themes once they have been created*/
 class ThemeBox extends  Component{
 
     state = {
@@ -47,13 +48,16 @@ class ThemeBox extends  Component{
         return TableToDisplay
     }
     render(){
+        console.log(this.props)
         var testArray = []
-        for(let x = 0; x < 25; x++)
-        {
+        for(let x = 0; x < 25; x++){
             testArray[x] = x+1;
         }
+        let something = <div></div>
+        if(this.props.themes !== null){
+            something = this.FormatForDisplay(this.props.themes)
+        }
         
-        let something = this.FormatForDisplay(this.props.themes)
         let badges=<tr><td><Typography variant="body1">Please Choose One or More Theme(s) to Continue</Typography></td></tr>
         if(true)//this.props.themes.length > 0)
         return(<Filler>

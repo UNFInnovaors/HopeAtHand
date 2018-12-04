@@ -3,6 +3,9 @@ import { Grid } from '@material-ui/core';
 import Select from 'react-select';
 import axios from 'axios';
 
+
+/* In order to use this copmponent this.props.updateThemes must be provied, typically is used to update the a state vaiable called themes"*/
+
 class ThemeSelect extends Component {
   state = {
     Themes: [''],
@@ -27,7 +30,7 @@ class ThemeSelect extends Component {
       <Select
         onChange={this.handleChange}
         options={this.state.Themes}
-        isMulti={false}
+        isMulti={true}
         placeholder={'Select A Theme'}
         hideSelectedOptions={true}
       />

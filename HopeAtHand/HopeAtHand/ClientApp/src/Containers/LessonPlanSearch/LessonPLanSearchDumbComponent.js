@@ -15,6 +15,7 @@ const lessonPlanSearchDumbComponent = (props) => {
               FindThePoem={props.changePoemHandler}
               LessonPlan={props.chosenLesson}
               isUpload ={props.isUpload}
+              addComponent={props.addComponent}
             />
           );
         }

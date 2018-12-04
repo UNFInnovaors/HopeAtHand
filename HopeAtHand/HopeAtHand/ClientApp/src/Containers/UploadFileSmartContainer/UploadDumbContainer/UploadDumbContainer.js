@@ -1,9 +1,11 @@
-import React from 'react'
-import Poem from './UploadPoem/UploadPoem'
-import Writing from './UploadWritingTemplate/UploadWritingAssignment'
-import Art from './ArtPiece/UploadArtPiece'
-import { Grid, Paper, Typography, Button } from '@material-ui/core'
-import ReusableSelect from '../../../components/UI Components/ReuseableSelect'
+import React from 'react';
+import Poem from './UploadPoem/UploadPoem';
+import Writing from './UploadWritingTemplate/UploadWritingAssignment';
+import Art from './ArtPiece/UploadArtPiece';
+import { Grid, Paper, Typography, Button } from '@material-ui/core';
+import ReusableSelect from '../../../components/UI Components/ReuseableSelect';
+import ThemeSelect from '../../../components/UI/ThemeSelect/ThemeSelect';
+import ThemeBox from '../../../components/UI/ThemeBox/ThemeBox'
 import Filler from '../../../components/HOC/Filler';
 import UploadImage from './UploadImage/UploadImage';
 
@@ -56,15 +58,22 @@ const uploadDocumentDumbContainer = (props) => {
                                                 selectedDocumentType = {props.selectedDocumentType}></UploadImage></Grid>
 
             </Grid>
-            <Grid item xs={1}></Grid>
             {( props.selectedDocumentType !== null ?
+            <Filler>
+            <Grid container item xs={12}>
+                <Grid item xs={1}></Grid>
+                <Grid item xs={10} style={{marginTop:'1.25%'}}><ThemeSelect updateThemes={props.updateTheme}/></Grid><Grid item xs={1}></Grid>
+                <Grid item xs={1}></Grid><Grid style={{marginTop:'2.5%'}} item xs={10}><ThemeBox themes={props.themes}/></Grid><Grid item xs={1}></Grid>
+            </Grid>
+            <Grid item xs={1}></Grid>
+            
             <Grid container item xs={12} spacing={24}>
                 <Grid xs={4}></Grid>
                     <Grid item xs={4}>
                         <Button color="secondary" fullWidth variant="contained" onClick={props.postData}>Upload Document</Button>
                     </Grid>
                 <Grid xs={4}></Grid>
-            </Grid> : "")}
+            </Grid></Filler> : "")}
             </Grid>
     );
 }

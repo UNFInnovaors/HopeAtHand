@@ -75,6 +75,7 @@ class LessonPLanSmartContainer extends Component{
                     changeOption = {this.ChangeOption}
                     //Props
                     isUpload={this.props.isUpload}
+                    addComponent={this.props.addComponent}
 
                 />
             </div>)

@@ -11,7 +11,10 @@ class CreateSmartContainer extends Component {
     LessonPLanComponents : [],
     Action : null,
   };
-
+  AddLessonPlanComponent = (Component) => {
+    console.log("1234143214123421",Component, "This is the AddLessonPlanComponent Result", this.state.LessonPLanComponents)
+    this.setState({LessonPLanComponents : [...this.state.LessonPLanComponents, Component]})
+  }
   AddThemes = (ATheme) => {
     console.log("asdfasf",ATheme, "This is a selected Themes")
     let newList = new Array();
@@ -57,6 +60,7 @@ class CreateSmartContainer extends Component {
           components={this.state.LessonPLanComponents}
           action={this.state.Action}
           changeAction={this.ChangeAction}
+          addComponent={this.AddLessonPlanComponent}
         ></CreateDumbComponent>
       </Filler>
     );
