@@ -21,6 +21,17 @@
     <None Include="$(SpaRoot)**" Exclude="$(SpaRoot)node_modules\**" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Compile Remove="Migrations\20181230214122_Initial Migration With Theme Bridge Implied.cs" />
+    <Compile Remove="Migrations\20181230214122_Initial Migration With Theme Bridge Implied.Designer.cs" />
+    <Compile Remove="Migrations\20181230220344_Initial Migration With Theme Bridge Implied.cs" />
+    <Compile Remove="Migrations\20181230220344_Initial Migration With Theme Bridge Implied.Designer.cs" />
+    <Compile Remove="Migrations\20181230221211_Initial Migration With Theme Bridge Implied.cs" />
+    <Compile Remove="Migrations\20181230221211_Initial Migration With Theme Bridge Implied.Designer.cs" />
+    <Compile Remove="Migrations\20181230221326_Initial Migration With Theme Bridge Implied.cs" />
+    <Compile Remove="Migrations\20181230221326_Initial Migration With Theme Bridge Implied.Designer.cs" />
+  </ItemGroup>
+
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">
     <!-- Ensure Node.js is installed -->
     <Exec Command="node --version" ContinueOnError="true">

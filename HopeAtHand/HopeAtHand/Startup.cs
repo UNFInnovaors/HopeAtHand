@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using HopeAtHand.Models;
+using Microsoft.EntityFrameworkCore;
+
 namespace HopeAtHand
 {
     public class Startup
@@ -21,10 +23,14 @@ namespace HopeAtHand
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+
             services.AddTransient<ILessonPlanRepository, LessonPlanRepository>();
             services.AddTransient<IPoemRepo, PoemRepository>();
+
             services.AddCors();
             services.AddOptions();
+            services.AddDbContext<ApplicationDbContext>( options => options.UseSqlServer(Configuration.GetValue<string>("Localdb")));
+
             services.Configure<AzureStorageConfig>(Configuration.GetSection("AzureStorageConfig"));
             // In production, the React files will be served from this directory
             services.AddSpaStaticFiles(configuration =>

@@ -30,6 +30,6 @@ namespace HopeAtHand.Models
     }
     public class ThemesDTO
     {
-        public Theme[] Themes { get; set; }
+        public Themes[] Themes { get; set; }
     }
 }

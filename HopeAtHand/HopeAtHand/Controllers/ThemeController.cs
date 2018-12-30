@@ -15,12 +15,12 @@ namespace HopeAtHand.Controllers
         [HttpGet]
         public IActionResult GetThemes()
         { 
-            return Ok( new ThemesDTO { Themes = new Theme[] {
-                new Theme { ThemeId = 0, Label="Female Empowerment", Value= "Female Empowerment" },
-                new Theme { ThemeId = 1, Label="Male Empowermet", Value= "Male Empowermet" },
-                new Theme { ThemeId = 2, Label = "Self Acceptance", Value = "Self Acceptance" },
-                new Theme { ThemeId = 3, Label = "Connectivity", Value = "Connectivity" },
-                new Theme { ThemeId = 4, Label = "Fial Option", Value = "Final Option" },
+            return Ok( new ThemesDTO { Themes = new Themes[] {
+                new Themes { ThemeName= "Female Empowerment" },
+                new Themes { ThemeName = "Male Empowermet" },
+                new Themes { ThemeName= "Self Acceptance" },
+                new Themes { ThemeName= "Connectivity" },
+                new Themes { ThemeName= "Final Option" },
             }});
         }
         [HttpPost]

@@ -53,9 +53,6 @@ namespace HopeAtHand.Controllers
             LessonPlan[] lessonDTO = lessonPlanRepo.FindLessonPlan(lessie.theme, lessie.tags).ToArray();
             for(int x = 0; x < lessonDTO.Length; x++)
             {
-                lessonDTO[x].poem = PoemRepo.Poems.Where(p => p.Value.PoemId == lessonDTO[x].PoemId).FirstOrDefault().Value;
-                lessonDTO[x].Writing = WrittingAssignmentRepo.WritingAssignments.Where(w => w.Value.WritingAssignmentId == lessonDTO[x].WritingAssignmentId).FirstOrDefault().Value;
-                lessonDTO[x].artPiece = ArtPiecesRepo.ArtPieces.Where(a => a.Value.ArtPieceId == lessonDTO[x].ArtPieceId).FirstOrDefault().Value;
             }
             return Ok(lessonDTO);
         }

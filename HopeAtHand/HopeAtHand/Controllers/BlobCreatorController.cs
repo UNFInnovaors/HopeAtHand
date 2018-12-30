@@ -17,12 +17,12 @@ namespace HopeAtHand.Controllers
     [Route("api/[controller]/[Action]")]
     public class BlobCreatorController : Controller
     {
-        public Theme[] Themes = new Theme[] {
-                new Theme { ThemeId = 0, Label="Female Empowerment", Value= "Female Empowerment" },
-                new Theme { ThemeId = 1, Label="Male Empowermet", Value= "Male Empowermet" },
-                new Theme { ThemeId = 2, Label = "Self Acceptance", Value = "Self Acceptance" },
-                new Theme { ThemeId = 3, Label = "Connectivity", Value = "Connectivity" },
-                new Theme { ThemeId = 4, Label = "Fial Option", Value = "Final Option" }, };
+        public Themes[] Themes = new Themes[] {
+                new Themes { ThemeName = "Female Empowerment" },
+                new Themes { ThemeName =  "Male Empowermet" },
+                new Themes { ThemeName =  "Self Acceptance" },
+                new Themes { ThemeName =  "Connectivity" },
+                new Themes { ThemeName =  "Final Option" }, };
 
         private readonly AzureStorageConfig storageConfig;
         public BlobCreatorController(IOptions<AzureStorageConfig> config)
@@ -41,7 +41,7 @@ namespace HopeAtHand.Controllers
             {
                 keyValuePairs.Add(key, HttpContext.Request.Form[key]);
             }
-            List<Theme> themes = ThemeManager.IdToTheme(Themes, keyValuePairs.GetValueOrDefault("theme").Split(","));
+            List<Themes> themes = ThemeManager.IdToTheme(Themes, keyValuePairs.GetValueOrDefault("theme").Split(","));
             keyValuePairs.Remove("theme");
             var cont = HttpContext;
             bool isUploaded = false;
@@ -136,12 +136,12 @@ namespace HopeAtHand.Controllers
 
     public static class ThemeManager
     {
-        public static List<Theme> IdToTheme(Theme[] Themes, string[] idsToConvert)
+        public static List<Themes> IdToTheme(Themes[] Themes, string[] idsToConvert)
         {
-            List<Theme> themes = new List<Theme>();
+            List<Themes> themes = new List<Themes>();
             foreach(string id in idsToConvert)
             {
-                themes.Add(Themes.Where(theme => theme.ThemeId.ToString() == id).FirstOrDefault());
+                themes.Add(Themes.FirstOrDefault());
             }
             return themes;
         }
