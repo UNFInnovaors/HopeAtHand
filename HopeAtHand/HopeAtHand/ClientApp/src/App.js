@@ -76,7 +76,7 @@ export default class App extends Component {
   }
 
   render() {
-    if(false) //this.state.UserName === null
+    if(this.state.UserName === null) //
     {
       return (
         <Filler>
