@@ -4,6 +4,7 @@ import LessonPLanSmartContainer from './Containers/LessonPlanSearch/LessonPLanSm
 import UploadFileSmartContainer from './Containers/UploadFileSmartContainer/UploadFileSmartContainer'
 import Admin from './Containers/Admin/AdminSmart'
 import LogIn from './Containers/LogInForm/LoginSmartContainer'
+import CreateTheme from './Containers/CreateTheme/CreateTheme'
 import { Route, Redirect } from 'react-router-dom'
 import Filler from './components/HOC/Filler';
 import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
@@ -76,7 +77,7 @@ export default class App extends Component {
   }
 
   render() {
-    if(this.state.UserName === null) //
+    if(false) //this.state.UserName === null
     {
       return (
         <Filler>
@@ -92,26 +93,28 @@ export default class App extends Component {
     return (
       <Filler>
         <MuiThemeProvider theme={this.state.Theme}>
-        <Paper  style={{height : '100%', paddingBottom:'5%'}}>
-          <AppBar logOut={this.LogOut} LoggedIn ={this.state.UserName}/>
-          
-          <Route path="/" exact render={(props) => 
-        <CreateSmartComponent/>
-              }/>
-        <Route path="/Create" exact render={(props) => 
-        <CreateSmartComponent/>
-              }/>
-        <Route path="/Search" exact render={(props) => 
-          <LessonPLanSmartContainer/>}>
-        </Route>
-    
-        <Route path="/Upload" exact render={(props) => 
-          <UploadFileSmartContainer/>}>
-        </Route>
-        <Route path="/Admin" exact render={(props) => 
-          <Admin/>}>
-        </Route>
-        </Paper>
+          <Paper  style={{height : '100%', paddingBottom:'5%'}}>
+            <AppBar logOut={this.LogOut} LoggedIn ={this.state.UserName}/>
+            
+            <Route path="/" exact render={(props) => 
+                <CreateSmartComponent/>
+            }/>
+            <Route path="/Create" exact render={(props) => 
+                <CreateSmartComponent/>
+            }/>
+            <Route path="/Search" exact render={(props) => 
+              <LessonPLanSmartContainer/>}>
+            </Route>
+      
+            <Route path="/Upload" exact render={(props) => 
+              <UploadFileSmartContainer/>}>
+            </Route>
+            <Route path="/Admin" exact render={(props) => 
+              <Admin/>}>
+            </Route>
+            <Route path="/Theme" exact render={(props) => 
+              <CreateTheme/>}/>
+          </Paper>
         </MuiThemeProvider>
       </Filler>
     );

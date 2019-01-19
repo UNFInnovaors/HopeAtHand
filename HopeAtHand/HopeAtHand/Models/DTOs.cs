@@ -6,6 +6,12 @@ using System.Threading.Tasks;
 
 namespace HopeAtHand.Models
 {
+    public class LessonPLanCreateDTO
+    {
+        public int [] documentIds { get; set; }
+        public string [] themes { get; set; }
+        public string lessonPlanName { get; set; }
+    }
     public class LessonSearchDTO
     {
         public string theme { get; set; }

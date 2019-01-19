@@ -17,7 +17,6 @@ class Login extends Component {
     render(){
         
         let disabled = (this.state.Username === null || this.state.Username === "" || this.state.Password === null || this.state.Password === "")
-        console.log(this.state, disabled)
         return <LogInForm logIn={this.props.login}
                             buttonDisabled={disabled} 
                             changeUsername={this.ChangeUsername} 

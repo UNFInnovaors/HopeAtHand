@@ -1,12 +1,12 @@
 import React, {Component} from 'react';
-import PoemSearch from '../PoemSearch/PoemSearch';
-import Classes from './LessonPlan.css';
+import PoemSearch from '../../../PoemSearch/PoemSearch';
+
 import { Typography, Grid, Paper, Divider, Button } from '@material-ui/core';
-import Filler from '../../components/HOC/Filler';
+
+import Filler from '../../../../components/HOC/Filler';
 
 /** Takes in the current sate of LessonPlan and returns the formatted HTML to display the Lesson Plan */
 class  displayLessonPlan extends Component {
-
 
   render(){
   console.log('This is props ', this.props.LessonPlan);
@@ -74,8 +74,7 @@ class  displayLessonPlan extends Component {
       </Grid>
     
     );
-  }
-}
+  }}
 }
 /** This method takes in an array of lesson plans and returns them mapped into JSX for the LessonPlanRenderMethod */
 export default displayLessonPlan;

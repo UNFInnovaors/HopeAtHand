@@ -1,5 +1,6 @@
 ﻿using HopeAtHand.AzureHelper;
 using HopeAtHand.Models;
+using HopeAtHand.Models.Managers;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
@@ -25,112 +26,125 @@ namespace HopeAtHand.Controllers
                 new Themes { ThemeName =  "Final Option" }, };
 
         private readonly AzureStorageConfig storageConfig;
-        public BlobCreatorController(IOptions<AzureStorageConfig> config)
+        private readonly IPoemManager poemManager;
+        private readonly IWritingTemplateManager WritingTemplate;
+        private readonly IArtPieceManager ArtPieceManager;
+
+        public BlobCreatorController(IOptions<AzureStorageConfig> config, IPoemManager poemManager, IWritingTemplateManager writingTemplate, IArtPieceManager artPieceManager)
         {
             storageConfig = config.Value;
+            this.poemManager = poemManager;
+            WritingTemplate = writingTemplate;
+            ArtPieceManager = artPieceManager;
         }
 
-        [HttpPost]
-        public async Task<IActionResult> createNewBlob()
+    [HttpPost]
+    public async Task<IActionResult> createNewBlob()
+    {
+        //Recieve Files From Cliet
+        var result = -1;
+        IFormFile formFile = HttpContext.Request.Form.Files[0];
+        var something = HttpContext.Request.Form.Keys;
+        Dictionary<string, string> keyValuePairs = new Dictionary<string, string>();
+        foreach (string key in something)
         {
-            //Recieve Files From Cliet
-            IFormFile formFile = HttpContext.Request.Form.Files[0];
-            var something = HttpContext.Request.Form.Keys;
-            Dictionary<string, string> keyValuePairs = new Dictionary<string, string>();
-            foreach (string key in something)
+            keyValuePairs.Add(key, HttpContext.Request.Form[key]);
+        }
+        List<Themes> themes = new List<Themes>();
+
+        foreach (string themeName in keyValuePairs.GetValueOrDefault("theme").Split(","))
+        {
+            themes.Add(new Models.Themes { ThemeName = themeName });
+        }
+        keyValuePairs.Remove("theme");
+        var cont = HttpContext;
+        bool isUploaded = false;
+        try
+        {
+            string imageURL = "";
+            string documentURL = "";
+            if (storageConfig.AccountKey == string.Empty || storageConfig.AccountName == string.Empty)
+
+                return BadRequest("sorry, can't retrieve your azure storage details from appsettings.js, make sure that you add azure storage details there");
+
+            if (storageConfig.ImageContainer == string.Empty)
+
+                return BadRequest("Please provide a name for your image container in the azure blob storage");
+            if (AzureHelper.StorageHelper.IsImage(formFile))
             {
-                keyValuePairs.Add(key, HttpContext.Request.Form[key]);
-            }
-            List<Themes> themes = ThemeManager.IdToTheme(Themes, keyValuePairs.GetValueOrDefault("theme").Split(","));
-            keyValuePairs.Remove("theme");
-            var cont = HttpContext;
-            bool isUploaded = false;
-
-            try
-            {
-
-                if (storageConfig.AccountKey == string.Empty || storageConfig.AccountName == string.Empty)
-
-                    return BadRequest("sorry, can't retrieve your azure storage details from appsettings.js, make sure that you add azure storage details there");
-
-                if (storageConfig.ImageContainer == string.Empty)
-
-                    return BadRequest("Please provide a name for your image container in the azure blob storage");
-                if (AzureHelper.StorageHelper.IsImage(formFile))
+                Uri blockBlobURI = null;
+                if (HttpContext.Request.Form.Files.Count > 1 && HttpContext.Request.Form.Files[1].Length > 0)
                 {
-                    if (formFile.Length > 0)
+                    formFile = HttpContext.Request.Form.Files[1];
+                    using (Stream stream = formFile.OpenReadStream())
                     {
-                        using (Stream stream = formFile.OpenReadStream())
-                        {
-                            CloudBlockBlob blockBlob = await StorageHelper.UploadFileToStorage(stream, formFile.FileName, storageConfig);
-                            foreach(string key in keyValuePairs.Keys)
-                            {
-                                blockBlob.Metadata.Add(key, keyValuePairs.GetValueOrDefault(key));
-                            }
-                            for(int x = 1; x < themes.Count()+1; x++)
-                            {
-                                blockBlob.Metadata.Add("theme" + x, JsonConvert.SerializeObject(themes.ToArray()[x - 1]));
-                            }
-                            await blockBlob.SetMetadataAsync();
-                        }
+
+                        CloudBlockBlob blockBlob = await StorageHelper.UploadFileToStorage(stream, formFile.FileName, storageConfig);
+                        blockBlobURI = blockBlob.Uri;
+                        imageURL = blockBlob.Uri.ToString();
+                        formFile = HttpContext.Request.Form.Files[0];
                     }
                 }
-                else
+                if (formFile.Length > 0)
                 {
-                    return new UnsupportedMediaTypeResult();
+                    using (Stream stream = formFile.OpenReadStream())
+                    {
+                        CloudBlockBlob blockBlob = await StorageHelper.UploadFileToStorage(stream, formFile.FileName, storageConfig);
+                        if (blockBlobURI != null)
+                        {
+                            blockBlob.Metadata.Add("ImageURI", blockBlobURI.ToString());
+                            await blockBlob.SetMetadataAsync();
+                        }
+                        documentURL = blockBlob.Uri.ToString();
+                    }
                 }
-
-                if (isUploaded)
+                
+                if (keyValuePairs.GetValueOrDefault("type") == "Poem")
                 {
-                    if (storageConfig.ThumbnailContainer != string.Empty)
-
-                        return new AcceptedAtActionResult("GetThumbNails", "BlobCreatorController", null, null);
-
-                    else
-
-                        return new AcceptedResult();
+                    result = poemManager.CreatePoem(new CreatePoemData
+                    {
+                        Author = keyValuePairs.GetValueOrDefault("author"),
+                        ImageURL = imageURL,
+                        PoemURL = documentURL,
+                        PoemName = keyValuePairs.GetValueOrDefault("name"),
+                        Themes = themes
+                    });
                 }
-                else
+                else if(keyValuePairs.GetValueOrDefault("type") == "Writing Template")
+                {
+                    result = WritingTemplate.CreateWritingAssignment(new CreateWritingAssignmentData
+                    {
+                        AgeGroup = keyValuePairs.GetValueOrDefault(""),
+                        ImageURL = imageURL,
+                        WritingURL = documentURL,
+                        Themes = themes
 
-                    return BadRequest("Look like the image couldnt upload to the storage");
+                    });
+                }
+                else if(keyValuePairs.GetValueOrDefault("type") == "Art Piece")
+                {
+                    result = ArtPieceManager.CreateArtPiece(new CreateArtPieceData
+                    {
+                        ImageURL = imageURL,
+                        WritingURL = documentURL,
+                        Themes = themes,
+                        SuppliesNeeded = keyValuePairs.GetValueOrDefault("supplies"),
+                        Title = keyValuePairs.GetValueOrDefault("name"),
+                    });
+                }
+            }
+            else
+            {
+                return new UnsupportedMediaTypeResult();
+            }
+                
+            return Ok(result);
 
             }
             catch (Exception ex)
             {
                 return BadRequest(ex.Message);
             }
-        }
-        [HttpGet("thumbnails")]
-        public async Task<IActionResult> GetThumbNails()
-        {
-
-            try
-            {
-                if (storageConfig.AccountKey == string.Empty || storageConfig.AccountName == string.Empty)
-
-                    return BadRequest("sorry, can't retrieve your azure storage details from appsettings.js, make sure that you add azure storage details there");
-
-                if (storageConfig.ImageContainer == string.Empty)
-
-                    return BadRequest("Please provide a name for your image container in the azure blob storage");
-
-                List<string> thumbnailUrls = await StorageHelper.GetThumbNailUrls(storageConfig);
-
-                return new ObjectResult(thumbnailUrls);
-
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-        }
-
-        [HttpGet]
-        public async Task<IActionResult> CreateList()
-        {
-
-            List<string> urls = await StorageHelper.GetThumbNailUrls(storageConfig);
-            return Ok(urls);
         }
     }
 

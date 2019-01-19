@@ -1,4 +1,5 @@
 ﻿using HopeAtHand.Models;
+using HopeAtHand.Models.Managers;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
@@ -12,17 +13,27 @@ namespace HopeAtHand.Controllers
     [Route("api/[controller]/[Action]")]
     public class ThemeController : Controller
     {
-        [HttpGet]
-        public IActionResult GetThemes()
-        { 
-            return Ok( new ThemesDTO { Themes = new Themes[] {
-                new Themes { ThemeName= "Female Empowerment" },
-                new Themes { ThemeName = "Male Empowermet" },
-                new Themes { ThemeName= "Self Acceptance" },
-                new Themes { ThemeName= "Connectivity" },
-                new Themes { ThemeName= "Final Option" },
-            }});
+        IThemeManager ThemeManager;
+
+        public ThemeController(IThemeManager themeManager){
+            ThemeManager = themeManager;
         }
+
+        [HttpGet]
+        public IActionResult GetThemes(){
+            return Ok(ThemeManager.GetThemes());
+        }
+
+        public class CreateThemeDTO{
+            public string ThemeName { get; set; }
+        }
+
+        [HttpPost]
+        public IActionResult CreateTheme([FromBody]CreateThemeDTO createThemeDTO)
+        {
+            return Ok(ThemeManager.CreateTheme(createThemeDTO.ThemeName));
+        }
+
         [HttpPost]
         public IActionResult SeePost()
         {

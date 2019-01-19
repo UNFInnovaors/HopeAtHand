@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import DisplayLessonPlan from './LessonPlanMethods';
+
+import { Button, Divider, Select,  Typography } from '@material-ui/core';
+
 import axios from 'axios';
-import Typography from '@material-ui/core/Typography';
-import Button from '@material-ui/core/Button';
-import Divider from '@material-ui/core/Divider';
-import Select from '@material-ui/core/Select';
+
 
 class LessonPlanSearch extends Component {
   state = {

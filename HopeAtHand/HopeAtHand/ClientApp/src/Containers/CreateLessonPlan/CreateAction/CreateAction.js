@@ -5,7 +5,6 @@ import { Grid } from '@material-ui/core';
 
 const createAction = (props) => {
     let action = <div></div>
-    console.log(props.action)
     switch(props.action)
     {
         case('search') :

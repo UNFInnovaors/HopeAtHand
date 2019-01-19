@@ -50,7 +50,7 @@ namespace HopeAtHand.Controllers
         [HttpPost]
         public IActionResult FindLessonPlan([FromBody]LessonSearchDTO lessie)
         {
-            LessonPlan[] lessonDTO = lessonPlanRepo.FindLessonPlan(lessie.theme, lessie.tags).ToArray();
+            LessonPlan[] lessonDTO = lessonPlanRepo.FindLessonPlan(lessie.theme).ToArray();
             for(int x = 0; x < lessonDTO.Length; x++)
             {
             }

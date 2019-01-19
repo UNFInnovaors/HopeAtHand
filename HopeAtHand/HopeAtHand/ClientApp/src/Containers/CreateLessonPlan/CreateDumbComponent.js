@@ -3,7 +3,7 @@ import { Grid, Select, Divider, Button, Typography, TextField } from '@material-
 import Filler from '../../components/HOC/Filler'
 import Badge from '@material-ui/core/Badge';
 import Chip from '@material-ui/core/Chip';
-import ThemeSelect from '../../components/UI/ThemeSelect/ThemeSelect';
+import ThemeSelect from '../../components/UI/ThemeSelect/LeesonPLanThemes';
 import ThemeBox from '../../components/UI/ThemeBox/ThemeBox'
 import DoneIcon from '@material-ui/icons/Done';
 import Action from './CreateAction/CreateAction'
@@ -12,7 +12,6 @@ import { Paper } from '@material-ui/core';
 
 class CreateDumbComponent extends Component {
     componentDidMount(){
-        console.log(this.props, "this is props in the dumb boi")
     }
     state = {
         CreateForm : {
@@ -72,13 +71,20 @@ class CreateDumbComponent extends Component {
                 }
             ]
         },
-        SelectedThemes:["Hello", "Dolly"]
+        SelectedThemes:["Hello", "Dolly"],
+    }
+
+    handelChange = (event) => {
+        var cloneState = JSON.parse(JSON.stringify(this.state.CreateForm))
+        cloneState["Controls"][0]["value"] = event.target.value
+        console.log(cloneState);
+        this.setState({CreateForm: cloneState})
     }
     render(){
-        //let CreateForm = (this.state.CreateForm.Controls)
+        let CreateForm = (this.state.CreateForm.Controls)
         let eachComponent = (<Filler><Typography variant="body2">Now there are components</Typography></Filler>)
-        console.log('this is props in dumb', this.props)
         let form = this.state.CreateForm.Controls
+        console.log('This is the form', form)
         let chips = this.state.SelectedThemes.map((theme, index) => <Chip variant="outlined" key={index} color={"primary"} label={theme} deleteIcon={<DoneIcon />}/>)
         return(
             <Filler>
@@ -89,8 +95,8 @@ class CreateDumbComponent extends Component {
                         </Grid>
                         <Grid container item spacing={24} style={{paddingTop:28}}>
                             <Grid item xs={1}></Grid>    
-                            <Grid xs={4} item><TextField value={form[0].value} placeholder="Please choose the name of your lesson plan" fullWidth error={form[0].error} helperText={form[0].errorMessage} 
-                                                type={form[0].config.type} label={form[0].label} fullWidth hidden={form[0].hidden} onClick={this.handelChange}> 
+                            <Grid xs={4} item><TextField value={this.props.lessonPLanNameKs} placeholder="Please choose the name of your lesson plan" fullWidth error={form[0].error} helperText={form[0].errorMessage} 
+                                                type={form[0].config.type} label={form[0].label} fullWidth hidden={form[0].hidden} onChange={this.props.lessonPlanNameChangeHandler}> 
                                                 </TextField></Grid>
                             <Grid xs={6} item><ThemeSelect updateThemes={this.props.alterThemes} removeTheme={this.props.removeTheme} themes={this.props.themes}/></Grid>
                         </Grid>
@@ -119,7 +125,10 @@ class CreateDumbComponent extends Component {
                                 <Typography align="center" variant="h5">This Lesson Plan Has No Components</Typography>
                             </Grid> 
                         </Paper>
-                         : <Grid item xs={12}><Components components={this.props.components}></Components></Grid>)}     
+                         : <Grid item xs={12}><Components 
+                                                components={this.props.components} 
+                                                uploadLessonPLan={this.props.uploadLessonPLan}
+                                            ></Components></Grid>)}     
                     
                 </Grid>
                 

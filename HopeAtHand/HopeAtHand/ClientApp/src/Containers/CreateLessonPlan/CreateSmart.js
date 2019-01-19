@@ -10,30 +10,63 @@ class CreateSmartContainer extends Component {
     SelectedThemes: [],
     LessonPLanComponents : [],
     Action : null,
+    NameError: false,
+    ThemeError: false,
   };
-  AddLessonPlanComponent = (Component) => {
-    console.log("1234143214123421",Component, "This is the AddLessonPlanComponent Result", this.state.LessonPLanComponents)
-    this.setState({LessonPLanComponents : [...this.state.LessonPLanComponents, Component]})
+  AddLessonPlanComponent = ( id, metaData, type) => {
+    console.log(
+      'This is from db, ', id
+      , 'This is the metaData', metaData
+      ,'This is the type', type )
+      const component = {id : id, name : metaData["name"], type: type}
+    this.setState({LessonPLanComponents : [...this.state.LessonPLanComponents, component]})
   }
   AddThemes = (ATheme) => {
-    console.log("asdfasf",ATheme, "This is a selected Themes")
+    //console.log("asdfasf",ATheme, "This is a selected Themes")
     let newList = new Array();
     newList=[1]
     if(this.state.SelectedThemes.length === 0){
-      console.log('This is here')
+      //console.log('This is here')
       newList.push(ATheme)
     }
     else{
-      console.log('This is ow here')
+      //console.log('This is ow here')
       newList = [1,2,3, ATheme];
     }
     
-    console.log('This is the new list ',  newList)
+    //console.log('This is the new list ',  newList)
     this.setState({SelectedThemes : newList})
   }
 
   ChangeAction = (action) => {
     this.setState({Action:action})
+  }
+
+  UploadLessonPLan = () => {
+    let valid = true
+    const themes = sessionStorage.getItem("LessonThemes").split(',')
+
+    if(this.state.LessonPLanName === null){
+      this.setState({NameError: true})
+      valid = false
+    }
+    if(themes === null || themes.length < 1 ){
+      this.setState({ThemeError:true})
+      valid = false
+    }
+    if(valid === false){
+      return
+    }
+    let documentIds = []
+    this.state.LessonPLanComponents.forEach((document) => {
+      documentIds.push(document.id)
+    })
+    const uploadLessonDTO ={
+      LessonPLanName: this.state.LessonPLanName,
+      Themes: themes,
+      DocumentIds: documentIds
+    }
+    console.log(uploadLessonDTO)
   }
   
  /* RemoveThemes = (RemoveTheme, index) => {
@@ -47,20 +80,30 @@ class CreateSmartContainer extends Component {
   RemoveThemes = () => {
     console.log("hmmm")
   }
+
+  LessonPlanNameChangeHandler = (event) => {
+    this.setState({LessonPLanName : event.target.value})
+  }
   render() {
-    console.log(this.state.SelectedThemes, "Hello")
+    console.log('This is the state of the lesson plan smart container',this.state, this.props)
     return (
       <Filler>
         <CreateDumbComponent
+          //properties
           isNew={this.state.IsNew}
           documentTypes={this.state.DocumentTypes}
-          alterThemes={this.AddThemes}
-          deleteTheme={this.RemoveThemes}
           themes={this.state.SelectedThemes}
           components={this.state.LessonPLanComponents}
           action={this.state.Action}
+          lessonPLanName={this.state.LessonPLanName}
+          //Methods
+          lessonPlanNameChangeHandler={this.LessonPlanNameChangeHandler}
+          uploadLessonPLan={this.UploadLessonPLan}
           changeAction={this.ChangeAction}
           addComponent={this.AddLessonPlanComponent}
+          alterThemes={this.AddThemes}
+          deleteTheme={this.RemoveThemes}
+
         ></CreateDumbComponent>
       </Filler>
     );

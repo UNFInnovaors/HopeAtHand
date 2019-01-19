@@ -41,7 +41,19 @@ namespace HopeAtHand.AzureHelper
 
             // Get reference to the blob container by passing the name by reading the value from the configuration (appsettings.json)
             CloudBlobContainer container = blobClient.GetContainerReference(_storageConfig.ImageContainer);
+            int x = 0;
+            if (await container.GetBlockBlobReference(fileName).ExistsAsync())
+            {
+                fileName = x.ToString() + fileName;
 
+                while (await container.GetBlockBlobReference(fileName).ExistsAsync())
+                {
+                    x++;
+                    fileName = fileName.Remove(0, 1);
+                    fileName = x.ToString() + fileName;
+
+                }
+            }
             // Get the reference to the block blob from the container
             CloudBlockBlob blockBlob = container.GetBlockBlobReference(fileName);
 

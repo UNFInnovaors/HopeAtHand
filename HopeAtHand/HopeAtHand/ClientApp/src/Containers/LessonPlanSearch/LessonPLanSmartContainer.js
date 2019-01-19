@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import LessonPLanDumbComponent from './LessonPLanSearchDumbComponent'
+import LessonPLanDumbComponent from './Layout/LessonPLanSearchDumbComponent'
 import axios from 'axios'
 
 class LessonPLanSmartContainer extends Component{
@@ -21,7 +21,6 @@ class LessonPLanSmartContainer extends Component{
     };
     /** Changes the state of theme to the selected option */
     ChangeTheme = event => {
-        console.log('Something has Happened', event.target.value)
         this.setState({ Theme: event.target.value });
     };
     Search = () => {
@@ -32,13 +31,10 @@ class LessonPLanSmartContainer extends Component{
         axios
             .post('https://localhost:44365/api/search/findlessonplan', lessie)
             .then(res => {
-            console.log(res);
             this.setState({ Lessons: res.data });
             });
     };
     SelectLesson = (event,index) => {
-        console.log('This is happeneing')
-        console.log(index)
         this.setState({
             ChosenLesson: this.state.Lessons[Number(index)]
         });
@@ -46,7 +42,6 @@ class LessonPLanSmartContainer extends Component{
 
     ChangePoemHandler = selectedPoem => {
     let chosenLesson = JSON.parse(JSON.stringify(this.state.ChosenLesson));
-    console.log(chosenLesson);
     chosenLesson.poemId = selectedPoem.poemId;
     chosenLesson.poem = selectedPoem;
     this.setState({ ChosenLesson: chosenLesson });

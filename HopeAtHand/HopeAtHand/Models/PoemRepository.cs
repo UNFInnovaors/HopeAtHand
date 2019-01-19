@@ -17,7 +17,7 @@ namespace HopeAtHand.Models
 
         public IEnumerable<Poem> GetPoem(string poemTagResult, string poemThemeResult)
         {
-            IEnumerable<Poem> PoemPieces = (IEnumerable<Poem>)PoemRepo.Poems.Values.Where(P => P.Tag == poemTagResult || P.Themes.First().ThemeName == poemThemeResult).ToList();
+            IEnumerable<Poem> PoemPieces = (IEnumerable<Poem>)PoemRepo.Poems.Values.Where(P => P.Themes.First().ThemeName == poemThemeResult).ToList();
 
             return PoemPieces;
         }

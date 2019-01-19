@@ -33,7 +33,7 @@ class ThemeSelect extends Component {
     for(let x = 0 ; x < selectedOption.length; x++){
       newThemes[x] = selectedOption[x].label
     }
-    sessionStorage.setItem('Themes', newThemes)
+    sessionStorage.setItem('LessonThemes', newThemes)
   };
 
   render() {

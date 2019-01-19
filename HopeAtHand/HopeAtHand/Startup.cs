@@ -7,6 +7,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using HopeAtHand.Models;
 using Microsoft.EntityFrameworkCore;
+using HopeAtHand.Models.Managers;
 
 namespace HopeAtHand
 {
@@ -26,6 +27,10 @@ namespace HopeAtHand
 
             services.AddTransient<ILessonPlanRepository, LessonPlanRepository>();
             services.AddTransient<IPoemRepo, PoemRepository>();
+            services.AddTransient<IThemeManager, ThemeManager>();
+            services.AddTransient<IArtPieceManager, ArtPieceManager>();
+            services.AddTransient<IPoemManager, PoemManager>();
+            services.AddTransient<IWritingTemplateManager, WritingTemplateManager>();
 
             services.AddCors();
             services.AddOptions();

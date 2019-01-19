@@ -2,7 +2,7 @@ import React from 'react';
 import Poem from './UploadPoem/UploadPoem';
 import Writing from './UploadWritingTemplate/UploadWritingAssignment';
 import Art from './ArtPiece/UploadArtPiece';
-import { Grid, Paper, Typography, Button } from '@material-ui/core';
+import { Grid, Paper, Typography, Button, CircularProgress, Snackbar } from '@material-ui/core';
 import ReusableSelect from '../../../components/UI Components/ReuseableSelect';
 import ThemeSelect from '../../../components/UI/ThemeSelect/ThemeSelect';
 import ThemeBox from '../../../components/UI/ThemeBox/ThemeBox'
@@ -10,7 +10,6 @@ import Filler from '../../../components/HOC/Filler';
 import UploadImage from './UploadImage/UploadImage';
 
 const uploadDocumentDumbContainer = (props) => {
-    console.log('this is the dubiesProps', props);
     let uploadComponent=<div></div>
     switch(props.selectedDocumentType)
     {
@@ -18,21 +17,62 @@ const uploadDocumentDumbContainer = (props) => {
             uploadComponent=<div></div>
         break;
         case 'Poem':
-            uploadComponent=<Poem postData={props.postData} selectFile={props.selectFile} fileToUpload={props.fileToUpload} updateTheme={props.updateTheme} poemDataChangeHandler={props.poemDataChangeHandler}></Poem>
+            uploadComponent=
+                <Poem 
+                    postData={props.postData} 
+                    selectFile={props.selectFile} 
+                    fileToUpload={props.fileToUpload} 
+                    updateTheme={props.updateTheme} 
+                    poemDataChangeHandler={props.poemDataChangeHandler}>
+                </Poem>
         break;
         case 'Writing Template':
-            uploadComponent=<Writing></Writing>
+            uploadComponent=<Writing
+                        postData={props.postData} 
+                        selectFile={props.selectFile} 
+                        fileToUpload={props.fileToUpload} 
+                        updateTheme={props.updateTheme} 
+                        poemDataChangeHandler={props.poemDataChangeHandler}>
+                        </Writing>
         break;
         case 'Art Piece':
-            uploadComponent=<Art></Art>
+            uploadComponent=<Art 
+                    postData={props.postData} 
+                    selectFile={props.selectFile} 
+                    fileToUpload={props.fileToUpload} 
+                    updateTheme={props.updateTheme} 
+                    poemDataChangeHandler={props.poemDataChangeHandler}>
+                    </Art>
         break;
         default:
             uploadComponent=<p>Error {props.selectedDocumentType}</p>
         break;
     }
+    if(props.loading)
+    {
+        return(
+            <Grid container item spacing={24}>
+                <Grid item xs={12}><Typography variant="h2" align="center">Upload</Typography></Grid>
+                <Grid style={{marginTop:'2.5%'}} item xs={12}><Typography align='center'>Loading</Typography></Grid>
+                <Typography variant='body1' align='center'><CircularProgress/></Typography>
+            </Grid>
+        )
+    }
     return(
+        <Filler>
+            <Snackbar message="Upload Successful"
+            anchorOrigin={{
+            vertical: 'bottom',
+            horizontal: 'left',
+            }}
+            open={props.success === true}
+            autoHideDuration={6000}
+            onClose={props.close}
+        >
+        </Snackbar>
         <Grid container item spacing={24}>
         <Grid item xs={12}><Typography variant="h2" align="center">Upload</Typography></Grid>
+        
         <Grid item xs={3}></Grid>
             <Grid item xs={6}>
                 <ReusableSelect 
@@ -55,7 +95,9 @@ const uploadDocumentDumbContainer = (props) => {
                                                 uploadImage={props.uploadImage}
                                                 uploadedImages={props.uploadedImages}
                                                 showImageInterface={props.showImageInterface}
-                                                selectedDocumentType = {props.selectedDocumentType}></UploadImage></Grid>
+                                                selectedDocumentType = {props.selectedDocumentType}
+                                                selectFile = {props.selectFile}
+                                    ></UploadImage></Grid>
 
             </Grid>
             {( props.selectedDocumentType !== null ?
@@ -75,6 +117,7 @@ const uploadDocumentDumbContainer = (props) => {
                 <Grid xs={4}></Grid>
             </Grid></Filler> : "")}
             </Grid>
+        </Filler>
     );
 }
 export default uploadDocumentDumbContainer

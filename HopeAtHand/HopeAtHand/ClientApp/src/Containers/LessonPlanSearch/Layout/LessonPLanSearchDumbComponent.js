@@ -1,10 +1,8 @@
 import React from 'react'
-import DisplayLessonPlan from './LessonPlanMethods';
+import DisplayLessonPlan from './LessonPlanContent/LessonPlanMethods';
+import ReuseableSelect from '../../../components/UI Components/ReuseableSelect';
 
 import { Grid, Button, Typography, Divider, Select } from '@material-ui/core';
-import ReuseableSelect from '../../components/UI Components/ReuseableSelect';
-import ColorPicker from '../../components/UI Components/ColorPicker';
-
 
 const lessonPlanSearchDumbComponent = (props) => {
 

@@ -18,12 +18,10 @@ class PoemSearch extends Component {
 
   SelectHandler = event => {
     //STATE DOESN'T UPDATE UNTIL RENDER
-    console.log('this is the event', event);
     this.setState({ theme: event.target.value });
   };
 
   searchValueHandler = event => {
-    console.log('this is the text event', event);
     this.setState({ searchValue: event.target.value });
   };
 
@@ -32,7 +30,6 @@ class PoemSearch extends Component {
     axios
       .post('https://localhost:44365/api/Search/GetPoemSearchText', poemObject)
       .then(res => {
-        console.log(res);
         this.setState({ PoemSearchResult: res.data });
       });
   };
@@ -49,10 +46,6 @@ class PoemSearch extends Component {
 
   render() {
     //CODE LOGIC, CONSOLE.LOG STUFF
-
-    console.log('this is the text state', this.state.searchValue);
-    console.log('this is the state', this.state.theme);
-    console.log('his is showPoem state', this.state.ShowPoem);
     let renderingButton = <div />;
     if (this.state.ShowPoem == true) {
       renderingButton = (
@@ -106,8 +99,6 @@ class PoemSearch extends Component {
       );
     } else {
       poemsearchresult = this.state.PoemSearchResult.map(localName => {
-        console.log('this is the localname', localName);
-
         return (
           <div>
             {localName.title}

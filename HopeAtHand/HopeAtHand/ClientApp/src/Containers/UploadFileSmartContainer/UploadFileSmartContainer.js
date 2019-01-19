@@ -6,9 +6,26 @@ import 'azure-storage'
 import UploadDumbContainer from './UploadDumbContainer/UploadDumbContainer'
 import { BlobService } from 'azure-storage';
 
-class UploadFileSmartContainer extends React.Component {
+class UploadFileSmartContainer extends Component {
   state = {
     selectedOption: null,
+    Loading: false,
+    FileToUpload:null,
+    Images:null,
+    DocumentTypes:['Please Choose The Document Type To Upload','Poem', 'Writing Template', 'Art Piece'],
+    SelectedDocumentType:null,
+    Themes:[],
+    DataAsKVP:{},
+    ShouldImageBeUploaded:false,
+    ImagesToUpload:[],
+    Success: false,
+    Error: null
+
+  }
+
+  initialState= {
+    selectedOption: null,
+    Loading: false,
     account : {
       name: "htmljs",
       sas:  "se=2040-12-12&sp=rwdlac&sv=2018-03-28&ss=b&srt=sco&sig=kof64cpIlp9%2BVwnJxOKhRJbixLKu0mbria10AbNvZuM%3D"
@@ -20,11 +37,11 @@ class UploadFileSmartContainer extends React.Component {
     Images:null,
     DocumentTypes:['Please Choose The Document Type To Upload','Poem', 'Writing Template', 'Art Piece'],
     SelectedDocumentType:null,
-    Themes:null,
+    Themes:[],
     DataAsKVP:{},
     ShouldImageBeUploaded:false,
     ImagesToUpload:[],
-
+    Success: true
   }
 
   componentDidMount(){
@@ -39,14 +56,13 @@ class UploadFileSmartContainer extends React.Component {
   selectDocumentType = (value) => {
     this.setState({SelectedDocumentType: value})
   }
-  UpdateThemes=(newThemes)=> {
-    this.setState({Themes:newThemes})
+  UpdateThemes= (newThemes) => {
+    this.setState({Themes: newThemes})
   }
   showImageInterface = (event) => {
     this.setState({ShouldImageBeUploaded: event.target.checked})
   }
   validator = (validationArray, id) => {
-    console.log(validationArray, id)
     let valid = true
     let contName = document.getElementById(id).value
     for(let x = 0 ; x < validationArray.length; x++)
@@ -81,7 +97,6 @@ class UploadFileSmartContainer extends React.Component {
   }
 
   selectFile = (event) => {
-    console.log(event.target.files[0])
     this.setState({FileToUpload: event.target.files[0]})
     //axios.get('https://htmljs.blob.core.windows.net/images/Itinerary.docx').then(res => console.log(res))
     //this.listFile();
@@ -89,13 +104,11 @@ class UploadFileSmartContainer extends React.Component {
   selectImage=(event) => {
     let images = JSON.parse(JSON.stringify(this.state.ImagesToUpload));
     images.push(event.target.files[0]);
-    console.log(images)
     this.setState({ImagesToUpload:images});
   }
   uploadFile = () => {
     var azure=require('azure-storage');
     var location=require('path');
-    console.log(this.state.FileToUpload)
     var file=this.state.FileToUpload;
     var bodyFormData = new FormData();
     bodyFormData.set('file',this.state.FileToUpload)
@@ -108,20 +121,18 @@ class UploadFileSmartContainer extends React.Component {
         'Content-Type': 'multipart/form-data; boundary=absdfabs',
         'Content-Disposition': 'form-data'
     }}).then(res => {
-      console.log(res)
     })
   }
   listFile = () => {
-    var urls = axios.get('https://localhost:44365/api/blobCreator/CreateList').then(res => {console.log(res);
+    var urls = axios.get('https://localhost:44365/api/blobCreator/CreateList').then(res => {
                                                                                              this.setState({Images:res.data})})    
   }
   poemDataChangeHandler = (event) => {
-    console.log(event.target)
-    console.log(typeof(event.target.dataset.input))
     var someData = JSON.parse(JSON.stringify(this.state.DataAsKVP))
+    console.log(event.target.dataset.input)
     someData[event.target.dataset.input] = event.target.value
-    console.log(someData)
     this.setState({DataAsKVP:someData})
+    console.log(this.state.DataAsKVP)
     /*switch(event.target.dataset){
       case('1'):
         //
@@ -136,58 +147,80 @@ class UploadFileSmartContainer extends React.Component {
   }
   handleChange = (selectedOption) => {
     this.setState({ selectedOption });
-    console.log(`Option selected:`, selectedOption);
   }
+  validatePostData = () => {
+  if(sessionStorage.getItem('Themes') === null ||sessionStorage.getItem('Themes').length === 0 ){
+      this.setState({Error: "Themes"})
+      return false
+  }
+  let validationArray; 
+  switch(this.state.SelectedDocumentType){
+    case 'Poem' :
+      validationArray = ["Name", "Author"]
+      break;
+    case 'Writing Template' : 
+      validationArray = ["Name", "Grade"]
+      break;
+    case  'Art Piece' : 
+      validationArray = ["Name", "Supplies"]
+      break;
+  }
+}
+  
+  //Method used when uploading a file to a lesson plan
   postData = () => {
-    console.log('this is state' , this.state)
-    let DTO = {
-      values: this.state.DataAsKVP,
-    }
+   /*if(!this.validatePostData())
+      return*/
+
+    let themesForTransfer = sessionStorage.getItem('Themes')
     var file=this.state.FileToUpload;
+    
     var bodyFormData = new FormData();
-    for(let key in this.state.DataAsKVP)
-    {
-      bodyFormData.set(key, this.state.DataAsKVP[key])
-    }
-    let themesForTransfer = ''
-    for(let x = 0 ;x < this.state.Themes.length; x++)
-    {
-      if(x !== this.state.Themes.length -1)
-      {
-        themesForTransfer += this.state.Themes[x].themeId + ','
-      }
-      else
-      {
-        themesForTransfer += this.state.Themes[x].themeId
-      }
-      console.log(themesForTransfer)
-    }
+    bodyFormData.set('type', this.state.SelectedDocumentType)
     bodyFormData.set('theme', themesForTransfer)
     bodyFormData.set('file', file)
+    
     for(let y = 0 ; y < this.state.ImagesToUpload.length; y++){
       bodyFormData.set('file'+y +1, this.state.ImagesToUpload[y])
     }
-    /*
+
+    for(let key in this.state.DataAsKVP){
+      bodyFormData.set(key, this.state.DataAsKVP[key])
+      //console.log(this.state.DataAsKVP[key], key)
+    }
+
     axios.post('https://localhost:44365/api/blobCreator/createNewBlob',bodyFormData,{
       headers:{
-        'Content-Type': 'multipart/form-data; boundary=absdfabs',
-        'Content-Disposition': 'form-data'
-    }}).then(res => {
-      console.log(res)
-    })*/
-    this.props.addComponent(bodyFormData);
+                    'Content-Type': 'multipart/form-data; boundary=absdfabs',
+                    'Content-Disposition': 'form-data'
+     }}).then(res => {
+        console.log(res)
+        if(res.data === -1){
+          this.setState({Loading: false, Error: true})
+        }
+        //Should only call this method if we are sending the data to the create lesson plan component. 
+        this.props.addComponent(res.data, this.state.DataAsKVP, this.state.SelectedDocumentType );
+        this.setState({...this.initialState})
+        sessionStorage.removeItem("Themes")
+    })
+    this.setState({Loading: true})
+  }
+  CloseSnackbar = () => {
+    this.setState({Success: false})
   }
   render() {
-    console.log('this is theme in the smart conntainner', this.state)
     return(
     <UploadDumbContainer 
                         //Properties
+                        loading={this.state.Loading}
                         themes={this.state.Themes} 
+                        updateTheme={this.UpdateThemes}
                         documentTypes={this.state.DocumentTypes} 
                         fileToUpload={this.state.FileToUpload}
                         shouldImagesBeUploaded={this.state.ShouldImageBeUploaded}
                         uploadedImages={this.state.ImagesToUpload}
                         showImageInterface={this.showImageInterface}
+                        success={this.state.Success}
                         //Methods
                         selectDocumentFunction={this.selectDocumentType} 
                         selectedDocumentType={this.state.SelectedDocumentType}
@@ -197,6 +230,7 @@ class UploadFileSmartContainer extends React.Component {
                         postData={this.postData}
                         uploadImage={this.selectImage}
                         changeThemes={this.state.handleChange}
+                        close={this.CloseSnackbar}
                         //Props
                         addComponent={this.props.addComponent} />
                         

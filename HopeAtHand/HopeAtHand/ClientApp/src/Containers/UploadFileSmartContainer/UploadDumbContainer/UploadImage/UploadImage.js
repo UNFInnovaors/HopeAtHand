@@ -3,7 +3,6 @@ import Filler from '../../../../components/HOC/Filler';
 import { Button, TextField, Grid, Typography, Checkbox, Paper } from '@material-ui/core'
 
 const uploadImage = (props) => {
-    console.log('The Default type is' , props.selectedDocumentType)
     let uploadInterface, uploadDetails, uploadFile = <div></div>
     if(props.selectedDocumentType !== null)
     {
