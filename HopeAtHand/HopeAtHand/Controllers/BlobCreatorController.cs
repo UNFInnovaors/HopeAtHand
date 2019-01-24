@@ -30,7 +30,10 @@ namespace HopeAtHand.Controllers
         private readonly IWritingTemplateManager WritingTemplate;
         private readonly IArtPieceManager ArtPieceManager;
 
-        public BlobCreatorController(IOptions<AzureStorageConfig> config, IPoemManager poemManager, IWritingTemplateManager writingTemplate, IArtPieceManager artPieceManager)
+        public BlobCreatorController(IOptions<AzureStorageConfig> config, 
+                                    IPoemManager poemManager, 
+                                    IWritingTemplateManager writingTemplate, 
+                                    IArtPieceManager artPieceManager)
         {
             storageConfig = config.Value;
             this.poemManager = poemManager;

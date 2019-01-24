@@ -11,6 +11,7 @@ namespace HopeAtHand.Models.Managers
         List<string> GetThemes();
         string CreateTheme(string themeName);
         string ConnectEntity(List<Themes> Themes, int ID, string type);
+        string ConnectEntity(List<string> Themes, int ID, string type);
     }
     /*Responsible for CRUD oppurations on Themes*/
     public class ThemeManager : IThemeManager
@@ -65,6 +66,35 @@ namespace HopeAtHand.Models.Managers
             Data.SaveChanges();
             //Data.Database.ExecuteSqlCommand("SET IDENTITY_INSERT dbo.PoemThemes OFF");
             
+
+            return "Success";
+        }
+    
+        public string ConnectEntity(List<string> Themes, int ID, string type)
+        {
+            if (Themes.Count() < 1)
+            {
+                return "No Themes To Add";
+            }
+
+            foreach (string theme in Themes)
+            {
+                
+                if (type == "Poem")
+                    Data.PoemThemes.Add(new PoemThemes { ThemeName = theme, PoemId = ID });
+                else if (type == "Lesson Plan")
+                    Data.LessonThemes.Add(new LessonThemes { ThemeName = theme, LessonId = ID });
+                else if (type == "Writing")
+                    Data.WritingThemes.Add(new WritingThemes { ThemeName = theme, WritingAssignemntId = ID });
+                else if (type == "Art")
+                    Data.ArtThemes.Add(new ArtThemes { ThemeName = theme, ArtPieceId = ID });
+                else
+                    return "Invalid document type";
+            }
+            //Data.Database.ExecuteSqlCommand("SET IDENTITY_INSERT dbo.PoemThemes ON");
+            Data.SaveChanges();
+            //Data.Database.ExecuteSqlCommand("SET IDENTITY_INSERT dbo.PoemThemes OFF");
+
 
             return "Success";
         }

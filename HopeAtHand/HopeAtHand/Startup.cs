@@ -31,6 +31,7 @@ namespace HopeAtHand
             services.AddTransient<IArtPieceManager, ArtPieceManager>();
             services.AddTransient<IPoemManager, PoemManager>();
             services.AddTransient<IWritingTemplateManager, WritingTemplateManager>();
+            services.AddTransient<IDocumentConnector, DocumentConnector>();
 
             services.AddCors();
             services.AddOptions();

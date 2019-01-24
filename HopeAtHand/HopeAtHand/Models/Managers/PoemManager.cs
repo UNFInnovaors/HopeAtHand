@@ -19,6 +19,7 @@ namespace HopeAtHand.Models.Managers
     {
          int CreatePoem(CreatePoemData create);
     }
+
     public class PoemManager : IPoemManager
     {
         ApplicationDbContext Data;
