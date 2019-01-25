@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace HopeAtHand.Controllers
 {
+    [Route("api/[controller]/[Action]")]
     public class LessonPlanController : Controller
     {
         private readonly ILessonPlanCreateManager LessonPlanCreation;

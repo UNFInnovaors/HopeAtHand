@@ -19,6 +19,8 @@ namespace HopeAtHand.Models
             modelBuilder.Entity<LessonPlan_ArtPiece>().HasOne( o =>o.ArtPiece).WithMany( o => o.Lesson_Art).HasForeignKey( o => o.ArtPieceId);
             modelBuilder.Entity<LessonPlan_ArtPiece>().HasOne(o => o.LessonPlan).WithMany(o => o.Lesson_Art).HasForeignKey(o => o.LessonPlanId);
 
+            modelBuilder.Entity<Favorite>().HasKey(at => new { at.DocumentID, at.FacilitatorID });
+
             modelBuilder.Entity<Poem>().Property(p => p.PoemId).ValueGeneratedOnAdd();
 
             modelBuilder.Entity<LessonPlan_Poem>().HasKey(at => new { at.LessonPlanId, at.PoemId });
@@ -67,6 +69,10 @@ namespace HopeAtHand.Models
         public DbSet<WritingAssignment> WritingAssignments{get;set;}
 
         public DbSet<ArtPiece> ArtPieces {get;set;}
+
+        public DbSet<Facilitator> Facilitators {get;set;}
+
+        public DbSet<Favorite> Favorites { get; set; }
 
     }
 }

@@ -8,6 +8,7 @@ using Microsoft.Extensions.DependencyInjection;
 using HopeAtHand.Models;
 using Microsoft.EntityFrameworkCore;
 using HopeAtHand.Models.Managers;
+using HopeAtHand.SearchRepositories;
 
 namespace HopeAtHand
 {
@@ -32,6 +33,15 @@ namespace HopeAtHand
             services.AddTransient<IPoemManager, PoemManager>();
             services.AddTransient<IWritingTemplateManager, WritingTemplateManager>();
             services.AddTransient<IDocumentConnector, DocumentConnector>();
+            services.AddTransient<ILessonPlanCreateManager, LessonPlanCreateManager>();
+            services.AddTransient<IUserManager, UserManager>();
+            services.AddTransient<IFavoriteManager, FavoriteManager>();
+            services.AddTransient<IPoemSearchRepository, PoemSearchRepository>();
+            services.AddTransient<IWritingAssignmentSearchRepository, WritingAssignmentSearchRepository>();
+            services.AddTransient<IArtPieceSearchRepository, ArtPieceSearchRepository>();
+            services.AddTransient<ILessonPlanSearchRepository, LessonPlanSearchRepository>();
+            services.AddTransient<IThemeSearchRepositroy, ThemeSearchRepository>();
+
 
             services.AddCors();
             services.AddOptions();

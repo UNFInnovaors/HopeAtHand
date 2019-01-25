@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Filler from '../../components/HOC/Filler';
 import CreateDumbComponent from './CreateDumbComponent';
+import Axios from 'axios';
 
 class CreateSmartContainer extends Component {
   state = {
@@ -12,6 +13,7 @@ class CreateSmartContainer extends Component {
     Action : null,
     NameError: false,
     ThemeError: false,
+    ImageUrl:""
   };
   AddLessonPlanComponent = ( id, metaData, type) => {
     console.log(
@@ -44,13 +46,13 @@ class CreateSmartContainer extends Component {
 
   UploadLessonPLan = () => {
     let valid = true
-    const themes = sessionStorage.getItem("LessonThemes").split(',')
+    const themesForTransfer = sessionStorage.getItem("LessonThemes").split(',')
 
     if(this.state.LessonPLanName === null){
       this.setState({NameError: true})
       valid = false
     }
-    if(themes === null || themes.length < 1 ){
+    if(themesForTransfer === null || themesForTransfer.length < 1 ){
       this.setState({ThemeError:true})
       valid = false
     }
@@ -63,10 +65,19 @@ class CreateSmartContainer extends Component {
     })
     const uploadLessonDTO ={
       LessonPLanName: this.state.LessonPLanName,
-      Themes: themes,
+      Themes: themesForTransfer,
       DocumentIds: documentIds
     }
+    const LessonPlanCreationDTO = {
+      name: this.state.LessonPLanName,
+      themes: themesForTransfer,
+      documents: documentIds,
+      imageUrl: this.state.ImageUrl
+    }
+    console.log(LessonPlanCreationDTO)
     console.log(uploadLessonDTO)
+    Axios.post("/API/LessonPlan/SaveLesson", LessonPlanCreationDTO).then(response => console.log(response)).catch(err => console.log(err))
+    
   }
   
  /* RemoveThemes = (RemoveTheme, index) => {

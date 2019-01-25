@@ -4,14 +4,16 @@ using HopeAtHand.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace HopeAtHand.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20190125013729_Favorites")]
+    partial class Favorites
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -64,21 +66,6 @@ namespace HopeAtHand.Migrations
                     b.HasKey("FacilitatorID");
 
                     b.ToTable("Facilitators");
-                });
-
-            modelBuilder.Entity("HopeAtHand.Models.Favorite", b =>
-                {
-                    b.Property<int>("DocumentID");
-
-                    b.Property<int>("FacilitatorID");
-
-                    b.Property<string>("DocumentType");
-
-                    b.HasKey("DocumentID", "FacilitatorID");
-
-                    b.HasIndex("FacilitatorID");
-
-                    b.ToTable("Favorites");
                 });
 
             modelBuilder.Entity("HopeAtHand.Models.LessonPlan", b =>
@@ -231,14 +218,6 @@ namespace HopeAtHand.Migrations
                     b.HasOne("HopeAtHand.Models.ArtPiece")
                         .WithMany("ArtThemes")
                         .HasForeignKey("ArtPieceId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("HopeAtHand.Models.Favorite", b =>
-                {
-                    b.HasOne("HopeAtHand.Models.Facilitator", "Facilitator")
-                        .WithMany()
-                        .HasForeignKey("FacilitatorID")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 

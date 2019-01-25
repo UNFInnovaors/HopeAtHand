@@ -6,9 +6,22 @@ using System.Threading.Tasks;
 
 namespace HopeAtHand.Models
 {
+    public class Facilitator {
+        public int FacilitatorID { get; set; }
+        public string Username { get;set;} 
+        public string Role {get;set;}
+    }
+
+    public class Favorite
+    {
+        public int FacilitatorID { get; set; }
+        public Facilitator Facilitator { get; set; }
+        public int DocumentID { get; set; }
+        public string DocumentType { get; set; }
+    }
+
     public class Poem
     {
-        
         public int PoemId { get; set; }
         public string Title { get; set; }
         public string Author { get; set; }
@@ -71,9 +84,6 @@ namespace HopeAtHand.Models
 
         public int ArtPieceId { get; set; }
         public ArtPiece ArtPiece { get; set; }
-
-
-
     }
     public class AzureStorageConfig
     {
