@@ -31,7 +31,7 @@ namespace HopeAtHand.SearchRepositories
             List<WritingAssignment> WritingAssignments;
 
             if (WritingAssignmentSearchDTO.Name.Length > 0 && WritingAssignmentSearchDTO.AgeGroups.Length > 0)
-                return WritingAssignments = Data.WritingAssignments.Where(p => p.Title.ToLower().Contains(WritingAssignmentSearchDTO.Name) || p.AgeGroup.ToLower().Contains(WritingAssignmentSearchDTO.SuppliesNeeded)).ToList();
+                return WritingAssignments = Data.WritingAssignments.Where(p => p.Title.ToLower().Contains(WritingAssignmentSearchDTO.Name) || p.AgeGroup.ToLower().Contains(WritingAssignmentSearchDTO.AgeGroups)).ToList();
             else if (WritingAssignmentSearchDTO.AgeGroups.Length > 0 && WritingAssignmentSearchDTO.Name.Length == 0)
                 return WritingAssignments = Data.WritingAssignments.Where(p => p.AgeGroup.ToLower().Contains(WritingAssignmentSearchDTO.AgeGroups)).ToList();
             else if (WritingAssignmentSearchDTO.AgeGroups.Length == 0 && WritingAssignmentSearchDTO.Name.Length > 0)

@@ -51,7 +51,8 @@ namespace HopeAtHand.Controllers
         [HttpPost]
         public IActionResult SearchForPoems([FromBody] PoemSearchDTO poemSearchDTO)
         {
-            return Ok(poemSearch.SeachForPoem(poemSearchDTO));
+            var result = (poemSearch.SeachForPoem(poemSearchDTO));
+            return Ok(result);
         }
         [HttpPost]
         public IActionResult SearchForArtPieces([FromBody] ArtPieceSearchDTO artSearchDTO)

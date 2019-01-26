@@ -16,11 +16,10 @@ namespace HopeAtHand.Controllers
             this.favoriteManager = favoriteManager;
         }
 
-
         [HttpPost]
         public IActionResult AddFavorite([FromBody] FavoriteCreateDTO favoriteDTO)
         {
-                
+            favoriteManager.CreateFavoriate(favoriteDTO);
             return Ok();
         }
     }

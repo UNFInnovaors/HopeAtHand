@@ -5,6 +5,7 @@ import UploadFileSmartContainer from './Containers/UploadFileSmartContainer/Uplo
 import Admin from './Containers/Admin/AdminSmart'
 import LogIn from './Containers/LogInForm/LoginSmartContainer'
 import CreateTheme from './Containers/CreateTheme/CreateTheme'
+import Search from './Containers/PrimarySearchComponent/SearchSmartContainer'
 import { Route, Redirect } from 'react-router-dom'
 import Filler from './components/HOC/Filler';
 import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
@@ -105,7 +106,8 @@ export default class App extends Component {
             <Route path="/Search" exact render={(props) => 
               <LessonPLanSmartContainer/>}>
             </Route>
-      
+            <Route path="/Search2" exact render={(props) => 
+             <Search/>}/>
             <Route path="/Upload" exact render={(props) => 
               <UploadFileSmartContainer/>}>
             </Route>

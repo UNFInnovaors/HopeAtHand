@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import TargetAPI from '../../components/Axios/Instances'
+import {createInstance} from '../../components/Axios/Instances'
 import CreateThemeInterface from './CreateThemeComponents/CreateThemeLayout'
 import Filler from '../../components/HOC/Filler';
 
@@ -19,7 +19,7 @@ class CreateThemeSmartContainer extends Component{
         //this.CreateTheme();
     }
     CreateTheme = () => {
-        const targetAPI = new TargetAPI();
+        const targetAPI = new createInstance();
         const axiosInstance = targetAPI.createInstance();
         let CreateThemeDTO = {
             ThemeName : this.state.ThemeName
