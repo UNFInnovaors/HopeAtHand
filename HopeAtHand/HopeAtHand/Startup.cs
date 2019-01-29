@@ -24,7 +24,9 @@ namespace HopeAtHand
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1).AddJsonOptions(
+            options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
+       
 
             services.AddTransient<ILessonPlanRepository, LessonPlanRepository>();
             services.AddTransient<IPoemRepo, PoemRepository>();

@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import LessonPlanSearch from '../../LessonPlanSearch/LessonPLanSmartContainer';
+import LessonPlanSearch from '../../PrimarySearchComponent/SearchSmartContainer';
 import Upload from '../../UploadFileSmartContainer/UploadFileSmartContainer'
 import { Grid } from '@material-ui/core';
 
@@ -8,7 +8,10 @@ const createAction = (props) => {
     switch(props.action)
     {
         case('search') :
-            action = <LessonPlanSearch isUpload={props.isUpload} addComponent={props.addComponent}/>
+            action = <LessonPlanSearch isUpload={props.isUpload} 
+                                        addComponent={props.addComponent} 
+                                        addToLesson={props.addToLesson}
+                                        removeFromLesson={props.removeFromLesson}/>
         break;
         case('create') :
             action = <Upload isUpload={props.isUpload} addComponent={props.addComponent}/>

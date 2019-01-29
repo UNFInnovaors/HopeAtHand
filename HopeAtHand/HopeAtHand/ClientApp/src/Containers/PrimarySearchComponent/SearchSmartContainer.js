@@ -40,16 +40,20 @@ class PrimarySearchSmartContainer extends Component{
 
             <Layout  
                 documentTypes={this.state.DocumentTypes}
-                searchOptions={this.state.SearchOptions}                
+                searchOptions={this.state.SearchOptions} 
+                isUpload={this.props.isUpload}               
             
                 searchString={this.state.SearchString}
                 selectedSearchDomain={this.state.ChosenSearchOption}
 
                 chooseSearchString={this.ChooseSearchString}
                 selectSearchDomain={this.ChooseSearchOption}
+                addToLesson={this.props.addToLesson}
+                
                 
                 searchResults={this.state.SearchResults}  
                 setSearchResults={this.SetSearchResults}
+                
             ></Layout>
 
         )

@@ -71,6 +71,7 @@ class LessonPLanSmartContainer extends Component{
                     //Props
                     isUpload={this.props.isUpload}
                     addComponent={this.props.addComponent}
+                    
 
                 />
             </div>)

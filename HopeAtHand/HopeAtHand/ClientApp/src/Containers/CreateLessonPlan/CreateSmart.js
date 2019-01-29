@@ -9,7 +9,7 @@ class CreateSmartContainer extends Component {
     LessonPLanName: '',
     DocumentTypes: ['Poem', 'Writing Template', 'Art Piece'],
     SelectedThemes: [],
-    LessonPLanComponents : [],
+    LessonPlanComponents : [],
     Action : null,
     NameError: false,
     ThemeError: false,
@@ -21,7 +21,25 @@ class CreateSmartContainer extends Component {
       , 'This is the metaData', metaData
       ,'This is the type', type )
       const component = {id : id, name : metaData["name"], type: type}
-    this.setState({LessonPLanComponents : [...this.state.LessonPLanComponents, component]})
+    this.setState({LessonPlanComponents : [...this.state.LessonPlanComponents, component]})
+  }
+  AddLessonFromSearch = (documentToAdd) => {  
+    console.log(documentToAdd, 'this is in create Lesson Smart')
+    let id = null
+    let component = {id : "Error", name :"Error", type: "Error"}
+    if(documentToAdd.poemId)
+    {
+      component = {id : documentToAdd.poemId, name :documentToAdd.title, type: "Poem"}
+    }
+    else if(documentToAdd.artPieceId)
+    {
+      component = {id : documentToAdd.poemId, name :documentToAdd.title, type: "Art Piece"}
+    }
+    else if(documentToAdd.writingAssignmentId)
+    {
+      component = {id : documentToAdd.poemId, name :documentToAdd.title, type: "Writing Assignment"}
+    }
+    this.setState({LessonPlanComponents : [...this.state.LessonPlanComponents, component]})
   }
   AddThemes = (ATheme) => {
     //console.log("asdfasf",ATheme, "This is a selected Themes")
@@ -44,6 +62,13 @@ class CreateSmartContainer extends Component {
     this.setState({Action:action})
   }
 
+  RemoveDocumentFromPlan = (index) => {
+    let current = [...this.state.LessonPlanComponents]  
+    current.splice(index,1)
+    console.log(current, 'this is current')
+    this.setState({LessonPlanComponents: current})
+  }
+
   UploadLessonPLan = () => {
     let valid = true
     const themesForTransfer = sessionStorage.getItem("LessonThemes").split(',')
@@ -60,7 +85,7 @@ class CreateSmartContainer extends Component {
       return
     }
     let documentIds = []
-    this.state.LessonPLanComponents.forEach((document) => {
+    this.state.LessonPlanComponents.forEach((document) => {
       documentIds.push(document.id)
     })
     const uploadLessonDTO ={
@@ -104,7 +129,7 @@ class CreateSmartContainer extends Component {
           isNew={this.state.IsNew}
           documentTypes={this.state.DocumentTypes}
           themes={this.state.SelectedThemes}
-          components={this.state.LessonPLanComponents}
+          components={this.state.LessonPlanComponents}
           action={this.state.Action}
           lessonPLanName={this.state.LessonPLanName}
           //Methods
@@ -114,6 +139,8 @@ class CreateSmartContainer extends Component {
           addComponent={this.AddLessonPlanComponent}
           alterThemes={this.AddThemes}
           deleteTheme={this.RemoveThemes}
+          addToLesson={this.AddLessonFromSearch}
+          removeFromLesson={this.RemoveDocumentFromPlan}
 
         ></CreateDumbComponent>
       </Filler>

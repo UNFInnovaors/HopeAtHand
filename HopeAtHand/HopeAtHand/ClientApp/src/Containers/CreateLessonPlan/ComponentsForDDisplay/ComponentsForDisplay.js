@@ -10,7 +10,7 @@ const ComponentsForDisplay = (props) => {
             <Typography variant="h5" align="center">Title : {item.name}</Typography>
             <Typography variant="h6" align="center">Document Type : {item.type}</Typography>
                 <Grid item xs={12}><Button fullWidth color="primary">View/Edit</Button></Grid>
-                <Grid item xs={12}><Button fullWidth color="primary">Remove from Lesson Plan</Button></Grid>
+                <Grid item xs={12}><Button fullWidth color="primary" variant='contained' onClick={() => props.removeFromLesson(index)}>Remove from Lesson Plan</Button></Grid>
             </Paper>
             </Grid>
         )

@@ -115,7 +115,11 @@ class CreateDumbComponent extends Component {
                     </Grid>
                     {(this.props.action !== null ?
                         <Paper style={{padding:28, width:'100%', margin:'5%', marginBottom: '1%', marginTop: '1%' }}>
-                            <Action addComponent={this.props.addComponent} action={this.props.action} isUpload={true} changeAction={this.props.changeAction}></Action>
+                            <Action addComponent={this.props.addComponent} 
+                                    action={this.props.action} isUpload={true} 
+                                    changeAction={this.props.changeAction}
+                                    addToLesson={this.props.addToLesson}
+                                    removeFromLesson={this.props.removeFromLesson}></Action>
                         </Paper> :
                     <div></div> )}
                    
@@ -128,6 +132,7 @@ class CreateDumbComponent extends Component {
                          : <Grid item xs={12}><Components 
                                                 components={this.props.components} 
                                                 uploadLessonPLan={this.props.uploadLessonPLan}
+                                                removeFromLesson={this.props.removeFromLesson}
                                             ></Components></Grid>)}     
                     
                 </Grid>

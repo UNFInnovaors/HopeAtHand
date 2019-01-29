@@ -26,9 +26,16 @@ namespace HopeAtHand.SearchRepositories
             List<Poem> poems;
 
             if (poemSearchDTO.Author.Length > 0 && poemSearchDTO.Name.Length > 0)
-                return poems = Data.Poems.Where(p => p.Title.ToLower().Contains(poemSearchDTO.Name) || p.Author.ToLower().Contains(poemSearchDTO.Author)).ToList();
+            {
+                poems = Data.Poems.Where(p => p.Title.ToLower().Contains(poemSearchDTO.Name) || p.Author.ToLower().Contains(poemSearchDTO.Author)).ToList();
+                foreach(var poem in poems)
+                {
+                    poem.Themes = Data.PoemThemes.Where(p => p.PoemId == poem.PoemId).ToList();
+                }
+                return poems;
+            }
             else if (poemSearchDTO.Author.Length > 0 && poemSearchDTO.Name.Length == 0)
-                return poems = Data.Poems.Where(p =>  p.Author.ToLower().Contains(poemSearchDTO.Author)).ToList();
+                return poems = Data.Poems.Where(p => p.Author.ToLower().Contains(poemSearchDTO.Author)).ToList();
             else if (poemSearchDTO.Author.Length == 0 && poemSearchDTO.Name.Length > 0)
                 return poems = Data.Poems.Where(p => p.Title.ToLower().Contains(poemSearchDTO.Name)).ToList();
             return new List<Poem>();

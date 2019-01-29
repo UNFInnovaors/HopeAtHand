@@ -14,10 +14,36 @@ class SearchForm extends Component{
     componentDidMount(){
 
     }
-
+    
     render(){
-        console.log('this is props in sarch form', this.props)
-        return(
+        console.log(this.props, 'in searchform')
+        if(this.props.isUpload === true)
+        {
+            return(
+                    <Grid container>
+                        <Heading>Search Form</Heading>
+                        <Grid item xs={3}></Grid>
+                        
+                        <Grid item xs={6}>
+                            <ReusableSelect 
+                                label="What Would You Like To Search For"
+                                changeStateOfOptions={this.props.selectSearchDomain} 
+                                value={this.props.selectedSearchDomain} 
+                                valuesForOptions={this.props.searchOptions} >
+                            </ReusableSelect>
+                        </Grid>
+                        <Grid item xs={3}></Grid>
+                        
+                        <Grid style={{paddingTop:'2.5%'}} item xs={12}><SearchHOC searchDomain={this.props.searchDomain} setSearchResults={this.props.setSearchResults}/></Grid>
+                        
+                        <Grid item xs={3}></Grid>
+                        <Grid item xs={3}></Grid>
+                        <Grid item xs={3}></Grid>
+                        <Grid item xs={3}></Grid>
+                    </Grid>)
+        } else {
+            console.log('this is props in sarch form', this.props)
+            return(
                 <Paper style={{padding:36}}>
                     <Grid container>
                         <Heading>Search Form</Heading>
@@ -41,7 +67,8 @@ class SearchForm extends Component{
                         <Grid item xs={3}></Grid>
                     </Grid>
                 </Paper>
-        )
+            )
+        }
     }
 }
 

@@ -16,13 +16,16 @@ const Layout = (props) => {
                      selectSearchDomain={props.selectSearchDomain} 
                      searchDomain={props.selectedSearchDomain} 
                      searchOptions={props.searchOptions}
-                     setSearchResults={props.setSearchResults}/>
+                     setSearchResults={props.setSearchResults}
+                     isUpload={props.isUpload}/>
                 </Grid>
                 <Grid item xs={1}></Grid>
                 
                 <Grid item xs={1}></Grid>
                 <Grid style={{marginTop:24}} item xs={10}>
-                    <SearchResults searchResults={props.searchResults}/>
+                    <SearchResults searchResults={props.searchResults}
+                                    isUpload={props.isUpload}
+                                    addToLesson={props.addToLesson}/>
                 </Grid>
                 <Grid item xs={1}></Grid>
             

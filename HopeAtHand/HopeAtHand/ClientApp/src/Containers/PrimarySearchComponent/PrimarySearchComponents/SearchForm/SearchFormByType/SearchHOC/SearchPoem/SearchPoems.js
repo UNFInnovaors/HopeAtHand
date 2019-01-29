@@ -40,10 +40,10 @@ class SearchPoems extends Component{
     }
     render(){
         console.log(this.state, 'the state of peom boi')
-        if(this.state.Loading === true)
-        {
+        if(this.state.Loading === true){
             return <p>Loading</p>;
         }
+
         const createForm = 
             <Grid container xs={12}>
                 <Grid container item xs={12}>
