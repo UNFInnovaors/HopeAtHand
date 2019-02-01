@@ -14,10 +14,13 @@ class Login extends Component {
     ChangePassword = (event) => {
         this.setState({Password : event.target.value})
     }
+    login = () => {
+        this.props.login(this.state.Username)
+    }
     render(){
         
         let disabled = (this.state.Username === null || this.state.Username === "" || this.state.Password === null || this.state.Password === "")
-        return <LogInForm logIn={this.props.login}
+        return <LogInForm logIn={this.login}
                             buttonDisabled={disabled} 
                             changeUsername={this.ChangeUsername} 
                             changePassword={this.ChangePassword}/>

@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import Filler from '../../../../../../../components/HOC/Filler'
 import { Button, TextField, Grid, Typography, Paper } from '@material-ui/core'
 import {post} from '../../../../../../../components/Axios/Instances'
-import SearchSelect from '../../../../../../../components/UI/ThemeSelect/ThemeSelect'
+import Loading from '../../../../../../../components/UI Components/Loading/Loading'
+import SearchThemes from '../../../../../../../components/UI/ThemeSelect/SearchThemes'
 class SearchPoems extends Component{
 
     state={
@@ -41,7 +42,7 @@ class SearchPoems extends Component{
     render(){
         console.log(this.state, 'the state of peom boi')
         if(this.state.Loading === true){
-            return <p>Loading</p>;
+            return <Loading/>;
         }
 
         const createForm = 
@@ -60,7 +61,7 @@ class SearchPoems extends Component{
                     </Grid>
                     <Grid item xs={3}><Button fullWidth variant='contained' color='primary' onClick={this.Search}>Search</Button></Grid>
                     <Grid item xs={6}>
-                        <TextField fullWidth label="Please enter the source of the poem" inputProps={{"data-input" : "source"}}></TextField>
+                        <SearchThemes/>
                     </Grid>
                 </Grid>
             </Grid>

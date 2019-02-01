@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace HopeAtHand.Controllers
 {
+    [Route("api/[controller]/[Action]")]
     public class UserController : Controller 
     {
         private readonly IUserManager userManager;
@@ -33,6 +34,28 @@ namespace HopeAtHand.Controllers
             }
             
             return Ok(facilitator);
+        }
+
+        [HttpGet]
+        public IActionResult GetUsers()
+        {
+            return Ok(userManager.GetFacilitators());
+        }
+
+        [HttpPost]
+        public IActionResult Search([FromBody] FascilitatorSearchDTO searchDTO)
+        {
+            return Ok(userManager.SearchForFacilitator(searchDTO.SearchString));
+        }
+        
+        public IActionResult ChangeRole([FromBody] ChangeRoleDTO changeRole)
+        {
+            return Ok(userManager.ChangeRole(changeRole));
+        }
+        
+        public IActionResult SearchByRole([FromBody] SearchRoleDTO searchRole)
+        {
+            return Ok(userManager.ByRole(searchRole.role));
         }
     }
 }

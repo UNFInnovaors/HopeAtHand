@@ -24,11 +24,11 @@ namespace HopeAtHand.Models.Managers
         {
             try
             {
-                LessonPlan_Poem connection = new LessonPlan_Poem
+                Data.Add(new LessonPlan_Poem
                 {
                     LessonPlanId = lesson.LessonPlanId,
                     PoemId = poemId
-                }; 
+                }  );
             }
             catch
             {

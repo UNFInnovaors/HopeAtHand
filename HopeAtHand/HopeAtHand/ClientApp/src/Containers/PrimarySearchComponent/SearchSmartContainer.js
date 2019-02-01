@@ -10,7 +10,7 @@ class PrimarySearchSmartContainer extends Component{
         SearchOptions: ['Choose how you would like to search','All','Art Pieces','By Themes','Poems','Writing Templates'],
         
         //Search MetaData
-        ChosenSearchOption: 'All',
+        ChosenSearchOption: 'Initial',
         SearchAll: false,
         SearchFavorites:false,
         SearchString: "",
@@ -53,6 +53,7 @@ class PrimarySearchSmartContainer extends Component{
                 
                 searchResults={this.state.SearchResults}  
                 setSearchResults={this.SetSearchResults}
+                addFavorites={this.props.addFavorites}
                 
             ></Layout>
 

@@ -4,6 +4,7 @@ import {Grid, Typography, Button} from '@material-ui/core'
 
 import Filler from  '../../../../../../../components/HOC/Filler'
 import Heading from '../../../../../../../components/UI Components/Heading/Heading'
+import Loading from '../../../../../../../components/UI Components/Loading/Loading'
 
 class SearchLessonPlans extends Component{
 

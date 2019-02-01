@@ -42,7 +42,7 @@ class ThemeSelect extends Component {
       <Select
         onChange={this.handleChange}
         options={this.state.Themes}
-        isMulti={true}
+        isMulti={false}
         placeholder={'Select A Theme'}
         hideSelectedOptions={true}
       />

@@ -21,7 +21,7 @@ namespace HopeAtHand.Controllers
         IArtPieceSearchRepository artPieceSearchRepository;
         IThemeSearchRepositroy themeSearch;
 
-        public SearchController(ILessonPlanRepository lessonPlanRepo,
+        public SearchController(
         IPoemRepo poemRepo,
         IPoemSearchRepository poemSearch,
         IWritingAssignmentSearchRepository writingSearch,
@@ -29,7 +29,7 @@ namespace HopeAtHand.Controllers
         IArtPieceSearchRepository artPieceSearchRepository,
         IThemeSearchRepositroy themeSearch)
         {
-            this.lessonPlanRepo = lessonPlanRepo;
+            
             this.poemRepo = poemRepo;
             this.poemSearch = poemSearch;
             this.writingSearch = writingSearch;

@@ -25,7 +25,7 @@ namespace HopeAtHand.Models.Managers
 
         public LessonPlanCreateManager(ApplicationDbContext Data, IThemeManager themeManager, IDocumentConnector documentConnector)
         {
-            Data = this.Data;
+            this.Data = Data;
             this.themeManager = themeManager;
             this.documentConnector = documentConnector;
         }
@@ -66,6 +66,7 @@ namespace HopeAtHand.Models.Managers
                         success = false;
                         break;
                 }
+                Data.SaveChanges();
                 if (success == false)
                     return false;
             }
@@ -77,13 +78,13 @@ namespace HopeAtHand.Models.Managers
             LessonPlan newLesson = new LessonPlan()
             {
                 LessonPlanId = CreateId(5),
-                Name = createDTO.name
+                Title = createDTO.name
             };
             Data.Database.OpenConnection();
             try
             {
                 Data.Add(newLesson);
-                Data.Database.ExecuteSqlCommand("SET IDENTITY_INSERT dbo.Poems ON");
+                Data.Database.ExecuteSqlCommand("SET IDENTITY_INSERT dbo.Lessonplans ON");
 
                 Data.SaveChanges();
                 Data.Database.ExecuteSqlCommand("SET IDENTITY_INSERT dbo.Poems OFF");

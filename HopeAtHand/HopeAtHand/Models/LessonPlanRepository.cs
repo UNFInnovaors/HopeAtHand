@@ -10,14 +10,13 @@ namespace HopeAtHand.Models
     {
         IEnumerable<LessonPlan> FindLessonPlan(string Theme);
     }
-    public class LessonPlanRepository : ILessonPlanRepository
+    public class LessonPlanRepository 
     {
        
 
         public IEnumerable<LessonPlan> FindLessonPlan(string Theme)
         {
-            IEnumerable<LessonPlan> lessonPlans = (IEnumerable<LessonPlan>)LessonPlanRepo.LessonPLans.Values.Where(l => l.Themes.First().ThemeName == Theme).ToList();
-            return lessonPlans;
+            return null;
         }
     }
 }

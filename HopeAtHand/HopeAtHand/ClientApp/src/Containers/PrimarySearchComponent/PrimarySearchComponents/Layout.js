@@ -17,7 +17,8 @@ const Layout = (props) => {
                      searchDomain={props.selectedSearchDomain} 
                      searchOptions={props.searchOptions}
                      setSearchResults={props.setSearchResults}
-                     isUpload={props.isUpload}/>
+                     isUpload={props.isUpload}
+                     addFavorites={props.addFavorites}/>
                 </Grid>
                 <Grid item xs={1}></Grid>
                 
@@ -25,7 +26,8 @@ const Layout = (props) => {
                 <Grid style={{marginTop:24}} item xs={10}>
                     <SearchResults searchResults={props.searchResults}
                                     isUpload={props.isUpload}
-                                    addToLesson={props.addToLesson}/>
+                                    addToLesson={props.addToLesson}
+                                    addFavorites={props.addFavorites}/>
                 </Grid>
                 <Grid item xs={1}></Grid>
             

@@ -50,7 +50,9 @@ class SearchResults extends Component{
                             <Grid xs={3}><ResultsDisplayModule 
                                             documentData={result} 
                                             isUpload={this.props.isUpload}
-                                            addToLesson={this.props.addToLesson}>
+                                            addToLesson={this.props.addToLesson}
+                                            addFavorites={this.props.addFavorites}>
+                                            
                                         </ResultsDisplayModule></Grid>
                         )
                     })}

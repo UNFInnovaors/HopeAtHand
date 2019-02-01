@@ -36,7 +36,7 @@ namespace HopeAtHand.Models
             {3, new ArtPiece{ ArtPieceId = 3, Title="A Pretty Flower", ArtThemes = new List<ArtThemes>  { new ArtThemes {ThemeName = "Female Empowerment"}}}}
         };
     }
-    public static class LessonPlanRepo
+    /*public static class LessonPlanRepo
     {
         public static Dictionary<int, LessonPlan> LessonPLans => new Dictionary<int, LessonPlan>
         {
@@ -45,5 +45,5 @@ namespace HopeAtHand.Models
             {2, new LessonPlan{ LessonPlanId = 2,  Themes = new List<LessonThemes>  { new LessonThemes { ThemeName = "Female Empowerment"} }, Name="This is sample data" }},
             {3, new LessonPlan{ LessonPlanId = 3,  Themes = new List<LessonThemes>  { new LessonThemes { ThemeName = "Female Empowerment"} }, Name="I Enjoy Making Sample Data" }},
         };
-    }
+    }*/
 }

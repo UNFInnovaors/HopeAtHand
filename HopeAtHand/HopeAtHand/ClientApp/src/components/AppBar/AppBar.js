@@ -14,7 +14,7 @@ import './AppBar.css'
 
 const appBar = (props) => {
   console.log('this is props is appbar', props)
-    if(props.LoggedIn === null || typeof(props.LoggedIn) === 'undefined')//
+    if(false)//props.LoggedIn === null || typeof(props.LoggedIn) === 'undefined'
     {
       return(
       <div className="margin2">

@@ -186,9 +186,9 @@ class UploadFileSmartContainer extends Component {
 
     for(let key in this.state.DataAsKVP){
       bodyFormData.set(key, this.state.DataAsKVP[key])
-      //console.log(this.state.DataAsKVP[key], key)
+      console.log(this.state.DataAsKVP[key], key, 'foreach doc')
     }
-
+    console.log(bodyFormData)
     axios.post('https://localhost:44365/api/blobCreator/createNewBlob',bodyFormData,{
       headers:{
                     'Content-Type': 'multipart/form-data; boundary=absdfabs',

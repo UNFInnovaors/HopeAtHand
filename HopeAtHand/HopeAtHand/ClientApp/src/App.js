@@ -10,8 +10,9 @@ import { Route, Redirect } from 'react-router-dom'
 import Filler from './components/HOC/Filler';
 import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
 import {Paper} from '@material-ui/core'
+import {post} from './components/Axios/Instances'
 import blue from '@material-ui/core/colors/blue';
-import pink from '@material-ui/core/colors/purple'
+import pink from '@material-ui/core/colors/grey'
 import AppBar from './components/AppBar/AppBar'
 
 let theme = createMuiTheme({
@@ -27,7 +28,8 @@ export default class App extends Component {
   
   state = {
     Theme: theme,
-    UserName : null
+    UserName : 'Bill',
+    Favorites:[]
   }
   
   componentDidMount(){
@@ -40,9 +42,43 @@ export default class App extends Component {
     this.setState({Theme:themez})
   }
 
-  Login = () => {
-    console.log("Login was called")
-    this.setState({UserName : "Hello"})
+  getFavorites = () => {
+    const FindFavoritesDTO = {
+      Username : this.state.UserName
+    }
+  }
+
+  AddFavorites = (documentId) => {
+    console.log('This is AddFavorites!!!!!!!!!!!!!!!', documentId)
+
+    let AddFavoritesDTO = {
+      DocumentId: documentId,
+      Username: this.state.UserName
+    }
+
+    post('/Favorites/AddFavorite', AddFavoritesDTO).then( res => {
+      console.log(res)
+      
+    })
+  }
+
+  Login = (username) => {
+    console.log('This is the username in login', username)
+    const LoginDTO = {
+      Username: username
+    }
+    post('/user/RecieveUserData', LoginDTO).then( res => {
+      this.setState({UserName : res.data})
+      const FavoriteFindDTO = {
+        username : res.data
+      }
+
+      post('/Favorites/GetFavorites', FavoriteFindDTO).then(rest2 => {
+        console.log(res2)
+        this.setState({Favorites : res2.data})
+      })
+    })
+    
   }
   LogOut = () => {
     this.setState({UserName : null})
@@ -95,27 +131,45 @@ export default class App extends Component {
       <Filler>
         <MuiThemeProvider theme={this.state.Theme}>
           <Paper  style={{height : '100%', paddingBottom:'5%'}}>
-            <AppBar logOut={this.LogOut} LoggedIn ={this.state.UserName}/>
+            <AppBar logOut={this.LogOut} LoggedIn ={this.state.UserName} favorites={this.state.Favorites}/>
             
             <Route path="/" exact render={(props) => 
-                <CreateSmartComponent/>
+                <CreateSmartComponent
+                  user={this.state.UserName}
+                  addFavorites={this.AddFavorites}
+                />
             }/>
             <Route path="/Create" exact render={(props) => 
-                <CreateSmartComponent/>
+                <CreateSmartComponent
+                  user={this.state.UserName}
+                  addFavorites={this.AddFavorites}
+                  />
             }/>
             <Route path="/Search" exact render={(props) => 
-              <LessonPLanSmartContainer/>}>
+              <LessonPLanSmartContainer
+                  user={this.state.UserName}
+                  addFavorites={this.AddFavorites}
+                  />}>
             </Route>
             <Route path="/Search2" exact render={(props) => 
-             <Search/>}/>
+             <Search
+                  user={this.state.UserName}
+                  addFavorites={this.AddFavorites}
+                  />}/>
             <Route path="/Upload" exact render={(props) => 
-              <UploadFileSmartContainer/>}>
+              <UploadFileSmartContainer
+                  user={this.state.UserName} 
+                  addFavorites={this.AddFavorites}/>}>
             </Route>
             <Route path="/Admin" exact render={(props) => 
-              <Admin/>}>
+              <Admin
+                  user={this.state.UserName}
+                  addFavorites={this.AddFavorites}/>}>
             </Route>
             <Route path="/Theme" exact render={(props) => 
-              <CreateTheme/>}/>
+              <CreateTheme
+                  user={this.state.UserName}
+                  addFavorites={this.AddFavorites}/>}/>
           </Paper>
         </MuiThemeProvider>
       </Filler>

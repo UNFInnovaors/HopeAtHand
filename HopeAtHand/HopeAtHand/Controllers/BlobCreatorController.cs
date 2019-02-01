@@ -61,7 +61,6 @@ namespace HopeAtHand.Controllers
         }
         keyValuePairs.Remove("theme");
         var cont = HttpContext;
-        bool isUploaded = false;
         try
         {
             string imageURL = "";
@@ -117,10 +116,12 @@ namespace HopeAtHand.Controllers
                 {
                     result = WritingTemplate.CreateWritingAssignment(new CreateWritingAssignmentData
                     {
-                        AgeGroup = keyValuePairs.GetValueOrDefault(""),
+                        AgeGroup = keyValuePairs.GetValueOrDefault("writingType"),
                         ImageURL = imageURL,
                         WritingURL = documentURL,
-                        Themes = themes
+                        Themes = themes,
+                        WritingAssignmentName = keyValuePairs.GetValueOrDefault("name")
+
 
                     });
                 }

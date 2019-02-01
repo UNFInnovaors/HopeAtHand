@@ -16,7 +16,7 @@ const poem = (props) => {
                             <TextField fullWidth label="Please Name the Writing Assignment" onChange={props.poemDataChangeHandler}  inputProps={{"data-input":"name"}}></TextField>
                         </Grid>
                         <Grid item xs={6}>
-                            <TextField fullWidth label="Please Describe the Type of Writing" onChange={props.poemDataChangeHandler} inputProps={{"data-input" : "writingType"}}></TextField>
+                            <TextField fullWidth label="Please Describe the Target Age Group" onChange={props.poemDataChangeHandler} inputProps={{"data-input" : "writingType"}}></TextField>
                         </Grid>
                     </Grid>
                 </Grid>

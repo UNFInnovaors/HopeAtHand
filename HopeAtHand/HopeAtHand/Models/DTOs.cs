@@ -32,4 +32,25 @@ namespace HopeAtHand.Models
     {
         public Themes[] Themes { get; set; }
     }
+
+    public class ChangeRoleDTO
+    {
+        public string NewRole { get; set; }
+        public int FacilitatorId { get; set; }
+    }
+
+    public class FascilitatorSearchDTO
+    {
+        public string SearchString { get; set; }
+    }
+
+    public class SearchRoleDTO
+    {
+        public string role { get; set; }
+    }
+
+    public class FavoriteFindDTO
+    {
+        public string username { get; set; }
+    }
 }

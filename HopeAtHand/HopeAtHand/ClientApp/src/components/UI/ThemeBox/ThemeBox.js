@@ -38,23 +38,37 @@ class ThemeBox extends  Component{
                         count++;
                         //console.log(theme, "this is a theme")
                         return (
-                            <td key={theme}><Chip label={theme.value}></Chip></td>
+                            <td key={theme}><Chip onClick={() => this.remove(theme)} label={theme}></Chip></td>
                         )
                     })}
                 </tr>
             )
         })
-        console.log(TableToDisplay)
         return TableToDisplay
     }
+
+    remove = (valueToRemove) => {
+        let themes = sessionStorage.getItem('SearchThemes').split(',')
+        console.log(themes, valueToRemove)
+        for(let x = 0 ; x < themes.length; x++){
+            if(themes[x] === valueToRemove){
+                themes.splice(x,1)
+                break
+            }
+        }
+        console.log(themes.join(','), 'is themes.join')
+        sessionStorage.setItem('SearchThemes', themes.join(','))
+        this.forceUpdate()
+    }
     render(){
-        console.log(this.props)
+        console.log('this is', this.props.themes)
         var testArray = []
         for(let x = 0; x < 25; x++){
             testArray[x] = x+1;
         }
         let something = <div></div>
         if(this.props.themes !== null){
+            console.log('they are being formatted')
             something = this.FormatForDisplay(this.props.themes)
         }
         

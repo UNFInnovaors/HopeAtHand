@@ -8,6 +8,7 @@ import ThemeBox from '../../components/UI/ThemeBox/ThemeBox'
 import DoneIcon from '@material-ui/icons/Done';
 import Action from './CreateAction/CreateAction'
 import Components from './ComponentsForDDisplay/ComponentsForDisplay'
+import Modal from '../../components/UI Components/Modals/ViewDocument'
 import { Paper } from '@material-ui/core';
 
 class CreateDumbComponent extends Component {
@@ -119,7 +120,8 @@ class CreateDumbComponent extends Component {
                                     action={this.props.action} isUpload={true} 
                                     changeAction={this.props.changeAction}
                                     addToLesson={this.props.addToLesson}
-                                    removeFromLesson={this.props.removeFromLesson}></Action>
+                                    removeFromLesson={this.props.removeFromLesson}
+                                    addFavorites={this.props.addFavorites}></Action>
                         </Paper> :
                     <div></div> )}
                    
@@ -133,6 +135,7 @@ class CreateDumbComponent extends Component {
                                                 components={this.props.components} 
                                                 uploadLessonPLan={this.props.uploadLessonPLan}
                                                 removeFromLesson={this.props.removeFromLesson}
+                                                addFavorites={this.props.addFavorites}
                                             ></Components></Grid>)}     
                     
                 </Grid>

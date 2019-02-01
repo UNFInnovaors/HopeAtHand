@@ -28,7 +28,7 @@ namespace HopeAtHand.SearchRepositories
 
         public List<LessonPlan> SeachForLessonPlan(LessonPlanSearchDTO LessonPlanSearchDTO)
         {
-            return Data.Lessonplans.Where(p => p.Name.ToLower().Contains(LessonPlanSearchDTO.Name)).ToList();
+            return Data.Lessonplans.Where(p => p.Title.ToLower().Contains(LessonPlanSearchDTO.Name)).ToList();
         }
     }
 }

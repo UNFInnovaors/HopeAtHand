@@ -26,9 +26,7 @@ namespace HopeAtHand
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1).AddJsonOptions(
             options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
-       
-
-            services.AddTransient<ILessonPlanRepository, LessonPlanRepository>();
+            services.AddTransient<IDocumentManager, DocumentManager>();
             services.AddTransient<IPoemRepo, PoemRepository>();
             services.AddTransient<IThemeManager, ThemeManager>();
             services.AddTransient<IArtPieceManager, ArtPieceManager>();

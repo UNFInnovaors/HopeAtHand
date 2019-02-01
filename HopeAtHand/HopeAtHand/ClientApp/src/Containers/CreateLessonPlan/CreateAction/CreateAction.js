@@ -11,10 +11,10 @@ const createAction = (props) => {
             action = <LessonPlanSearch isUpload={props.isUpload} 
                                         addComponent={props.addComponent} 
                                         addToLesson={props.addToLesson}
-                                        removeFromLesson={props.removeFromLesson}/>
+                                        removeFromLesson={props.removeFromLesson} addFavorites={props.addFavorites}/>
         break;
         case('create') :
-            action = <Upload isUpload={props.isUpload} addComponent={props.addComponent}/>
+            action = <Upload isUpload={props.isUpload} addComponent={props.addComponent} addFavorites={props.addFavorites}/>
         break;
         default :
             action=<div></div>

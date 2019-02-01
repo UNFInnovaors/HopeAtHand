@@ -141,6 +141,7 @@ class CreateSmartContainer extends Component {
           deleteTheme={this.RemoveThemes}
           addToLesson={this.AddLessonFromSearch}
           removeFromLesson={this.RemoveDocumentFromPlan}
+          addFavorites={this.props.addFavorites}
 
         ></CreateDumbComponent>
       </Filler>

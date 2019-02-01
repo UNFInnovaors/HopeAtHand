@@ -53,7 +53,7 @@ namespace HopeAtHand.Models
     public class LessonPlan
     {
         public int LessonPlanId { get; set; }
-        public string Name { get; set;}
+        public string Title { get; set;}
         public string ImageURL { get; set; }
         public List<LessonPlan_Poem> Lesson_Poems { get; set; }
         public List<LessonPlan_WritingAssignment> Lesson_Writing { get; set; }

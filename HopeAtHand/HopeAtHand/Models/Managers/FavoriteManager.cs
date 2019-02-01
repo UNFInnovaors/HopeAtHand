@@ -9,12 +9,13 @@ namespace HopeAtHand.Models.Managers
     public class FavoriteCreateDTO
     {
         public int DocumentId { get; set; }
-        public int FascilitatorId { get; set; }
+        public string Username { get; set; }
     }
 
     public interface IFavoriteManager
     {
         Favorite CreateFavoriate(FavoriteCreateDTO create);
+        List<Favorite> FindFavorites(FavoriteFindDTO findDTO);
     }
 
     public class FavoriteManager : IFavoriteManager
@@ -26,22 +27,26 @@ namespace HopeAtHand.Models.Managers
             this.Data = Data; 
         }
 
-        public Favorite CreateFavoriate(FavoriteCreateDTO create )
+        public Favorite CreateFavoriate(FavoriteCreateDTO create)
         {
+            Facilitator f = Data.Facilitators.Where(w => w.Username == create.Username).FirstOrDefault();
+            Favorite favor = Data.Favorites.Where(w => w.DocumentID == create.DocumentId && w.FacilitatorID == f.FacilitatorID).FirstOrDefault();
+            if (favor != null)
+                return null;
             Favorite favorite = new Favorite()
             {
                 DocumentID = create.DocumentId,
-                FacilitatorID = create.DocumentId,
+                FacilitatorID = Data.Facilitators.Where( w => w.Username == create.Username).First().FacilitatorID,
                 DocumentType = DetermineDocumentType(create.DocumentId)
             };
             Data.Database.OpenConnection();
             try
             {
                 Data.Add(favorite);
-                Data.Database.ExecuteSqlCommand("SET IDENTITY_INSERT dbo.Favorites ON");
+                //Data.Database.ExecuteSqlCommand("SET IDENTITY_INSERT dbo.Favorites ON");
 
                 Data.SaveChanges();
-                Data.Database.ExecuteSqlCommand("SET IDENTITY_INSERT dbo.Favorites OFF");
+                //Data.Database.ExecuteSqlCommand("SET IDENTITY_INSERT dbo.Favorites OFF");
             }
             finally
             {
@@ -49,7 +54,11 @@ namespace HopeAtHand.Models.Managers
             }
             return favorite;
         }
-
+        public List<Favorite> FindFavorites(FavoriteFindDTO findDTO)
+        {
+            Facilitator f = Data.Facilitators.Where(w => w.Username == findDTO.username).FirstOrDefault();
+            return Data.Favorites.Where(fav => fav.FacilitatorID == f.FacilitatorID).ToList();
+        }
         public string DetermineDocumentType(int id)
         {
             switch ((int)char.GetNumericValue(id.ToString()[0]))
@@ -66,5 +75,7 @@ namespace HopeAtHand.Models.Managers
                     return "Error";
             }
         }
+
+
     }
 }
