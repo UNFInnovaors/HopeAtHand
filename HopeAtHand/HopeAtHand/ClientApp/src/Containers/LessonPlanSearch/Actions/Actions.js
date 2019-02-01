@@ -35,7 +35,7 @@ class Actions extends React.Component{
             const link = document.createElement('a');
             link.href = url;
             //link.target = '_blank';
-            link.setAttribute('_blank', this.props.title+'.'+this.props.fileType);
+            link.setAttribute('download', this.props.title+'.'+this.props.fileType);
             document.body.appendChild(link);
             link.click();
           });

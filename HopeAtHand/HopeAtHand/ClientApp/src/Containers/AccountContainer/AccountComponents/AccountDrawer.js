@@ -52,16 +52,16 @@ class TemporaryDrawer extends React.Component {
             </ListItemText>
             <Divider/>
             <ListItem>
-                <FavoriteLessons/>
+                <FavoriteLessons lessons={this.props.favorites.lessonplans}/>
             </ListItem>
             <ListItem>
-                <FavoritePoems/>
+                <FavoritePoems poems={this.props.favorites.poem}/>
             </ListItem>
             <ListItem>
-                <FavoriteArt/>
+                <FavoriteArt art={this.props.favorites.art}/>
             </ListItem>
             <ListItem>
-                <FavoriteWriting/>
+                <FavoriteWriting writing={this.props.favorites.writing}/>
             </ListItem>
         </List>
         <Divider />

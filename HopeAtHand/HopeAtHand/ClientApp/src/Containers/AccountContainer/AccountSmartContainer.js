@@ -10,7 +10,7 @@ class Account extends Component{
     render(){
         return(
             <Filler>
-                <AccountDrawer/>
+                <AccountDrawer favorites={this.props.favorites}/>
             </Filler>
         )
     }

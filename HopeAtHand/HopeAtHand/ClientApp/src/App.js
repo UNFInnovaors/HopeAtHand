@@ -29,7 +29,12 @@ export default class App extends Component {
   state = {
     Theme: theme,
     UserName : 'Bill',
-    Favorites:[]
+    Favorites:{
+      art:[],
+      lessonplans:[],
+      writing:[],
+      poem:[]
+    }
   }
   
   componentDidMount(){
@@ -42,11 +47,7 @@ export default class App extends Component {
     this.setState({Theme:themez})
   }
 
-  getFavorites = () => {
-    const FindFavoritesDTO = {
-      Username : this.state.UserName
-    }
-  }
+
 
   AddFavorites = (documentId) => {
     console.log('This is AddFavorites!!!!!!!!!!!!!!!', documentId)
@@ -68,14 +69,16 @@ export default class App extends Component {
       Username: username
     }
     post('/user/RecieveUserData', LoginDTO).then( res => {
-      this.setState({UserName : res.data})
+      console.log(res, 'recieved user data')
       const FavoriteFindDTO = {
-        username : res.data
+        username : LoginDTO.Username
       }
+      console.log(FavoriteFindDTO,'This is the DTO')
 
-      post('/Favorites/GetFavorites', FavoriteFindDTO).then(rest2 => {
+      post('/Favorites/GetFavorites', FavoriteFindDTO).then(res2 => {
         console.log(res2)
-        this.setState({Favorites : res2.data})
+        this.setState({Favorites : res2.data,
+                        UserName : res.data.username})
       })
     })
     
@@ -114,13 +117,14 @@ export default class App extends Component {
   }
 
   render() {
-    if(false) //this.state.UserName === null
+    console.log(this.state)
+    if(this.state.UserName === null) //
     {
       return (
         <Filler>
           <MuiThemeProvider theme={this.state.Theme}>
           <Paper  style={{height : '100%', paddingBottom:'5%'}}>
-            <AppBar  LoggedIn ={this.state.UserName}/>
+            <AppBar  LoggedIn ={this.state.UserName} favorites={this.state.Favorites}/>
             <LogIn login={this.Login}/>
           </Paper>
           </MuiThemeProvider>

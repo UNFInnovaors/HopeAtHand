@@ -75,7 +75,7 @@ const appBar = (props) => {
               </Grid>
 
               <Grid item xs={1}>
-                <Account/>
+                <Account favorites={props.favorites}/>
               </Grid>
             </Grid>
           </AppBar>
