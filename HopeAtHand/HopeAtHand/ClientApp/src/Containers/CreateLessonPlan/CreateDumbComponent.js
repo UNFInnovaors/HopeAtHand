@@ -3,7 +3,8 @@ import { Grid, Select, Divider, Button, Typography, TextField } from '@material-
 import Filler from '../../components/HOC/Filler'
 import Badge from '@material-ui/core/Badge';
 import Chip from '@material-ui/core/Chip';
-import ThemeSelect from '../../components/UI/ThemeSelect/LeesonPLanThemes';
+import ThemeSelector from '../../components/UI/ReusableThemeSelect/ReusableThemeSelect'
+//import ThemeSelect from '../../components/UI/ThemeSelect/LeesonPLanThemes';
 import ThemeBox from '../../components/UI/ThemeBox/ThemeBox'
 import DoneIcon from '@material-ui/icons/Done';
 import Action from './CreateAction/CreateAction'
@@ -81,6 +82,7 @@ class CreateDumbComponent extends Component {
         console.log(cloneState);
         this.setState({CreateForm: cloneState})
     }
+    //<ThemeSelect updateThemes={this.props.alterThemes} removeTheme={this.props.removeTheme} themes={this.props.themes}/>
     render(){
         let CreateForm = (this.state.CreateForm.Controls)
         let eachComponent = (<Filler><Typography variant="body2">Now there are components</Typography></Filler>)
@@ -98,13 +100,9 @@ class CreateDumbComponent extends Component {
                             <Grid item xs={1}></Grid>    
                             <Grid xs={4} item><TextField value={this.props.lessonPLanNameKs} placeholder="Please choose the name of your lesson plan" fullWidth error={form[0].error} helperText={form[0].errorMessage} 
                                                 type={form[0].config.type} label={form[0].label} fullWidth hidden={form[0].hidden} onChange={this.props.lessonPlanNameChangeHandler}> 
-                                                </TextField></Grid>
-                            <Grid xs={6} item><ThemeSelect updateThemes={this.props.alterThemes} removeTheme={this.props.removeTheme} themes={this.props.themes}/></Grid>
-                        </Grid>
-                        <Grid container item spacing={24} style={{padding:28}}>
-                            <Grid item xs={3}></Grid>
-                            <Grid item xs={6}><ThemeBox themes={this.props.themes}></ThemeBox></Grid>
-                            <Grid item xs={3}></Grid>
+                                                </TextField>
+                            </Grid>
+                            <Grid xs={6} item> <ThemeSelector destination={'LessonThemes'} always={true}/></Grid>
                         </Grid>
                     </Paper>
                     <Grid container item>

@@ -45,7 +45,7 @@ namespace HopeAtHand
 
             services.AddCors();
             services.AddOptions();
-            services.AddDbContext<ApplicationDbContext>( options => options.UseSqlServer(Configuration.GetValue<string>("Localdb")));
+            services.AddDbContext<ApplicationDbContext>( options => options.UseSqlServer("Server=tcp:sql-server-test-will.database.windows.net,1433;Initial Catalog=HopeAtHand;Persist Security Info=False;User ID=William;Password=WillMill1;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;"));
 
             services.Configure<AzureStorageConfig>(Configuration.GetSection("AzureStorageConfig"));
             // In production, the React files will be served from this directory

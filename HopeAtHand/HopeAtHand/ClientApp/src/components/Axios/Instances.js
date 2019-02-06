@@ -2,7 +2,7 @@ import axios from 'axios'
     
     function createInstance(token = false){
        return axios.create({
-           baseURL: 'https://localhost:44365/api',
+           baseURL: '/api',
            timeout: 2000000,
           // headers: { 'Authorization' :"Bearer " + token }
    })}

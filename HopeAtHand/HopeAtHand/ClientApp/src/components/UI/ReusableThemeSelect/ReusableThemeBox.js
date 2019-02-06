@@ -33,22 +33,22 @@ class ThemeBox extends  Component{
            // console.log(themeRow, 'This is a themeRow')
             
             return(
-                <tr key={index}>
-                    {themeRow.map((theme,index) => {
+                    themeRow.map((theme,index) => {
                         count++;
                         //console.log(theme, "this is a theme")
                         return (
-                            <td key={theme}><Chip onClick={() => this.remove(theme)} label={theme}></Chip></td>
+                            <Grid style={{marginBottom:6, marginRight:3}}><Chip style={{textAlign:'center', margin:'auto', minWidth:120}}  onClick={() => this.remove(theme)} label={theme}></Chip></Grid>
                         )
-                    })}
-                </tr>
+                    })
+                
             )
         })
         return TableToDisplay
     }
 
     remove = (valueToRemove) => {
-        let themes = sessionStorage.getItem('SearchThemes').split(',')
+        console.log(this.props.destination)
+        let themes = sessionStorage.getItem(this.props.destination).split(',')
         console.log(themes, valueToRemove)
         for(let x = 0 ; x < themes.length; x++){
             if(themes[x] === valueToRemove){
@@ -57,22 +57,22 @@ class ThemeBox extends  Component{
             }
         }
         console.log(themes.join(','), 'is themes.join')
-        sessionStorage.setItem('SearchThemes', themes.join(','))
+        if(themes.length < 1){
+            sessionStorage.removeItem(this.props.destination)
+        } else {
+            sessionStorage.setItem(this.props.destination, themes.join(','))
+        }
         this.forceUpdate()
         this.props.reset();
     }
     
     render(){
-        console.log('this is', this.props.themes)
+        console.log('this is', this.props.themes, this.props)
         var testArray = []
         for(let x = 0; x < 25; x++){
             testArray[x] = x+1;
         }
-        let something = <div></div>
-        if(this.props.themes !== null){
-            console.log('they are being formatted')
-            something = this.FormatForDisplay(this.props.themes)
-        }
+        let something = this.FormatForDisplay(this.props.themes)
         
         let badges=<tr><td><Typography variant="body1">Please Choose One or More Theme(s) to Continue</Typography></td></tr>
         if(true)//this.props.themes.length > 0)
@@ -80,11 +80,7 @@ class ThemeBox extends  Component{
                 <Grid container spacing={24}>
                     <Paper style={{padding:'24px', width:'100%'}}>
                         <Grid container item spacing={24}>
-                            <table>
-                                <tbody>
-                                    {something}
-                                </tbody>
-                            </table>
+                            {something}
                         </Grid>
                     </Paper>
                 </Grid>

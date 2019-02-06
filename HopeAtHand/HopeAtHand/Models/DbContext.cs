@@ -33,7 +33,7 @@ namespace HopeAtHand.Models
 
             modelBuilder.Entity<ArtThemes>().HasKey(at => new { at.ThemeName, at.ArtPieceId });
             modelBuilder.Entity<PoemThemes>().HasKey(at => new { at.ThemeName, at.PoemId });
-            modelBuilder.Entity<LessonThemes>().HasKey(at => new { at.ThemeName, at.LessonId });
+            modelBuilder.Entity<LessonThemes>().HasKey(at => new { at.ThemeName, at.LessonPlanId });
             modelBuilder.Entity<WritingThemes>().HasKey(at => new { at.ThemeName, at.WritingAssignemntId });
 /*
             modelBuilder.Entity<LessonPlan_Poem>().HasKey(at => new

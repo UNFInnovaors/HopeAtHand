@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import {createInstance} from '../../components/Axios/Instances'
 import CreateThemeInterface from './CreateThemeComponents/CreateThemeLayout'
+import {get,post} from '../../components/Axios/Instances'
 import Filler from '../../components/HOC/Filler';
 
 import { Grid } from '@material-ui/core'
@@ -19,17 +20,15 @@ class CreateThemeSmartContainer extends Component{
         //this.CreateTheme();
     }
     CreateTheme = () => {
-        const targetAPI = new createInstance();
-        const axiosInstance = targetAPI.createInstance();
-        let CreateThemeDTO = {
+        const CreateThemeDTO = {
             ThemeName : this.state.ThemeName
         }
 
-        axiosInstance.post("/Theme/CreateTheme", CreateThemeDTO).then( response => {
+        post("/Theme/CreateTheme", CreateThemeDTO).then( response => {
         }).catch(err =>{
         })
 
-        axiosInstance.get("/Theme/GetThemes").then( response => {
+        get("/Theme/GetThemes").then( response => {
         }).catch(err => {
         })
     }

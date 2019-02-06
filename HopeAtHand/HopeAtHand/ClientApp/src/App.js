@@ -12,7 +12,7 @@ import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
 import {Paper} from '@material-ui/core'
 import {post} from './components/Axios/Instances'
 import blue from '@material-ui/core/colors/blue';
-import pink from '@material-ui/core/colors/grey'
+import pink from '@material-ui/core/colors/green'
 import AppBar from './components/AppBar/AppBar'
 
 let theme = createMuiTheme({

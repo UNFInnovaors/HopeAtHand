@@ -29,7 +29,7 @@ class LessonPLanSmartContainer extends Component{
             tags: this.state.Tags
         };
         axios
-            .post('https://localhost:44365/api/search/findlessonplan', lessie)
+            .post('/api/search/findlessonplan', lessie)
             .then(res => {
             this.setState({ Lessons: res.data });
             });

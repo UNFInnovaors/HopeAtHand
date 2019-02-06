@@ -116,7 +116,7 @@ class UploadFileSmartContainer extends Component {
     {
       bodyFormData.set('file'+y +1, this.state.ImagesToUpload[y])
     }
-    axios.post('https://localhost:44365/api/blobCreator/createNewBlob',bodyFormData,{
+    axios.post('/api/blobCreator/createNewBlob',bodyFormData,{
       headers:{
         'Content-Type': 'multipart/form-data; boundary=absdfabs',
         'Content-Disposition': 'form-data'
@@ -124,7 +124,7 @@ class UploadFileSmartContainer extends Component {
     })
   }
   listFile = () => {
-    var urls = axios.get('https://localhost:44365/api/blobCreator/CreateList').then(res => {
+    var urls = axios.get('/api/blobCreator/CreateList').then(res => {
                                                                                              this.setState({Images:res.data})})    
   }
   poemDataChangeHandler = (event) => {
@@ -189,7 +189,7 @@ class UploadFileSmartContainer extends Component {
       console.log(this.state.DataAsKVP[key], key, 'foreach doc')
     }
     console.log(bodyFormData)
-    axios.post('https://localhost:44365/api/blobCreator/createNewBlob',bodyFormData,{
+    axios.post('/api/blobCreator/createNewBlob',bodyFormData,{
       headers:{
                     'Content-Type': 'multipart/form-data; boundary=absdfabs',
                     'Content-Disposition': 'form-data'
