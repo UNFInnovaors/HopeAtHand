@@ -4,13 +4,17 @@ import Filler from '../../components/HOC/Filler'
 import Badge from '@material-ui/core/Badge';
 import Chip from '@material-ui/core/Chip';
 import ThemeSelector from '../../components/UI/ReusableThemeSelect/ReusableThemeSelect'
+import { Document } from 'react-pdf'
 //import ThemeSelect from '../../components/UI/ThemeSelect/LeesonPLanThemes';
 import ThemeBox from '../../components/UI/ThemeBox/ThemeBox'
 import DoneIcon from '@material-ui/icons/Done';
 import Action from './CreateAction/CreateAction'
 import Components from './ComponentsForDDisplay/ComponentsForDisplay'
 import Modal from '../../components/UI Components/Modals/ViewDocument'
+import FileViewer from 'react-file-viewer';
 import { Paper } from '@material-ui/core';
+import Heading from '../../components/UI Components/Heading/Heading';
+import ReactImageMagnify from 'react-image-magnify';
 
 class CreateDumbComponent extends Component {
     componentDidMount(){
@@ -74,6 +78,7 @@ class CreateDumbComponent extends Component {
             ]
         },
         SelectedThemes:["Hello", "Dolly"],
+        ImageIndex:0
     }
 
     handelChange = (event) => {
@@ -82,13 +87,35 @@ class CreateDumbComponent extends Component {
         console.log(cloneState);
         this.setState({CreateForm: cloneState})
     }
+
+    Next = () => {
+        if(this.state.ImageIndex + 1 > this.props.components.length)
+        {
+            this.setState({ImageIndex:0})
+        }
+        else{
+            let newIndex = this.state.ImageIndex
+            this.setState({ImageIndex: newIndex + 1 })
+        }
+    }
     //<ThemeSelect updateThemes={this.props.alterThemes} removeTheme={this.props.removeTheme} themes={this.props.themes}/>
     render(){
         let CreateForm = (this.state.CreateForm.Controls)
         let eachComponent = (<Filler><Typography variant="body2">Now there are components</Typography></Filler>)
         let form = this.state.CreateForm.Controls
+        let aUrl = null
+        let rUrl = null
+        let urls = []
+        if(this.props.lessonPlanImage !== null)
+        {
+            urls.push(URL.createObjectURL(this.props.lessonPlanImage));
+             
+        }
+        for(let x = 0 ; x < this.props.components.length; x++)
+        {
+            urls.push(this.props.components[x].image)
+        }
         console.log('This is the form', form)
-        let chips = this.state.SelectedThemes.map((theme, index) => <Chip variant="outlined" key={index} color={"primary"} label={theme} deleteIcon={<DoneIcon />}/>)
         return(
             <Filler>
                 <Grid container spacing={24}>
@@ -97,12 +124,65 @@ class CreateDumbComponent extends Component {
                             <Typography align="center" variant="h5">{(this.props.isNew === true ? "Create New Lesson Plan" : "Edit Incomplete Lesson Plan")}</Typography>
                         </Grid>
                         <Grid container item spacing={24} style={{paddingTop:28}}>
-                            <Grid item xs={1}></Grid>    
-                            <Grid xs={4} item><TextField value={this.props.lessonPLanNameKs} placeholder="Please choose the name of your lesson plan" fullWidth error={form[0].error} helperText={form[0].errorMessage} 
-                                                type={form[0].config.type} label={form[0].label} fullWidth hidden={form[0].hidden} onChange={this.props.lessonPlanNameChangeHandler}> 
-                                                </TextField>
+                             
+                            <Grid xs={6} item container spacing={8} style={{paddingTop:6}}>
+                                <Grid xs={12}>
+                                    <TextField value={this.props.lessonPLanNameKs} placeholder="Please choose the name of your lesson plan" fullWidth error={form[0].error} helperText={form[0].errorMessage} 
+                                        type={form[0].config.type} label={form[0].label} fullWidth hidden={form[0].hidden} onChange={this.props.lessonPlanNameChangeHandler}> 
+                                    </TextField>
+                                </Grid>
+                                <Grid item xs={5}>
+                                    <label style={{width:'100%'}} htmlFor="Complete_Lesson">
+                                        <Button fullWidth variant="contained" color={"primary"} component="span">Upload Complete Lesson</Button>
+                                        <input onChange={ this.props.selectFile}
+                                            style={{ display: 'none' }}
+                                            id="Complete_Lesson"
+                                            multiple
+                                            type="file"
+                                        />
+                                    </label> 
+                                </Grid>
+                                <Grid item xs={7}>
+                                    <TextField fullWidth disabled  value={(this.props.complete_Lesson === null ? "Please upload complete lesson" :  this.props.complete_Lesson.name)}></TextField>
+                                </Grid>
+                                <Grid item xs={5}>
+                                    <label style={{width:'100%'}} htmlFor="OutlineDocument">
+                                        <Button fullWidth variant="contained" color={"primary"} component="span">Upload Lesson Outline Document</Button>
+                                        <input onChange={ this.props.selectFile}
+                                            style={{ display: 'none' }}
+                                            id="OutlineDocument"
+                                            multiple
+                                            type="file"
+                                        />
+                                    </label> 
+                                </Grid>
+                                <Grid item xs={7}>
+                                    <TextField fullWidth disabled  value={(this.props.outlineDocument === null ? "Please upload complete lesson" : this.props.outlineDocument.name)}></TextField>
+                                </Grid>
+                                <Grid item xs={5}>
+                                    <label style={{width:'100%'}} htmlFor="OutlinePicture">
+                                        <Button fullWidth variant="contained" color={"primary"} component="span">Upload a picture of the outline</Button>
+                                        <input onChange={ this.props.selectFile}
+                                            style={{ display: 'none' }}
+                                            id="OutlinePicture"
+                                            multiple
+                                            type="file"
+                                        />
+                                    </label> 
+                                </Grid>
+                                <Grid item xs={7}>
+                                    <TextField fullWidth disabled  value={(this.props.lessonPlanImage === null ? "Please upload complete lesson" : this.props.lessonPlanImage.name)}></TextField>
+                                </Grid>
                             </Grid>
-                            <Grid xs={6} item> <ThemeSelector destination={'LessonThemes'} always={true}/></Grid>
+                            <Grid xs={6} item container> <ThemeSelector destination={'LessonThemes'} always={true}/>
+                                <Grid xs={12} item container spacing={8} style={{paddingTop: 18}}>
+                                    <Grid xs={1} item></Grid>
+                                    <Grid xs={5} item><Button fullWidth variant='contained' color='primary'> Validate Upload</Button></Grid>
+                                    <Grid xs={5} item><Button fullWidth variant='contained' color='primary'> Next Step</Button></Grid>
+                                    <Grid xs={1} item></Grid>
+                                    
+                                </Grid>
+                            </Grid>
                         </Grid>
                     </Paper>
                     <Grid container item>
@@ -137,6 +217,22 @@ class CreateDumbComponent extends Component {
                                             ></Components></Grid>)}     
                     
                 </Grid>
+
+                    <ReactImageMagnify {...{
+                        smallImage: {
+                            alt: 'Upload a file to active viewer',
+                            isFluidWidth: false,
+                            src: urls[this.state.ImageIndex],
+                            width: 700,
+                            height: 900
+                        },
+                        largeImage: {
+                            src: urls[this.state.ImageIndex],
+                            width: 1400,
+                            height: 1700
+                        }
+                    }} />
+               
                 
             </Filler>
             
@@ -145,5 +241,12 @@ class CreateDumbComponent extends Component {
 }
 /*<Grid container item xs={12}> <Paper style={{padding:'24px', width:'90%'}}>{this.props.components.map((item, index) => {
                              return <Grid key={index} item container xs={4}><Components item={item}/></Grid>
-                         })}</Paper></Grid>)}  */
+                         })}</Paper></Grid>)} 
+                         
+                                             <Grid container xs={12}>
+                        <Grid container item xs={10}><Heading>Image Preview</Heading><img src={urls[this.state.ImageIndex]} height={1000} width={'70%'} style={{margin:8}}/></Grid>
+                        <Grid xs={2}>
+                            <Button onClick={this.Next} disabled={this.props.components.length === 0} fullWidth variant='contained' color={'primary'}>Next Image</Button>
+                        </Grid>
+                    </Grid>*/
 export default CreateDumbComponent

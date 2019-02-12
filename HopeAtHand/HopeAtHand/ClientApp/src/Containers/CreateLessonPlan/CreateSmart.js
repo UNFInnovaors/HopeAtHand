@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Filler from '../../components/HOC/Filler';
 import CreateDumbComponent from './CreateDumbComponent';
 import Axios from 'axios';
+import { get } from '../../components/Axios/Instances'
 
 class CreateSmartContainer extends Component {
   state = {
@@ -13,14 +14,19 @@ class CreateSmartContainer extends Component {
     Action : null,
     NameError: false,
     ThemeError: false,
-    ImageUrl:""
+    ImageUrl:"",
+    Complete_Lesson : null,
+    OutlineDocument : null,
+    OutlinePicture : null,
+
   };
-  AddLessonPlanComponent = ( id, metaData, type) => {
+  AddLessonPlanComponent = ( id, metaData, type, image) => {
     console.log(
       'This is from db, ', id
       , 'This is the metaData', metaData
       ,'This is the type', type )
-      const component = {id : id, name : metaData["name"], type: type}
+      const imageView = URL.createObjectURL(image)
+      const component = {id : id, name : metaData["name"], type: type , image : imageView}
     this.setState({LessonPlanComponents : [...this.state.LessonPlanComponents, component]})
   }
   AddLessonFromSearch = (documentToAdd) => {  
@@ -29,17 +35,30 @@ class CreateSmartContainer extends Component {
     let component = {id : "Error", name :"Error", type: "Error"}
     if(documentToAdd.poemId)
     {
-      component = {id : documentToAdd.poemId, name :documentToAdd.title, type: "Poem"}
+        get('/Document/GetDocument/'+documentToAdd.poemId).then( res => {
+              console.log(res)
+              component = {id : documentToAdd.poemId, name :documentToAdd.title, type: "Poem", image : res.data.document.imageURL}
+              this.setState({LessonPlanComponents : [...this.state.LessonPlanComponents, component], Loading:false})
+            })
+      
     }
     else if(documentToAdd.artPieceId)
     {
-      component = {id : documentToAdd.poemId, name :documentToAdd.title, type: "Art Piece"}
+      get('/Document/GetDocument/' + documentToAdd.artPieceId).then( res => {
+        console.log(res)
+        component = {id : documentToAdd.poemId, name :documentToAdd.title, type: "Art Piece", image : res.data.document.imageURL}
+        this.setState({LessonPlanComponents : [...this.state.LessonPlanComponents, component], Loading:false})
+      })
     }
     else if(documentToAdd.writingAssignmentId)
     {
-      component = {id : documentToAdd.poemId, name :documentToAdd.title, type: "Writing Assignment"}
+      get('/Document/GetDocument/' + documentToAdd.writingAssignmentId).then( res => {
+        console.log(res)
+        component = {id : documentToAdd.writingAssignmentId , name :documentToAdd.title, type: "Writing Template", image : res.data.document.imageURL}
+        this.setState({LessonPlanComponents : [...this.state.LessonPlanComponents, component], Loading:false})
+      })
     }
-    this.setState({LessonPlanComponents : [...this.state.LessonPlanComponents, component]})
+    this.setState({Loading:true})
   }
   AddThemes = (ATheme) => {
     //console.log("asdfasf",ATheme, "This is a selected Themes")
@@ -101,18 +120,27 @@ class CreateSmartContainer extends Component {
     }
     console.log(LessonPlanCreationDTO)
     console.log(uploadLessonDTO)
-    Axios.post("/API/LessonPlan/SaveLesson", LessonPlanCreationDTO).then(response => console.log(response)).catch(err => console.log(err))
+    Axios.post("/API/LessonPlan/SaveLesson", LessonPlanCreationDTO).then(response => console.log(response)).catch(err => console.log(err)) 
+  }
+
+  SelectFile = (event) => {
     
+    console.log(event.target.id, 'this is the event that is targeted')
+    switch(event.target.id){
+      case "Complete_Lesson":
+        this.setState({Complete_Lesson: event.target.files[0]})
+        break;
+      case "OutlineDocument":
+        this.setState({OutlineDocument: event.target.files[0]})
+        break;
+      case "OutlinePicture":
+        this.setState({OutlinePicture: event.target.files[0]})
+        break
+      default:
+        console.log("error")
+    }
   }
   
- /* RemoveThemes = (RemoveTheme, index) => {
-    console.log(indexOf(RemoveTheme));
-    let newList = [...this.state.SelectedThemes]
-    newList.splice(newList.findIndex((el => { 
-      return el.value === RemoveTheme.value
-    })))
-    this.setState({SelectedThemes : newList})
-  } */
   RemoveThemes = () => {
     console.log("hmmm")
   }
@@ -133,6 +161,7 @@ class CreateSmartContainer extends Component {
           action={this.state.Action}
           lessonPLanName={this.state.LessonPLanName}
           //Methods
+
           lessonPlanNameChangeHandler={this.LessonPlanNameChangeHandler}
           uploadLessonPLan={this.UploadLessonPLan}
           changeAction={this.ChangeAction}
@@ -142,6 +171,12 @@ class CreateSmartContainer extends Component {
           addToLesson={this.AddLessonFromSearch}
           removeFromLesson={this.RemoveDocumentFromPlan}
           addFavorites={this.props.addFavorites}
+          selectFile={this.SelectFile}
+
+        //documents
+          complete_Lesson={this.state.Complete_Lesson} 
+          outlineDocument={this.state.OutlineDocument} 
+          lessonPlanImage={this.state. OutlinePicture} 
 
         ></CreateDumbComponent>
       </Filler>

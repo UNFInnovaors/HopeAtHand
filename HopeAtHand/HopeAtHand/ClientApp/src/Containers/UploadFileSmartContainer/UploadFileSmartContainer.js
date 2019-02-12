@@ -199,7 +199,7 @@ class UploadFileSmartContainer extends Component {
           this.setState({Loading: false, Error: true})
         }
         //Should only call this method if we are sending the data to the create lesson plan component. 
-        this.props.addComponent(res.data, this.state.DataAsKVP, this.state.SelectedDocumentType );
+        this.props.addComponent(res.data, this.state.DataAsKVP, this.state.SelectedDocumentType, this.state.ImagesToUpload );
         this.setState({...this.initialState})
         sessionStorage.removeItem("Themes")
     })

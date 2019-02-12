@@ -14,6 +14,7 @@ import {post} from './components/Axios/Instances'
 import blue from '@material-ui/core/colors/blue';
 import pink from '@material-ui/core/colors/green'
 import AppBar from './components/AppBar/AppBar'
+import LessonPlanViewer from './Containers/LessonPlanView/LessonPLanViewSmartContainer'
 
 let theme = createMuiTheme({
   palette: {
@@ -174,6 +175,7 @@ export default class App extends Component {
               <CreateTheme
                   user={this.state.UserName}
                   addFavorites={this.AddFavorites}/>}/>
+            <Route path='/test' exact render={(props) => <LessonPlanViewer/>}/>
           </Paper>
         </MuiThemeProvider>
       </Filler>
