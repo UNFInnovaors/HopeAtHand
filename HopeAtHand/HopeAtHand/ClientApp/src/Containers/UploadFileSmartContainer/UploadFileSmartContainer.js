@@ -19,7 +19,7 @@ class UploadFileSmartContainer extends Component {
     ShouldImageBeUploaded:false,
     ImagesToUpload:[],
     Success: false,
-    Error: null
+    Error: null,
 
   }
 
@@ -79,8 +79,8 @@ class UploadFileSmartContainer extends Component {
         }
       }
     }
-  }
-
+  }/*Add O Auth, opIdConnect*/
+  /*export function createBlobServiceWithSas(host: string|StorageHost, sasToken: string): BlobService;*/
   createContainer = () => {
     let valid = true
     valid = this.validator(this.state.containerName["validation"],this.state.containerName["id"])
@@ -172,7 +172,7 @@ class UploadFileSmartContainer extends Component {
    /*if(!this.validatePostData())
       return*/
 
-    let themesForTransfer = sessionStorage.getItem('Themes')
+    let themesForTransfer = sessionStorage.getItem(this.state.SelectedDocumentType.replace(/\s/g, '')+'UploadThemes')
     var file=this.state.FileToUpload;
     
     var bodyFormData = new FormData();
@@ -195,7 +195,7 @@ class UploadFileSmartContainer extends Component {
                     'Content-Disposition': 'form-data'
      }}).then(res => {
         console.log(res)
-        if(res.data === -1){
+        if(res.data === null){
           this.setState({Loading: false, Error: true})
         }
         //Should only call this method if we are sending the data to the create lesson plan component. 

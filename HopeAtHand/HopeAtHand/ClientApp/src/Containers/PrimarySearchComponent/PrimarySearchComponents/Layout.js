@@ -27,7 +27,8 @@ const Layout = (props) => {
                     <SearchResults searchResults={props.searchResults}
                                     isUpload={props.isUpload}
                                     addToLesson={props.addToLesson}
-                                    addFavorites={props.addFavorites}/>
+                                    addFavorites={props.addFavorites}
+                                    beginLessonPlanView={props.beginLessonPlanView}/>
                 </Grid>
                 <Grid item xs={1}></Grid>
             

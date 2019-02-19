@@ -44,6 +44,11 @@ export default class App extends Component {
         primary: blue,
         secondary: pink
       },
+      typography:{
+        body1:{
+          fontSize: 16
+        }
+      }
     });
     this.setState({Theme:themez})
   }
@@ -150,13 +155,8 @@ export default class App extends Component {
                   addFavorites={this.AddFavorites}
                   />
             }/>
+
             <Route path="/Search" exact render={(props) => 
-              <LessonPLanSmartContainer
-                  user={this.state.UserName}
-                  addFavorites={this.AddFavorites}
-                  />}>
-            </Route>
-            <Route path="/Search2" exact render={(props) => 
              <Search
                   user={this.state.UserName}
                   addFavorites={this.AddFavorites}
@@ -206,7 +206,12 @@ ChangePrimary = (event) => {
 
 }
 
-
+            <Route path="/Search" exact render={(props) => 
+              <LessonPLanSmartContainer
+                  user={this.state.UserName}
+                  addFavorites={this.AddFavorites}
+                  />}>
+            </Route>
 
 GetQuestionValueHandler = event => {
   let newQuestion = JSON.parse(JSON.stringify(this.state.BaseQuestion));

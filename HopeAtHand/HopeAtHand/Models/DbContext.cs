@@ -16,20 +16,20 @@ namespace HopeAtHand.Models
             //modelBuilder.Entity<ArtPiece>().Property(b => b.ArtPieceId);
            
             modelBuilder.Entity<LessonPlan_ArtPiece>().HasKey(at => new { at.ArtPieceId, at.LessonPlanId });
-            modelBuilder.Entity<LessonPlan_ArtPiece>().HasOne( o =>o.ArtPiece).WithMany( o => o.Lesson_Art).HasForeignKey( o => o.ArtPieceId);
-            modelBuilder.Entity<LessonPlan_ArtPiece>().HasOne(o => o.LessonPlan).WithMany(o => o.Lesson_Art).HasForeignKey(o => o.LessonPlanId);
+            //modelBuilder.Entity<LessonPlan_ArtPiece>().HasOne( o =>o.ArtPiece).WithMany( o => o.Lesson_Art).HasForeignKey( o => o.ArtPieceId);
+            //modelBuilder.Entity<LessonPlan_ArtPiece>().HasOne(o => o.LessonPlan).WithMany(o => o.Lesson_Art).HasForeignKey(o => o.LessonPlanId);
 
             modelBuilder.Entity<Favorite>().HasKey(at => new { at.DocumentID, at.FacilitatorID });
 
             modelBuilder.Entity<Poem>().Property(p => p.PoemId).ValueGeneratedOnAdd();
 
             modelBuilder.Entity<LessonPlan_Poem>().HasKey(at => new { at.LessonPlanId, at.PoemId });
-            modelBuilder.Entity<LessonPlan_Poem>().HasOne(o => o.LessonPLan).WithMany(o => o.Lesson_Poems).HasForeignKey(o => o.LessonPlanId);
-            modelBuilder.Entity<LessonPlan_Poem>().HasOne(o => o.Poem).WithMany(o => o.Lesson_Poem).HasForeignKey(o => o.PoemId);
+            //modelBuilder.Entity<LessonPlan_Poem>().HasOne(o => o.LessonPLan).WithMany(o => o.Lesson_Poems).HasForeignKey(o => o.LessonPlanId);
+            //modelBuilder.Entity<LessonPlan_Poem>().HasOne(o => o.Poem).WithMany(o => o.Lesson_Poem).HasForeignKey(o => o.PoemId);
             
             modelBuilder.Entity<LessonPlan_WritingAssignment>().HasKey(at => new { at.WritingAssignmentId, at.LessonPlanId });
-            modelBuilder.Entity<LessonPlan_WritingAssignment>().HasOne(o => o.LessonPLan).WithMany(o => o.Lesson_Writing).HasForeignKey(o => o.LessonPlanId);
-            modelBuilder.Entity<LessonPlan_WritingAssignment>().HasOne(o => o.WritingAssignment).WithMany(o => o.Lesson_Writing).HasForeignKey(o => o.WritingAssignmentId);
+            //modelBuilder.Entity<LessonPlan_WritingAssignment>().HasOne(o => o.LessonPLan).WithMany(o => o.Lesson_Writing).HasForeignKey(o => o.LessonPlanId);
+            //modelBuilder.Entity<LessonPlan_WritingAssignment>().HasOne(o => o.WritingAssignment).WithMany(o => o.Lesson_Writing).HasForeignKey(o => o.WritingAssignmentId);
 
             modelBuilder.Entity<ArtThemes>().HasKey(at => new { at.ThemeName, at.ArtPieceId });
             modelBuilder.Entity<PoemThemes>().HasKey(at => new { at.ThemeName, at.PoemId });
@@ -73,6 +73,14 @@ namespace HopeAtHand.Models
         public DbSet<Facilitator> Facilitators {get;set;}
 
         public DbSet<Favorite> Favorites { get; set; }
+
+        public DbSet<LessonPlan_Poem> lessonPlan_Poems { get; set; }
+
+        public DbSet<LessonPlan_ArtPiece> lessonPlan_ArtPieces { get; set; }
+
+        public DbSet<LessonPlan_WritingAssignment> lessonPlan_WritingAssignments { get; set; }
+
+        public DbSet<LessonThemes> lesson_Themes { get; set; }
 
     }
 }

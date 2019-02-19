@@ -4,8 +4,7 @@ import Writing from './UploadWritingTemplate/UploadWritingAssignment';
 import Art from './ArtPiece/UploadArtPiece';
 import { Grid, Paper, Typography, Button, CircularProgress, Snackbar } from '@material-ui/core';
 import ReusableSelect from '../../../components/UI Components/ReuseableSelect';
-import ThemeSelect from '../../../components/UI/ThemeSelect/ThemeSelect';
-import ThemeBox from '../../../components/UI/ThemeBox/ThemeBox'
+import ThemeSelect from '../../../components/UI/ReusableThemeSelect/ReusableThemeSelect'
 import Filler from '../../../components/HOC/Filler';
 import UploadImage from './UploadImage/UploadImage';
 
@@ -71,7 +70,7 @@ const uploadDocumentDumbContainer = (props) => {
         >
         </Snackbar>
         <Grid container item spacing={24}>
-        <Grid item xs={12}><Typography variant="h2" align="center">Upload</Typography></Grid>
+        <Grid item xs={12}><Typography variant="h2" align="center">Upload Document</Typography></Grid>
         
         <Grid item xs={3}></Grid>
             <Grid item xs={6}>
@@ -104,8 +103,7 @@ const uploadDocumentDumbContainer = (props) => {
             <Filler>
             <Grid container item xs={12}>
                 <Grid item xs={1}></Grid>
-                <Grid item xs={10} style={{marginTop:'1.25%'}}><ThemeSelect updateThemes={props.updateTheme}/></Grid><Grid item xs={1}></Grid>
-                <Grid item xs={1}></Grid><Grid style={{marginTop:'2.5%'}} item xs={10}><ThemeBox themes={props.themes}/></Grid><Grid item xs={1}></Grid>
+                <Grid item xs={10} style={{marginTop:'1.25%'}}><ThemeSelect destination={props.selectedDocumentType.replace(/\s/g, '')+"UploadThemes"}/></Grid><Grid item xs={1}></Grid>
             </Grid>
             <Grid item xs={1}></Grid>
             

@@ -29,7 +29,7 @@ namespace HopeAtHand.Controllers
         IArtPieceSearchRepository artPieceSearchRepository,
         IThemeSearchRepositroy themeSearch)
         {
-            
+
             this.poemRepo = poemRepo;
             this.poemSearch = poemSearch;
             this.writingSearch = writingSearch;
@@ -37,7 +37,7 @@ namespace HopeAtHand.Controllers
             this.artPieceSearchRepository = artPieceSearchRepository;
             this.themeSearch = themeSearch;
         }
-        
+
         [HttpPost]
         public IActionResult FindLessonPlan([FromBody]LessonSearchDTO lessie)
         {
@@ -64,10 +64,22 @@ namespace HopeAtHand.Controllers
         {
             return Ok(writingSearch.SeachForWritingAssignment(writingSearchDTO));
         }
+        //No Themes
         [HttpPost]
-        public IActionResult SearchForLessons([FromBody] LessonPlanSearchDTO lessonSearchDTO)
+        public IActionResult SearchForLessonsByName([FromBody] LessonPlanSearchDTO lessonSearchDTO)
         {
             return Ok(lessonPLanSearch.SeachForLessonPlan(lessonSearchDTO));
+        }
+        //WithThemes
+        [HttpPost]
+        public IActionResult SearchForLessons([FromBody] LessonPlanThemeSearch lessonSearchDTO)
+        {
+            return Ok(lessonPLanSearch.SearchForLessonPlan(lessonSearchDTO));
+        }
+        [HttpGet("{id}")]
+        public IActionResult SearchForLessonsById(int id)
+        {
+            return Ok(lessonPLanSearch.GetLessonPlanById(id));
         }
         [HttpPost]
         public IActionResult SearchForThemes([FromBody] ThemeSearchDTO themeSearchDTO)

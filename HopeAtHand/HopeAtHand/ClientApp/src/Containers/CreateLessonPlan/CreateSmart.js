@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Filler from '../../components/HOC/Filler';
 import CreateDumbComponent from './CreateDumbComponent';
 import Axios from 'axios';
-import { get } from '../../components/Axios/Instances'
+import { get, post } from '../../components/Axios/Instances'
 
 class CreateSmartContainer extends Component {
   state = {
@@ -16,19 +16,24 @@ class CreateSmartContainer extends Component {
     ThemeError: false,
     ImageUrl:"",
     Complete_Lesson : null,
+    CompleteLessonUploaded : false,
     OutlineDocument : null,
+    OutlineDocumentUploaded: false,
     OutlinePicture : null,
-
+    OutlinePictureUploaded: false
   };
+
   AddLessonPlanComponent = ( id, metaData, type, image) => {
     console.log(
-      'This is from db, ', id
+      'This is from db, ', id.id
       , 'This is the metaData', metaData
-      ,'This is the type', type )
-      const imageView = URL.createObjectURL(image)
-      const component = {id : id, name : metaData["name"], type: type , image : imageView}
+      ,'This is the type', type,
+      'this is image' , image )
+      const imageView = URL.createObjectURL(image[0])
+      const component = {id : id.id, name : metaData["name"], type: type , image : imageView}
     this.setState({LessonPlanComponents : [...this.state.LessonPlanComponents, component]})
   }
+
   AddLessonFromSearch = (documentToAdd) => {  
     console.log(documentToAdd, 'this is in create Lesson Smart')
     let id = null
@@ -40,7 +45,6 @@ class CreateSmartContainer extends Component {
               component = {id : documentToAdd.poemId, name :documentToAdd.title, type: "Poem", image : res.data.document.imageURL}
               this.setState({LessonPlanComponents : [...this.state.LessonPlanComponents, component], Loading:false})
             })
-      
     }
     else if(documentToAdd.artPieceId)
     {
@@ -60,22 +64,6 @@ class CreateSmartContainer extends Component {
     }
     this.setState({Loading:true})
   }
-  AddThemes = (ATheme) => {
-    //console.log("asdfasf",ATheme, "This is a selected Themes")
-    let newList = new Array();
-    newList=[1]
-    if(this.state.SelectedThemes.length === 0){
-      //console.log('This is here')
-      newList.push(ATheme)
-    }
-    else{
-      //console.log('This is ow here')
-      newList = [1,2,3, ATheme];
-    }
-    
-    //console.log('This is the new list ',  newList)
-    this.setState({SelectedThemes : newList})
-  }
 
   ChangeAction = (action) => {
     this.setState({Action:action})
@@ -84,7 +72,6 @@ class CreateSmartContainer extends Component {
   RemoveDocumentFromPlan = (index) => {
     let current = [...this.state.LessonPlanComponents]  
     current.splice(index,1)
-    console.log(current, 'this is current')
     this.setState({LessonPlanComponents: current})
   }
 
@@ -103,24 +90,42 @@ class CreateSmartContainer extends Component {
     if(valid === false){
       return
     }
+
     let documentIds = []
     this.state.LessonPlanComponents.forEach((document) => {
+      console.log('This is a document in in foreach', document)
       documentIds.push(document.id)
     })
-    const uploadLessonDTO ={
-      LessonPLanName: this.state.LessonPLanName,
-      Themes: themesForTransfer,
-      DocumentIds: documentIds
-    }
-    const LessonPlanCreationDTO = {
-      name: this.state.LessonPLanName,
-      themes: themesForTransfer,
-      documents: documentIds,
-      imageUrl: this.state.ImageUrl
-    }
-    console.log(LessonPlanCreationDTO)
-    console.log(uploadLessonDTO)
-    Axios.post("/API/LessonPlan/SaveLesson", LessonPlanCreationDTO).then(response => console.log(response)).catch(err => console.log(err)) 
+    
+    var bodyFormData = new FormData();
+    bodyFormData.set('Complete_Lesson', this.state.Complete_Lesson)
+    bodyFormData.set('CompUploaded', this.state.CompleteLessonUploaded)
+    bodyFormData.set('LessonOutline', this.state.OutlineDocument)
+    bodyFormData.set('OutlineDocUploaded', this.state.OutlineDocumentUploaded)
+    bodyFormData.set('OutlinePicture', this.state.OutlinePicture)
+    bodyFormData.set('OutlinePicUploaded', this.state.OutlinePictureUploaded)
+    
+    console.log(bodyFormData)
+    Axios.post("/api/BlobCreator/UploadLessonPlanBlobs",bodyFormData,{
+      headers:{
+                    'Content-Type': 'multipart/form-data; boundary=absdfabs',
+                    'Content-Disposition': 'form-data'
+     }}).then( res => {
+      console.log(res, 'This is the response from the server')
+      const LessonPlanCreationDTO = {
+        name: this.state.LessonPLanName,
+        themes: themesForTransfer,
+        documentIds: documentIds,
+        completeDocumentURL: res.data.completeDocumentURL,
+        documentOutlinePicture : res.data.documentOutlinePicture,
+        documentOutlineURL : res.data.documentOutlineURL,
+      }
+      console.log(LessonPlanCreationDTO, 'this is the lesson plan creation DTO')
+      Axios.post("/API/LessonPlan/SaveLesson", LessonPlanCreationDTO).then(response => console.log(response)).catch(err => console.log(err))
+    
+    }).catch(err => {
+      console.log(err)
+    })  
   }
 
   SelectFile = (event) => {

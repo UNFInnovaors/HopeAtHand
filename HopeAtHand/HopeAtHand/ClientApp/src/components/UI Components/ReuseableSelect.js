@@ -35,9 +35,10 @@ class ReuseableSelect extends Component {
           variant="standard"
           error={this.state.selectedValue === this.state.themes[0]}
           fullWidth
+          style={{fontSize:18}}
           
         >
-          <Select
+          <Select style={{fontSize:18}}
             //native //props.native
             value={this.state.selectedValue} //props. defaults
             onChange={this.handleChange} //props. handler
@@ -48,6 +49,7 @@ class ReuseableSelect extends Component {
             {this.props.valuesForOptions.map(
               (aTheme, index) => (
                 <option
+                  style={{fontSize:18}}
                   disabled={aTheme === this.props.valuesForOptions[0]}
                   key={index}
                   value={aTheme}

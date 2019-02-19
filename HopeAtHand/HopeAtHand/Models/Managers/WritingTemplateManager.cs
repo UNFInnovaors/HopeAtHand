@@ -17,7 +17,7 @@ namespace HopeAtHand.Models.Managers
 
     public interface IWritingTemplateManager
     {
-        int CreateWritingAssignment(CreateWritingAssignmentData createData);
+        CreateResultDTO CreateWritingAssignment(CreateWritingAssignmentData createData);
     }
 
     public class WritingTemplateManager : IWritingTemplateManager
@@ -31,12 +31,12 @@ namespace HopeAtHand.Models.Managers
             this.themeManager = themeManager;
         }
 
-        public int CreateWritingAssignment(CreateWritingAssignmentData create)
+        public CreateResultDTO CreateWritingAssignment(CreateWritingAssignmentData create)
         {
 
             if (create.AgeGroup == "" || create.WritingAssignmentName == "")
             {
-                return -1;
+                return null;
             }
             WritingAssignment WAToAdd = TrackWA(3);
             themeManager.ConnectEntity(create.Themes, WAToAdd.WritingAssignmentId, "Writing");
@@ -46,7 +46,11 @@ namespace HopeAtHand.Models.Managers
             WAToAdd.AgeGroup = create.AgeGroup;
             WAToAdd.DocumentBlobURL = create.WritingURL;
             Data.SaveChanges();
-            return WAToAdd.WritingAssignmentId;
+            return new CreateResultDTO
+            {
+                id = WAToAdd.WritingAssignmentId,
+                imageURL = WAToAdd.ImageURL
+            };
         }
 
         public WritingAssignment TrackWA(int numberToAdd)

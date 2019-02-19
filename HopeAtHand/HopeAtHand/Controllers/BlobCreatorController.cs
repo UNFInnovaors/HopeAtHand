@@ -15,16 +15,16 @@ using System.Threading.Tasks;
 
 namespace HopeAtHand.Controllers
 {
+    public class URLContainer
+    {
+        public string CompleteDocumentURL { get; set; } = "";
+        public string DocumentOutlineURL { get; set; } = "";
+        public string DocumentOutlinePicture { get; set; } = "";
+
+    }
     [Route("api/[controller]/[Action]")]
     public class BlobCreatorController : Controller
     {
-        public Themes[] Themes = new Themes[] {
-                new Themes { ThemeName = "Female Empowerment" },
-                new Themes { ThemeName =  "Male Empowermet" },
-                new Themes { ThemeName =  "Self Acceptance" },
-                new Themes { ThemeName =  "Connectivity" },
-                new Themes { ThemeName =  "Final Option" }, };
-
         private readonly AzureStorageConfig storageConfig;
         private readonly IPoemManager poemManager;
         private readonly IWritingTemplateManager WritingTemplate;
@@ -44,8 +44,7 @@ namespace HopeAtHand.Controllers
     [HttpPost]
     public async Task<IActionResult> createNewBlob()
     {
-        //Recieve Files From Cliet
-        var result = -1;
+        CreateResultDTO result = new CreateResultDTO();
         IFormFile formFile = HttpContext.Request.Form.Files[0];
         var something = HttpContext.Request.Form.Keys;
         Dictionary<string, string> keyValuePairs = new Dictionary<string, string>();
@@ -144,6 +143,58 @@ namespace HopeAtHand.Controllers
                 
             return Ok(result);
 
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+       
+        [HttpPost]
+        public async Task<IActionResult> UploadLessonPlanBlobs()
+        {
+            var files = HttpContext.Request.Form.Files;
+            var keys = HttpContext.Request.Form.Keys;
+
+            URLContainer urls = new URLContainer();
+            try
+            {
+                if (storageConfig.AccountKey == string.Empty || storageConfig.AccountName == string.Empty)
+                    return BadRequest("sorry, can't retrieve your azure storage details from appsettings.js, make sure that you add azure storage details there");
+                if (storageConfig.ImageContainer == string.Empty)
+                    return BadRequest("Please provide a name for your image container in the azure blob storage");
+
+                IFormFile formFile = HttpContext.Request.Form.Files[0];
+                if (formFile != null)
+                {
+                    using (Stream stream = formFile.OpenReadStream())
+                    {
+                        CloudBlockBlob blockBlob = await StorageHelper.UploadFileToStorage(stream, formFile.FileName, storageConfig);
+                        
+                            urls.CompleteDocumentURL = blockBlob.Uri.ToString();
+                    }
+                }
+
+                formFile = HttpContext.Request.Form.Files[1];
+                if(formFile != null)
+                {
+                    using (Stream stream = formFile.OpenReadStream())
+                    {
+                        CloudBlockBlob blockBlob = await StorageHelper.UploadFileToStorage(stream, formFile.FileName, storageConfig);
+                        urls.DocumentOutlineURL = blockBlob.Uri.ToString();
+                    }
+                }
+
+                formFile = HttpContext.Request.Form.Files[2];
+                if (formFile != null)
+                {
+                    using (Stream stream = formFile.OpenReadStream())
+                    {
+                        CloudBlockBlob blockBlob = await StorageHelper.UploadFileToStorage(stream, formFile.FileName, storageConfig);
+                        urls.DocumentOutlinePicture = blockBlob.Uri.ToString();
+                    }
+                }
+                return Ok(urls);
             }
             catch (Exception ex)
             {

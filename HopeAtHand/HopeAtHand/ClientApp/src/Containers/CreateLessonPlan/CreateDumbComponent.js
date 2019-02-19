@@ -1,19 +1,11 @@
 import React, { Component } from 'react'
 import { Grid, Select, Divider, Button, Typography, TextField } from '@material-ui/core';
 import Filler from '../../components/HOC/Filler'
-import Badge from '@material-ui/core/Badge';
-import Chip from '@material-ui/core/Chip';
 import ThemeSelector from '../../components/UI/ReusableThemeSelect/ReusableThemeSelect'
-import { Document } from 'react-pdf'
 //import ThemeSelect from '../../components/UI/ThemeSelect/LeesonPLanThemes';
-import ThemeBox from '../../components/UI/ThemeBox/ThemeBox'
-import DoneIcon from '@material-ui/icons/Done';
 import Action from './CreateAction/CreateAction'
 import Components from './ComponentsForDDisplay/ComponentsForDisplay'
-import Modal from '../../components/UI Components/Modals/ViewDocument'
-import FileViewer from 'react-file-viewer';
 import { Paper } from '@material-ui/core';
-import Heading from '../../components/UI Components/Heading/Heading';
 import ReactImageMagnify from 'react-image-magnify';
 
 class CreateDumbComponent extends Component {
@@ -157,7 +149,7 @@ class CreateDumbComponent extends Component {
                                     </label> 
                                 </Grid>
                                 <Grid item xs={7}>
-                                    <TextField fullWidth disabled  value={(this.props.outlineDocument === null ? "Please upload complete lesson" : this.props.outlineDocument.name)}></TextField>
+                                    <TextField fullWidth disabled  value={(this.props.outlineDocument === null ? "Please upload document outline" : this.props.outlineDocument.name)}></TextField>
                                 </Grid>
                                 <Grid item xs={5}>
                                     <label style={{width:'100%'}} htmlFor="OutlinePicture">
@@ -171,7 +163,7 @@ class CreateDumbComponent extends Component {
                                     </label> 
                                 </Grid>
                                 <Grid item xs={7}>
-                                    <TextField fullWidth disabled  value={(this.props.lessonPlanImage === null ? "Please upload complete lesson" : this.props.lessonPlanImage.name)}></TextField>
+                                    <TextField fullWidth disabled  value={(this.props.lessonPlanImage === null ? "Please upload a picture of the outline" : this.props.lessonPlanImage.name)}></TextField>
                                 </Grid>
                             </Grid>
                             <Grid xs={6} item container> <ThemeSelector destination={'LessonThemes'} always={true}/>

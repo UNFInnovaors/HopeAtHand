@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using HopeAtHand.Controllers;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,8 +11,11 @@ namespace HopeAtHand.Models.Managers
     {
         public string name { get; set; }
         public List<string> themes { get; set; }
-        public List<int> documents { get; set; }
-        public string imageURL { get; set; }
+        public int[] documentIds { get; set; }
+        public string CompleteDocumentURL { get; set; } = "";
+        public string DocumentOutlineURL { get; set; } = "";
+        public string DocumentOutlinePicture { get; set; } = "";
+
     }
     public interface ILessonPlanCreateManager
     {
@@ -37,14 +41,14 @@ namespace HopeAtHand.Models.Managers
                 return null;
 
             themeManager.ConnectEntity(createDTO.themes, lessonPlan.LessonPlanId, "Lesson Plan");
-            bool ConnectionsCreateResult = CreateConnections(createDTO.documents, lessonPlan);
+            bool ConnectionsCreateResult = CreateConnections(createDTO.documentIds, lessonPlan);
             if(ConnectionsCreateResult == false)
                 return null;
             
             return lessonPlan;
         }
 
-        public bool CreateConnections(List<int> documents, LessonPlan lessonPlan)
+        public bool CreateConnections(int[] documents, LessonPlan lessonPlan)
         {
             foreach (int id in documents)
             {
@@ -78,7 +82,10 @@ namespace HopeAtHand.Models.Managers
             LessonPlan newLesson = new LessonPlan()
             {
                 LessonPlanId = CreateId(5),
-                Title = createDTO.name
+                Title = createDTO.name,
+                CompleteLessonPlanURL = createDTO.CompleteDocumentURL,
+                OutlineURl = createDTO.DocumentOutlineURL,
+                ImageURL = createDTO.DocumentOutlinePicture
             };
             Data.Database.OpenConnection();
             try

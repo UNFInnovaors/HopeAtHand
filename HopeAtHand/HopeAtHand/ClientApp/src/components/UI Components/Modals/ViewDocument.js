@@ -71,19 +71,15 @@ function getModalstyle() {
         this.setState({View: "Document"})
       }
     }
-
-
-    
-
     determineFileEnding = (document) => {
       if(document === "")
         return ""
       console.log(document.substring(document.length -5).split('.')[1])
-      return(document.substring(document.length -5).split('.')[1].toLowerCase())
+      return(document.substring(document.length -7).split('.')[1].toLowerCase())
     }
   
     render() {
-      const { classes } = this.props;
+      const { classes } = this.props
       console.log(this.props)
       let document = ""
       if(this.state.Document !== null)
@@ -131,7 +127,6 @@ function getModalstyle() {
       if(this.state.Document === null)
       {
           return <Filler>
-                    <Typography gutterbottom>{this.props.gutter}</Typography>
                     <Button color="primary" variant='contained' onClick={this.handleOpen} fullWidth>View Document</Button>
                     <Modal
                         aria-labelledby="simple-modal-title"

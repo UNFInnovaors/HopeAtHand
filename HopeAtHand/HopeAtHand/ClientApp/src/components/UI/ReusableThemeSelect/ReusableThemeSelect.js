@@ -7,7 +7,6 @@ import Filler from '../../HOC/Filler';
 
 
 /* In order to use this copmponent this.props.updateThemes must be provied, typically is used to update the a state vaiable called themes"*/
-
 class ThemeSelect extends Component {
   state = {
     Themes: [''],
@@ -32,7 +31,7 @@ class ThemeSelect extends Component {
 
   handleChange = selectedOption => {
     console.log('this is selected option')
-    const storage = sessionStorage.getItem(this.props.destination) === null ? '' :  sessionStorage.getItem(this.props.destination).split(',')
+    const storage = sessionStorage.getItem(this.props.destination.replace(/\s/g, '')) === null ? '' :  sessionStorage.getItem(this.props.destination.replace(/\s/g, '')).split(',')
     
     this.setState({ selectedOption });
     let newThemes = []
@@ -48,7 +47,7 @@ class ThemeSelect extends Component {
     if(newThemes.length < 1){
         newThemes = null
     }
-    sessionStorage.setItem(this.props.destination, newThemes)
+    sessionStorage.setItem(this.props.destination.replace(/\s/g, ''), newThemes)
     this.forceUpdate()
   };
 
@@ -56,9 +55,14 @@ class ThemeSelect extends Component {
   renderAgain = () => {
       this.forceUpdate();
   }
+  
   handleCheck = (event) => {
       let show = !this.state.Show
       this.setState({Show:show})
+      if(this.props.withThemes === true){
+        console.log('heandelsheckhappened', this.props.withThemes)
+        this.props.themeSearch()
+      }
   }
 
 
@@ -67,7 +71,7 @@ class ThemeSelect extends Component {
       
       let themesToDisplay = ''
       try{
-          themesToDisplay = sessionStorage.getItem(this.props.destination).split(',')
+          themesToDisplay = sessionStorage.getItem(this.props.destination.replace(/\s/g, '')).split(',')
         } catch(err) {
             console.log('Error is haps')
             themesToDisplay = ''
@@ -86,7 +90,7 @@ class ThemeSelect extends Component {
                         />
                 </Grid>
                 <Grid style={{marginTop:32}} xs={12}item>
-                    <ThemeBox themes={themesToDisplay} reset={this.renderAgain} destination={this.props.destination}  />
+                    <ThemeBox themes={themesToDisplay} reset={this.renderAgain} destination={this.props.destination.replace(/\s/g, '')}  />
                 </Grid>
             </Filler>
             )
@@ -103,7 +107,7 @@ class ThemeSelect extends Component {
                         />
                 </Grid>
                 <Grid style={{marginTop:32}} xs={12}item>
-                    <ThemeBox  reset={this.renderAgain} destination={this.props.destination} themes={this.state.selectedOption}  />
+                    <ThemeBox  reset={this.renderAgain} destination={this.props.destination.replace(/\s/g, '')} themes={themesToDisplay}  />
                 </Grid>
             </Filler>
       }

@@ -37,7 +37,7 @@ class ThemeBox extends  Component{
                         count++;
                         //console.log(theme, "this is a theme")
                         return (
-                            <Grid style={{marginBottom:6, marginRight:3}}><Chip style={{textAlign:'center', margin:'auto', minWidth:120}}  onClick={() => this.remove(theme)} label={theme}></Chip></Grid>
+                            <Grid key={index} style={{marginBottom:6, marginRight:3}}><Chip style={{textAlign:'center', margin:'auto', minWidth:120}}  onClick={() => this.remove(theme)} label={theme}></Chip></Grid>
                         )
                     })
                 

@@ -34,6 +34,7 @@ namespace HopeAtHand
             services.AddTransient<IWritingTemplateManager, WritingTemplateManager>();
             services.AddTransient<IDocumentConnector, DocumentConnector>();
             services.AddTransient<ILessonPlanCreateManager, LessonPlanCreateManager>();
+            services.AddTransient<ILessonPlanRepository, LessonPlanRepository>();
             services.AddTransient<IUserManager, UserManager>();
             services.AddTransient<IFavoriteManager, FavoriteManager>();
             services.AddTransient<IPoemSearchRepository, PoemSearchRepository>();
@@ -53,6 +54,8 @@ namespace HopeAtHand
             {
                 configuration.RootPath = "ClientApp/build";
             });
+
+            services.AddAuthentication();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -71,6 +74,7 @@ namespace HopeAtHand
             app.UseHttpsRedirection();
             app.UseCors(options =>
                options.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin());
+          
             app.UseStaticFiles();
             app.UseSpaStaticFiles();
 

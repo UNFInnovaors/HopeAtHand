@@ -17,7 +17,7 @@ namespace HopeAtHand.Models.Managers
     }
     public interface IPoemManager
     {
-         int CreatePoem(CreatePoemData create);
+         CreateResultDTO CreatePoem(CreatePoemData create);
     }
 
     public class PoemManager : IPoemManager
@@ -31,11 +31,11 @@ namespace HopeAtHand.Models.Managers
             this.themeManager = themeManager;
         }
 
-        public int CreatePoem(CreatePoemData create)
+        public CreateResultDTO CreatePoem(CreatePoemData create)
         {
             if(create.Author == "" || create.PoemName == "" || create.PoemURL == "")
             {
-                return -1;
+                return null;
             }
             Poem poemToAdd = TrackPoem(2);
             themeManager.ConnectEntity(create.Themes, poemToAdd.PoemId, "Poem");
@@ -46,7 +46,7 @@ namespace HopeAtHand.Models.Managers
             poemToAdd.DocumentBlobURL = create.PoemURL;
 
             Data.SaveChanges();
-            return poemToAdd.PoemId;
+            return new CreateResultDTO { id = poemToAdd.PoemId, imageURL = create.ImageURL};
         }
 
         public Poem TrackPoem(int numberToAdd)

@@ -42,17 +42,18 @@ class SearchResults extends Component{
            // console.log(themeRow, 'This is a themeRow')
             
             return(
-                <Grid xs={12} container>
+                <Grid xs={12} item container>
                     {rowOfResults.map((result,index) => {
                         count++;
                         //console.log(theme, "this is a theme")
                         return (
-                            <Grid xs={3}><ResultsDisplayModule 
+                            <Grid item xs={3}><ResultsDisplayModule 
                                             documentData={result} 
                                             isUpload={this.props.isUpload}
                                             addToLesson={this.props.addToLesson}
-                                            addFavorites={this.props.addFavorites}>
-                                            
+                                            addFavorites={this.props.addFavorites}
+                                            beginLessonPlanView={this.props.beginLessonPlanView}
+                                            isLessonPlanComponent={this.props.isLessonPlanComponent}>
                                         </ResultsDisplayModule></Grid>
                         )
                     })}
@@ -71,17 +72,39 @@ class SearchResults extends Component{
             return(
                 <Filler>
                     <Heading>Search Results</Heading>
-                    <Grid container xs={12}>
+                    <Grid container item xs={12}>
                         {table}
                     </Grid>
                 </Filler>)
+        }
+        if(this.props.IsLessonPlan){
+            return(
+            <Filler>
+                <Paper style={{padding:36}}>
+                    <Heading>Search Results</Heading>
+                    <Grid container item xs={12}>
+                        {table}
+                    </Grid>
+                </Paper>
+            </Filler>)
+        }
+        if(this.props.isLessonPlanComponent){
+            return(
+            <Filler>
+                <Paper style={{padding:36, width:'100%'}}>
+                    <Heading>Lesson Plan Documents</Heading>
+                    <Grid container item xs={12}>
+                        {table}
+                    </Grid>
+                </Paper>
+            </Filler>)
         }
         return(
             <Filler>
                 
                 <Paper style={{padding:36}}>
                     <Heading>Search Results</Heading>
-                    <Grid container xs={12}>
+                    <Grid container item xs={12}>
                         {table}
                     </Grid>
                 </Paper>

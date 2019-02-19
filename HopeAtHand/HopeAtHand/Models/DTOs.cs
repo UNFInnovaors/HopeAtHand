@@ -24,9 +24,15 @@ namespace HopeAtHand.Models
         public ThemesDTO themes { get; set; }
     }
 
+    public class UpdateDTO
+    {
+        public string update { get; set; }
+        public int lessonPlanId { get; set; }
+    }
+
     public class ThemeDto
     {
-        
+
     }
     public class ThemesDTO
     {
@@ -53,4 +59,15 @@ namespace HopeAtHand.Models
     {
         public string username { get; set; }
     }
+    public class CreateResultDTO
+    {
+        public int id { get; set; }
+        public string imageURL { get; set; }
+    }
+    public class LessonPlanThemeSearch
+    {
+        public string LesssonName { get; set; } = "";
+        public string[] Themes { get; set; }
+    }
+
 }

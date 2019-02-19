@@ -14,10 +14,12 @@ namespace HopeAtHand.Controllers
     public class LessonPlanController : Controller
     {
         private readonly ILessonPlanCreateManager LessonPlanCreation;
+        private readonly ILessonPlanRepository LessonPlanRepo;
 
-        public LessonPlanController(ILessonPlanCreateManager lessonPlanCreateManager)
+        public LessonPlanController(ILessonPlanCreateManager lessonPlanCreateManager, ILessonPlanRepository lessonPlanRepository)
         {
             LessonPlanCreation = lessonPlanCreateManager;
+            LessonPlanRepo = lessonPlanRepository;
         }
 
         /*public async Task<ActionResult> CreateLesson([FromBody]LessonPlanCreationDTO creationDTO)
@@ -35,21 +37,14 @@ namespace HopeAtHand.Controllers
             else return Ok(lesson);
         }
 
-        [HttpGet]
-        [AllowAnonymous]
-        public PhysicalFileResult PDFToView()
+        public IActionResult UpdateNotes([FromBody] UpdateDTO updateDTO)
         {
-            var file = Path.Combine(Directory.GetCurrentDirectory(),
-                                   "wwwRoot", "TestPDF.pdf");
-            System.Net.Mime.ContentDisposition cd = new System.Net.Mime.ContentDisposition
-            {
-                FileName = "TestPDF.pdf",
-                Inline = true  // false = prompt the user for downloading;  true = browser to try to show the file inline
-            };
-            HttpContext.Response.Headers.Add("Content-Disposition", cd.ToString());
-            HttpContext.Response.Headers.Add("Cache-Control", "no-store");
+            return Ok(LessonPlanRepo.UpdateNote(updateDTO));
+        }
 
-            return PhysicalFile(file, "application/pdf");
+        public IActionResult UpdateLocations([FromBody] UpdateDTO updateDTO)
+        {
+            return Ok(LessonPlanRepo.UpdateLocation(updateDTO));
         }
     }
 }

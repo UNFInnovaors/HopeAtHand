@@ -18,7 +18,7 @@ namespace HopeAtHand.Models.Managers
 
     public interface IArtPieceManager
     {
-        int CreateArtPiece(CreateArtPieceData createData);
+        CreateResultDTO CreateArtPiece(CreateArtPieceData createData);
     }
 
     public class ArtPieceManager : IArtPieceManager
@@ -32,12 +32,12 @@ namespace HopeAtHand.Models.Managers
             this.themeManager = themeManager;
         }
 
-        public int CreateArtPiece(CreateArtPieceData create)
+        public CreateResultDTO CreateArtPiece(CreateArtPieceData create)
         {
 
             if (create.SuppliesNeeded == "" || create.Title == "")
             {
-                return -1;
+                return null;
             }
             ArtPiece ArtPieceToAdd = TrackArtPiece(1);
             themeManager.ConnectEntity(create.Themes, ArtPieceToAdd.ArtPieceId, "Art");
@@ -47,7 +47,11 @@ namespace HopeAtHand.Models.Managers
             ArtPieceToAdd.SuppliesNeeded = create.SuppliesNeeded;
             ArtPieceToAdd.DocumentBlobURL = create.WritingURL;
             Data.SaveChanges();
-            return ArtPieceToAdd.ArtPieceId;
+            return new CreateResultDTO
+            {
+                id = ArtPieceToAdd.ArtPieceId,
+                imageURL = ArtPieceToAdd.ImageURL
+            };
         }
         
         public ArtPiece TrackArtPiece(int numberToAdd)

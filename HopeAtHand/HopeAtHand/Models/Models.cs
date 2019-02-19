@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -27,7 +28,9 @@ namespace HopeAtHand.Models
         public string Author { get; set; }
         public string DocumentBlobURL { get; set; }
         public string ImageURL { get; set; }
+        [NotMapped]
         public List<PoemThemes> Themes { get; set; }
+        [NotMapped]
         public List<LessonPlan_Poem> Lesson_Poem { get; set; }
     }
     public class WritingAssignment
@@ -37,7 +40,9 @@ namespace HopeAtHand.Models
         public string DocumentBlobURL { get; set; }
         public string ImageURL { get; set; }
         public string AgeGroup { get; set; }
+        [NotMapped]
         public List<WritingThemes> Themes { get; set; }
+        [NotMapped]
         public List<LessonPlan_WritingAssignment> Lesson_Writing { get; set; }
     }
     public class ArtPiece
@@ -47,7 +52,9 @@ namespace HopeAtHand.Models
         public string DocumentBlobURL { get; set; }
         public string ImageURL { get; set; }
         public string SuppliesNeeded { get; set; }
+        [NotMapped]
         public List<ArtThemes> ArtThemes { get; set; }
+        [NotMapped]
         public List<LessonPlan_ArtPiece> Lesson_Art { get; set; }
     }
     public class LessonPlan
@@ -55,35 +62,40 @@ namespace HopeAtHand.Models
         public int LessonPlanId { get; set; }
         public string Title { get; set;}
         public string ImageURL { get; set; }
+        public string OutlineURl { get; set; }
+        public string CompleteLessonPlanURL { get; set; }
+        public string Notes { get; set; } = "";
+        public string Locations { get; set; } = "";
+        [NotMapped]
         public List<LessonPlan_Poem> Lesson_Poems { get; set; }
-        public List<LessonPlan_WritingAssignment> Lesson_Writing { get; set; }
-        public List<LessonPlan_ArtPiece> Lesson_Art { get; set; }
+        [NotMapped]
+        public List<Poem> poems { get; set; }
+        [NotMapped]
+        public List<WritingAssignment> WritingAssignments { get; set; }
+        [NotMapped]
+        public List<ArtPiece> ArtPieces { get; set; }
+        [NotMapped]
         public List<LessonThemes> Themes { get; set; }
+        [NotMapped]
+        public List<LessonPlan_ArtPiece> Lesson_Art { get; set; }
+        [NotMapped]
+        public List<LessonPlan_WritingAssignment> Lesson_Writing { get; set; }
     }
     public class LessonPlan_WritingAssignment
     {
         public int LessonPlanId { get; set; }
-        public LessonPlan LessonPLan { get; set; }
-
         public int WritingAssignmentId { get; set; }
-        public WritingAssignment WritingAssignment { get; set; }
     }
     public class LessonPlan_Poem
     {
         public int LessonPlanId { get; set; }
-        public LessonPlan LessonPLan { get; set; }
-
         public int PoemId { get; set; }
-        public Poem Poem { get; set; }
 
     }
     public class LessonPlan_ArtPiece
     {
         public int LessonPlanId { get; set; }
-        public LessonPlan LessonPlan { get; set; }
-
         public int ArtPieceId { get; set; }
-        public ArtPiece ArtPiece { get; set; }
     }
     public class AzureStorageConfig
     {
@@ -103,7 +115,6 @@ namespace HopeAtHand.Models
     {
         public string ThemeName { get; set; }
         public int PoemId { get; set; }
-        public Poem poem { get; set; }
 
     }
     public class WritingThemes
