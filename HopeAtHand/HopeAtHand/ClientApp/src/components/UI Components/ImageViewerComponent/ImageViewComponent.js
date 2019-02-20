@@ -39,9 +39,18 @@ class ViewComponent extends Component{
         return(
             <Paper style={{margin:4, padding:4}}>
                 <Grid item container xs={12} spacing={16}>
-                    <Heading>Lesson Plan : {this.props.urls[0].name}</Heading>
                     <Heading>Document Viewer</Heading>
-                    <Heading>Document Name : {this.props.urls[this.state.ImageIndex].name}</Heading>
+                    <Grid item xs={1}></Grid>
+                    <Grid item xs={4}>
+                        <Typography variant='body1'>Lesson Plan : {this.props.urls[0].name}</Typography>
+                    </Grid>
+                    <Grid item xs={6}>
+                        <Typography variant='body1' align='right'>Document in viewer : {this.props.urls[this.state.ImageIndex].name}</Typography>
+                    </Grid>
+                    <Grid item xs={1}></Grid>
+                    
+                    
+                    
                     <Grid item container xs={12}>
                         <Grid item xs={1}></Grid>
                         <Grid item xs={4}>

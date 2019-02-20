@@ -52,7 +52,7 @@ class SearchPoems extends Component{
                         <Typography variant='h4'>Search for poems</Typography>
                     </Grid>
                 </Grid>
-                <Grid item container spacing={24} xs={12}>
+                <Grid item container spacing={24} xs={12} className='test1'>
                     <Grid item xs={6}>
                         <TextField fullWidth label="Please enter the Poem's Name" onChange={this.handleChange} inputProps={{"data-input" : "name"}}></TextField>
                     </Grid>

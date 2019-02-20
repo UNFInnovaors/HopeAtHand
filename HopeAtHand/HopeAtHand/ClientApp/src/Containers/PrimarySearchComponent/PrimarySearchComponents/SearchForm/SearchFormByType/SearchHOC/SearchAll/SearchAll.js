@@ -29,7 +29,7 @@ class SearchAll extends Component{
                 <Heading>This is search all</Heading>
                 <Grid container item xs={12}>
                 <Grid xs={3}><TextField label='Enter Value To Search For' value={this.state.SearchString}></TextField></Grid>
-                <Grid xs={12}></Grid>
+                <Grid xs={12} className={'test1'}></Grid>
                     <Grid style={{marginTop:'2%'}} xs={3} item><Button variant="contained" color="primary" fullWidth onClick={this.Search}>Search</Button></Grid>
                 </Grid>
             </Grid>

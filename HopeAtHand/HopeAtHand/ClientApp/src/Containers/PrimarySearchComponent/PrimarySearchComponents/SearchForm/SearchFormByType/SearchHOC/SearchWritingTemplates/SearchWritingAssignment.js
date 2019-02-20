@@ -53,7 +53,7 @@ class SearchWriting extends Component{
                         <Typography variant='h4'>Search for writing templates</Typography>
                     </Grid>
                 </Grid>
-                <Grid item container spacing={24} xs={12}>
+                <Grid item container spacing={24} xs={12} className={'test1'}>
                     <Grid item xs={6}>
                         <TextField fullWidth label="Please Name the Writing Assignment" onChange={this.handleChange}  inputProps={{"data-input":"name"}}></TextField>
                     </Grid>

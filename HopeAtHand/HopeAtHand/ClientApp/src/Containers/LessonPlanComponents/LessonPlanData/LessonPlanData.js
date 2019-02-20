@@ -116,7 +116,7 @@ class LessonPlanData extends Component{
                         <Grid item xs={11} style={{paddingTop:8}}>
                             <BigHeading>Lesson : {this.props.document.title}</BigHeading>
                         </Grid>
-                        <Grid item xs={1} style={{paddingTop:8}}>
+                        <Grid item xs={1} style={{paddingTop:8, textAlign:'right'}}>
                             <Star color='primary' style={{textAlign:'right'}} fontSize='large'/>
                         </Grid>
                         <Grid style={{paddingTop:8}} item container xs={12} spacing={8}>
@@ -143,7 +143,7 @@ class LessonPlanData extends Component{
                                     </Paper>
                                 </Grid>
                                 <Grid item container xs={12} spacing={8}>
-                                    <Grid xs={7} item style={{margin:4, marginLeft:16}}>
+                                    <Grid xs={7} item style={{margin:4, marginLeft:16}} className={'test2'}>
                                         <TextField style={{fontSize:16}} variant='standard' label='Enter a new note' fullWidth value={this.props.newNoteVal} onChange={this.props.newNote}/>
                                     </Grid>
                                     
@@ -160,7 +160,7 @@ class LessonPlanData extends Component{
                                     </Paper>
                                 </Grid>
                                 <Grid item container xs={12} spacing={16}>
-                                    <Grid xs={7} style={{margin:4, marginLeft:16}} item>
+                                    <Grid xs={7} style={{margin:4, marginLeft:16}} item className={'test2'}> 
                                             <TextField  InputStyles={{fontSize:16}} fullWidth variant='standard' label='Enter a new location' fullWidth value={this.props.newLocationVal} onChange={this.props.newLocation}/>
                                     </Grid>
                                    
