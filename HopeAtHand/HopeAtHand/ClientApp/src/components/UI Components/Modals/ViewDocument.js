@@ -1,14 +1,10 @@
 import React, { Component } from  'react'
 import { withStyles } from '@material-ui/core/styles';
-import Axios from 'axios'
 import {Typography, Grid, Button, Tabs, Tab} from '@material-ui/core';
 import Modal from '@material-ui/core/Modal';
 import Filler from '../../HOC/Filler'
 import {get} from '../../Axios/Instances'
-import {Document} from 'react-pdf'
-import Heading from '../Heading/Heading';
-import FileViewer from 'react-file-viewer';
-import blue from '@material-ui/core/colors/blue';
+import Heading from '../Heading/Heading'
 import Actions from '../../../Containers/LessonPlanSearch/Actions/Actions';
 
 
