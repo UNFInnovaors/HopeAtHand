@@ -2,10 +2,6 @@ import React, {Component } from 'react'
 import { Document } from 'react-pdf'
 import { Grid, Button, Typography} from '@material-ui/core'
 import Axios from 'axios'
-
-import { pdfjs } from 'react-pdf';
-import FileViewer from 'react-file-viewer';
-
 class LessonPlanViewer extends Component{
 
     state = {
