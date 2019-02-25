@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 
 import Layout from './PrimarySearchComponents/Layout'
 import LessonPlan from '../../components/UI Components/Modals/ViewLessonPlan'
+import Document from '../../components/UI Components/Modals/ViewDocumentNoModal'
 
 import Filler from '../../components/HOC/Filler'
 class PrimarySearchSmartContainer extends Component{
@@ -20,7 +21,8 @@ class PrimarySearchSmartContainer extends Component{
         SearchResults:[],
 
         //ViewDocumentData
-        ViewLessonPLan : null
+        ViewLessonPlan : null,
+        ViewDocument: null
     }
     
     componentDidMount(){
@@ -28,11 +30,11 @@ class PrimarySearchSmartContainer extends Component{
     }
 
     BeginLessonPlanView = (document) => {
-        this.setState({ViewLessonPLan:document})
+        this.setState({ViewLessonPlan:document})
     }
 
     CancelLessonPlanView = () => {
-        this.setState({ViewDocument : null})
+        this.setState({ViewLessonPlan : null})
     }
 
     ChooseSearchOption = (ChosenSearchOption) => {
@@ -46,16 +48,33 @@ class PrimarySearchSmartContainer extends Component{
     SetSearchResults = (SearchResults) => {
         this.setState({ SearchResults })}
 
+    BeginDocumentView = (document) => {
+        console.log('This is in BeginDocumentView')
+        this.setState({ViewDocument: document})
+    }
+    CancelDocumentView = () => {
+        this.setState({ViewDocument: null})
+    }
     render(){
         console.log('This is render in my search smart container', this.state)
-        if(this.state.ViewLessonPLan)
+        if(this.state.ViewLessonPlan)
         {
+            console.log('This is render in my search smart container', this.state)
             return(
                 <LessonPlan 
                     viewLessonPlan={this.state.ViewLessonPLan}
                     cancelViewDocument={this.state.CancelLessonPlanView}
                 />
             )
+        }
+        if(this.state.ViewDocument){
+            console.log("!@#&*(!@#7*@!(37!*(2#&!@*(3&!@*93", this.state.ViewDocument)
+            return(   
+            <Document
+                viewDocument={this.state.ViewDocument}
+                cancelDocumentView={this.CancelDocumentView}
+            />)
+                
         }
         return(
 
@@ -77,6 +96,7 @@ class PrimarySearchSmartContainer extends Component{
                 addFavorites={this.props.addFavorites}
 
                 beginLessonPlanView={this.BeginLessonPlanView}
+                beginDocumentView={this.BeginDocumentView}
                 
             ></Layout>
 

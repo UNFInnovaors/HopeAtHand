@@ -28,7 +28,9 @@ const Layout = (props) => {
                                     isUpload={props.isUpload}
                                     addToLesson={props.addToLesson}
                                     addFavorites={props.addFavorites}
-                                    beginLessonPlanView={props.beginLessonPlanView}/>
+                                    beginLessonPlanView={props.beginLessonPlanView}
+                                    beginDocumentView={props.beginDocumentView}/>
+                                    
                 </Grid>
                 <Grid item xs={1}></Grid>
             

@@ -6,8 +6,6 @@ import LessonPlanMetaData from '../../../Containers/LessonPlanComponents/LessonP
 import LessonPlanEditData from '../../../Containers/LessonPlanComponents/LessonPlanEditData/LessonPlanEditData'
 import Snackbar from '../../UI/SnackBar/Snackbar';
 import axios from 'axios'
-
-
   
   class LessonPlanView extends Component {
     state = {

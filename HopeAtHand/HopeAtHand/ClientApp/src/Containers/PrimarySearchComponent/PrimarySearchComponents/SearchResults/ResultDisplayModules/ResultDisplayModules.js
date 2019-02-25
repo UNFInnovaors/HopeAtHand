@@ -33,13 +33,14 @@ class ResultsDisplayModule extends Component{
                              id={this.props.documentData.writingAssignmentId}
                              addFavorites={this.props.addFavorites}
                              isLessonPlanComponent={this.props.isLessonPlanComponent}
+                             beginDocumentView={this.props.beginDocumentView}
                              />
                 </Paper>)
         }
         else if(typeof(this.props.documentData["artPieceId"]) !== 'undefined' && this.props.documentData["ArtPieceId"] !== null){
             return(
             <Paper style={{margin:8}}>
-                    <img style={{borderColor:'black', borderBottomWidth:1, borderStyle:'solid'}} height="200" width="100%" src={imageURL} alt="No Image"></img>
+                    <img style={{borderColor:'black', borderBottomWidth:1, borderStyle:'solid'}} height="250" width="100%" src={imageURL} alt="No Image"></img>
                     <Typography style={{marginTop:12}} variant='headline' align='center'><b>{this.props.documentData.title}</b></Typography>
                     <Typography style={{marginTop:12}} variant='subheading' align='center'>Supplies Needed: {this.props.documentData.SuppliesNeeded}</Typography>
                     <Actions isUpload={this.props.isUpload} 
@@ -48,13 +49,14 @@ class ResultsDisplayModule extends Component{
                              id={this.props.documentData.artPieceId}
                              addFavorites={this.props.addFavorites}
                              isLessonPlanComponent={this.props.isLessonPlanComponent}
+                             beginDocumentView={this.props.beginDocumentView}
                              />
                 </Paper>)
         }
         else if(typeof(this.props.documentData["poemId"]) !== 'undefined' && this.props.documentData["poemId"] !== null){
             return(
                 <Paper style={{margin:8}}>
-                    <img style={{borderColor:'black', borderBottomWidth:1, borderStyle:'solid'}} height="200" width="100%" src={imageURL} alt="No Image"></img>
+                    <img style={{borderColor:'black', borderBottomWidth:1, borderStyle:'solid'}} height="250" width="100%" src={imageURL} alt="No Image"></img>
                     <Typography style={{marginTop:12}} variant='headline' align='center'><b>{this.props.documentData.title}</b></Typography>
                     <Typography style={{marginTop:12}} variant='subheading' align='center'>Author : {this.props.documentData.author}</Typography>
                     <Actions isUpload={this.props.isUpload} 
@@ -63,6 +65,7 @@ class ResultsDisplayModule extends Component{
                              id={this.props.documentData.poemId}
                              addFavorites={this.props.addFavorites}
                              isLessonPlanComponent={this.props.isLessonPlanComponent}
+                             beginDocumentView={this.props.beginDocumentView}
                              />
                 </Paper>)
         }
@@ -70,7 +73,7 @@ class ResultsDisplayModule extends Component{
             console.log('THis is the data of a lessonplan', this.props.documentData)
             return(
             <Paper style={{margin:8}}>
-                <img style={{borderColor:'black', borderBottomWidth:1, borderStyle:'solid'}} height="200" width="100%" src={imageURL} alt="No Image"></img>
+                <img style={{borderColor:'black', borderBottomWidth:1, borderStyle:'solid'}} height="250" width="100%" src={imageURL} alt="No Image"></img>
                 <Typography style={{marginTop:12}} variant='headline' align='center'><b>{this.props.documentData.title}</b></Typography>
                 <Actions isUpload={this.props.isUpload} 
                             documentData={this.props.documentData}
@@ -88,7 +91,7 @@ class ResultsDisplayModule extends Component{
             console.log('This is the data of an error', this.props.documentData)
             return(    
                 <Paper style={{margin:16}}>
-                        <img height="200" width="100%" src={this.props.documentData.imageURL} alt="No Image"></img>
+                        <img height="250" width="100%" src={this.props.documentData.imageURL} alt="No Image"></img>
                         <Heading>Error Loading Document</Heading>
                 </Paper>)
         }

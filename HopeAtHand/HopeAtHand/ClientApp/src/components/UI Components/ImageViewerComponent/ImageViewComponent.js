@@ -48,21 +48,19 @@ class ViewComponent extends Component{
                         <Typography variant='body1' align='right'>Document in viewer : {this.props.urls[this.state.ImageIndex].name}</Typography>
                     </Grid>
                     <Grid item xs={1}></Grid>
-                    
-                    
-                    
-                    <Grid item container xs={12}>
-                        <Grid item xs={1}></Grid>
-                        <Grid item xs={4}>
-                            <Button onClick={this.Back} fullWidth variant='contained' color='primary'>Previous Image</Button>
-                        
+                    {(this.props.urls.length > 1 ? 
+                        <Grid item container xs={12}>
+                            <Grid item xs={1}></Grid>
+                            <Grid item xs={4}>
+                                <Button onClick={this.Back} fullWidth variant='contained' color='primary'>Previous Image</Button>
+                            </Grid>
+                            <Grid item xs={2}></Grid>
+                            <Grid item xs={4}>
+                                <Button onClick={this.Next} fullWidth variant='contained' color='primary'>Next Image</Button>
+                            </Grid>                
+                            <Grid item xs={1}></Grid>
                         </Grid>
-                        <Grid item xs={2}></Grid>
-                        <Grid item xs={4}>
-                            <Button onClick={this.Next} fullWidth variant='contained' color='primary'>Next Image</Button>
-                        </Grid>                
-                        <Grid item xs={1}></Grid>
-                    </Grid>
+                    : "")}
                     <Grid item xs={12} style={{textAlign:'center'}}>
                         <ReactImageMagnify {...{
                             smallImage: {

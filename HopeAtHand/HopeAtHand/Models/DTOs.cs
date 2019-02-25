@@ -29,6 +29,11 @@ namespace HopeAtHand.Models
         public string update { get; set; }
         public int lessonPlanId { get; set; }
     }
+    public class UpdateDocumentDTO
+    {
+        public string update { get; set; }
+        public int id { get; set; }
+    }
 
     public class ThemeDto
     {

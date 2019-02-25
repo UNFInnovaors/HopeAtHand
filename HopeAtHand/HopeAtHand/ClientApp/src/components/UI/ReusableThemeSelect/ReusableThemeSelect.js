@@ -43,7 +43,6 @@ class ThemeSelect extends Component {
     }
     if(add)
         newThemes.push(selectedOption.label)
-    //console.log(newThemes)
     if(newThemes.length < 1){
         newThemes = null
     }

@@ -42,13 +42,18 @@ class Actions extends React.Component{
           });
     }
 
-    beginView= () => {
-        console.log('this is happening', this.props.documentData)
+    beginLessonPlanView= () => {
+        console.log('this is happening', this.props)
         this.props.beginLessonPlanView(this.props.documentData)
     }
 
+    BeginDocumentView = () => {
+        console.log('This is to begin the document view', this.props.documentData)
+        this.props.beginDocumentView(this.props.documentData)
+    }
+
     render(){
-        
+        console.log('This is the props of actions', this.props)
         if(this.props.isUpload)
         {
             return(
@@ -72,35 +77,7 @@ class Actions extends React.Component{
                     <Grid container item xs={12}>
                         <Grid item xs={2}></Grid>
                         <Grid item xs={8}>
-                            <Button style={{marginRight:4, marginLeft:4}} variant='contained' color={'primary'} fullWidth onClick={this.beginView}>View Lesson Plan</Button>
-                        </Grid>
-                        <Grid item xs={2}></Grid>
-                    </Grid>
-                    <Grid container item xs={12}>
-                        <Grid item xs={2}></Grid>
-                        <Grid item xs={8}>
-                            <Button style={{marginRight:4, marginLeft:4}}variant='contained' color={'primary'} fullWidth  onClick={this.download}>Download</Button>
-                        </Grid>
-                        <Grid item xs={2}></Grid>
-                    </Grid>
-                    <Grid container item xs={12}>
-                        <Grid item xs={2}></Grid>
-                        <Grid item xs={8}>
-                            <Button style={{marginRight:4}} variant='contained' color={'primary'} fullWidth onClick={this.beginView}>Edit</Button>
-                        </Grid>
-                        <Grid item xs={2}></Grid>
-                    </Grid>
-                </Grid>
-            )
-        }
-        
-        else if(this.props.isLessonPlanComponent){
-            return(
-                <Grid container spacing={24} style={{marginTop: '2%'}}>
-                    <Grid container item xs={12}>
-                        <Grid item xs={2}></Grid>
-                        <Grid xs={8}>
-                            <ViewDocument id={this.props.id} addFavorites={this.props.addFavorites}></ViewDocument>
+                            <Button style={{marginRight:4, marginLeft:4}} variant='contained' color={'primary'} fullWidth onClick={this.beginLessonPlanView}>View Lesson Plan</Button>
                         </Grid>
                         <Grid item xs={2}></Grid>
                     </Grid>
@@ -119,31 +96,58 @@ class Actions extends React.Component{
                         <Grid item xs={2}></Grid>
                     </Grid>
                 </Grid>
+            )
+        }
+        
+        else if(this.props.isLessonPlanComponent){
+            return(
+                <Grid container spacing={24} style={{marginTop: '2%'}}>
+                    <Grid container item xs={12}>
+                        <Grid item xs={2}></Grid>
+                        <Grid item xs={8}>
+                            <Button style={{marginRight:4, marginLeft:4}} variant='contained' color={'primary'} fullWidth onClick={this.BeginDocumentView}>View Document</Button>
+                        </Grid>
+                        <Grid item xs={2}></Grid>
+                    </Grid>
+                    <Grid container item xs={12}>
+                        <Grid item xs={2}></Grid>
+                        <Grid item xs={8}>
+                            <Button style={{marginRight:4, marginLeft:4}}variant='contained' color={'primary'} fullWidth onClick={this.download}>Download</Button>
+                        </Grid>
+                        <Grid item xs={2}></Grid>
+                    </Grid>
+                    <Grid container item xs={12}>
+                        <Grid item xs={2}></Grid>
+                        <Grid item xs={8}>
+                            <Button style={{marginRight:4}} variant='contained' color={'primary'} fullWidth onClick={this.beginView}>Add To Favorites</Button>
+                        </Grid>
+                        <Grid item xs={2}></Grid>
+                    </Grid>
+                </Grid>
                 )
         }else{
             return(
                 <Grid container spacing={24} style={{marginTop: '2%'}}>
                     <Grid container item xs={12}>
-                        <Grid item xs={1}></Grid>
-                        <Grid item xs={4}>
+                        <Grid item xs={2}></Grid>
+                        <Grid item xs={8}>
+                            <Button style={{marginRight:4, marginLeft:4}} variant='contained' color={'primary'} fullWidth onClick={this.BeginDocumentView}>View Document</Button>
+                        </Grid>
+                        <Grid item xs={2}></Grid>
+                    </Grid>
+                    <Grid container item xs={12}>
+                        <Grid item xs={2}></Grid>
+                        <Grid item xs={8}>
                             <Button style={{marginRight:4, marginLeft:4}}variant='contained' color={'primary'} fullWidth  onClick={this.download}>Download</Button>
                         </Grid>
                         <Grid item xs={2}></Grid>
-                        <Grid item xs={4}>
-                            <Button style={{marginRight:4}} variant='contained' color={'primary'} fullWidth onClick={this.addToFavorite}>Add to favorites</Button>
-                        </Grid>
-                        <Grid item xs={1}></Grid>
                     </Grid>
                     <Grid container item xs={12}>
-                        <Grid item xs={1}></Grid>
-                        <Grid item xs={4}>
-                            <Button style={{marginRight:4, marginLeft:4}} variant='contained' color={'primary'} fullWidth>Print</Button>
+                        <Grid item xs={2}></Grid>
+                        <Grid item xs={8}>
+                            <Button style={{marginRight:4}} variant='contained' color={'primary'} fullWidth onClick={this.beginView}>Add To Favorites</Button>
                         </Grid>
                         <Grid item xs={2}></Grid>
-                        <Grid item xs={4}>
-                            <Button style={{marginRight:4}} variant='contained' color={'primary'} fullWidth>Edit</Button>
-                        </Grid>
-                        <Grid item xs={1}></Grid>
                     </Grid>
                 </Grid>
         )}

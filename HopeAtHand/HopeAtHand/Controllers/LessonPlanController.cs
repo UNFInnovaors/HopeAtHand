@@ -21,7 +21,8 @@ namespace HopeAtHand.Controllers
         private readonly ILessonPlanCreateManager LessonPlanCreation;
         private readonly ILessonPlanRepository LessonPlanRepo;
 
-        public LessonPlanController(ILessonPlanCreateManager lessonPlanCreateManager, ILessonPlanRepository lessonPlanRepository, IOptions<AzureStorageConfig> config)
+        public LessonPlanController(ILessonPlanCreateManager lessonPlanCreateManager, ILessonPlanRepository lessonPlanRepository, 
+            IOptions<AzureStorageConfig> config)
         {
             LessonPlanCreation = lessonPlanCreateManager;
             LessonPlanRepo = lessonPlanRepository;

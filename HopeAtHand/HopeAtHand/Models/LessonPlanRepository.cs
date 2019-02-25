@@ -31,9 +31,9 @@ namespace HopeAtHand.Models
             return null;
         }
 
-        public string UpdateNote(UpdateDTO updateDTO)
+        public string UpdateNote(UpdateDocumentDTO updateDTO)
         {
-            LessonPlan lesson = Data.Lessonplans.Find(updateDTO.lessonPlanId);
+            LessonPlan lesson = Data.Lessonplans.Find(updateDTO.id);
             string currentNotes = lesson.Notes;
 
             Data.Update(lesson);
@@ -162,6 +162,11 @@ namespace HopeAtHand.Models
             }
             Data.SaveChanges();
             return "Ok";
+        }
+
+        public string UpdateNote(UpdateDTO updateDTO)
+        {
+            throw new NotImplementedException();
         }
     }
 }

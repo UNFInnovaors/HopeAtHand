@@ -52,8 +52,11 @@ class SearchResults extends Component{
                                             isUpload={this.props.isUpload}
                                             addToLesson={this.props.addToLesson}
                                             addFavorites={this.props.addFavorites}
+
                                             beginLessonPlanView={this.props.beginLessonPlanView}
+                                            beginDocumentView={this.props.beginDocumentView}
                                             isLessonPlanComponent={this.props.isLessonPlanComponent}>
+                                            
                                         </ResultsDisplayModule></Grid>
                         )
                     })}
