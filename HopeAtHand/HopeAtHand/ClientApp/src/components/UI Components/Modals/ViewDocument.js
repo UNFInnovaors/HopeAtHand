@@ -84,24 +84,9 @@ function getModalstyle() {
       const fileType = this.state.Document === null ? null : this.determineFileEnding(document)
       const downloadFileType = this.state.Document === null ? null : this.determineFileEnding(this.state.Document.documentBlobURL)
       const titleForView =  this.state.Document === null ? null :  this.state.Document.title
-      let viewer = 
-      <Filler>
-        <FileViewer
-                        fileType={fileType}
-                        filePath={document}
-                />
-                  <Tabs
-                    value={this.state.View}
-                    onChange={this.ChangeView}
-                    indicatorColor="primary"
-                    textColor="primary"
-                    centered
-                  > 
-                    <Tab label="Document View" selected={this.state.View === "Document"} disabled={this.state.View === "Document"} value="Document"/>
-                    <Tab label="Picture Vew" selected={this.state.View !== "Document"}  disabled={this.state.View !== "Document"} value="Image"/>
-                    
-                </Tabs>
-      </Filler>
+      let viewer = <div></div>
+
+
      /* if(fileType === 'pdf')
       {
         viewer = <Document
