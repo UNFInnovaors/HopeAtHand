@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import LogInForm from './LogInComponents/LoginForm'
 import Filler from '../../components/HOC/Filler'
+import * as hello from 'hellojs'
  
 
 
@@ -25,11 +26,11 @@ class Login extends Component {
         this.props.login(this.state.Username)
     }
     render(){
-        var hello = require('hellojs/dist/hello.all.js')
+
         hello.init(
              {windows: '0c0cb088-99ec-4dcc-943b-ea815d73ee89'},
-             {redirect_uri : '/',
-             oauth_proxy : 'https://auth-server.herokuapp.com',
+             {redirect_uri : 'https://login.live.com/oauth20_desktop.srf',
+              oauth_proxy : 'https://auth-server.herokuapp.com',
               oauth_version: '1.0' // probably 1.0a with hello.js
             }
         );
@@ -37,7 +38,7 @@ class Login extends Component {
         return (
             
             <Filler>
-                <script src="./dist/hello.all.js"></script>
+                <script src="../../scripts/hello.all.js"></script>
                 <LogInForm logIn={this.login}
                                 buttonDisabled={disabled} 
                                 changeUsername={this.ChangeUsername} 
