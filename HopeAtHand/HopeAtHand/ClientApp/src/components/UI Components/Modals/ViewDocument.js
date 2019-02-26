@@ -5,28 +5,31 @@ import Modal from '@material-ui/core/Modal';
 import Filler from '../../HOC/Filler'
 import {get} from '../../Axios/Instances'
 import Heading from '../Heading/Heading'
+import DocumentViewer from '../../UI Components/Modals/ViewDocumentNoModal'
 import Actions from '../../../Containers/LessonPlanSearch/Actions/Actions';
 
 
-function getModalstyle() {
+function getModalStyle() {
     const top = 50
     const left = 50
   
     return {
       top: `${top}%`,
       left: `${left}%`,
-      transform: `translate(-${top}%, -${left}%)`,
+      overFlow:'scroll',
+      margin:'auto',
+      overFlowY: 'scroll'
     };
   }
   
   const styles = theme => ({
     paper: {
-      position: 'absolute',
       width: '80%',
-      height: '90%',
+      height: '100%',
       backgroundColor: theme.palette.background.paper,
       boxShadow: theme.shadows[5],
       padding: theme.spacing.unit * 1,
+      overFlowY: 'scroll'
   
     },
   });
@@ -115,7 +118,7 @@ function getModalstyle() {
                         open={this.state.open}
                         onClose={(reason) => this.handleClose(reason)}
                     >
-                        <div style={getModalstyle()} className={classes.paper}>
+                        <div className={classes.paper} style={getModalStyle()}>
                         <Typography variant="title" id="modal-title">
                             Loading
                         </Typography>
@@ -133,14 +136,11 @@ function getModalstyle() {
             open={this.state.open}
             onClose={(reason) => this.handleClose(reason)}
           >
-            <div style={getModalstyle()} className={classes.paper}>
+            <div  className={classes.paper} style={getModalStyle()}>
               <Heading>{this.state.Type} Viewer</Heading>
-              <div style={{width:'92%', height:'50%', textAlign:'center', margin:'auto', border:'2px solid black'}}>
-                {viewer}
-                <Grid>
-
-                </Grid>
-                <Actions documentLink={this.state.Document.documentBlobURL} fileType={downloadFileType} id={this.props.id} title={titleForView} addFavorites={this.props.addFavorites}/>
+              <div >
+                  <DocumentViewer viewDocument={this.props.viewDocument} isModal={true}/>
+                  <Button color='secondary' onClick={this.handleClose} >Close Document</Button>
                 </div>
             </div>
           </Modal>

@@ -2,14 +2,10 @@ import React, {Component} from 'react'
 import {Typography, Grid, Button, Paper, TextField, FormControl} from '@material-ui/core'
 import Heading from '../../../components/UI Components/Heading/Heading'
 import BigHeading from '../../../components/UI Components/Heading/BigHeading'
-import SearchResults from '../../../Containers/PrimarySearchComponent/PrimarySearchComponents/SearchResults/SearchResults'
 import Star from '@material-ui/icons/StarBorder'
-import StarFilled from '@material-ui/icons/Star'
-import ReadOnlyThemes from '../../../components/UI/ReusableThemeSelect/ReadOnlyThemeBox'
 import ReusableThemeSelect from '../../../components/UI/ReusableThemeSelect/ReusableThemeSelect'
-import DeleteIcon from '@material-ui/icons/DeleteOutlined'
-import DeleteIcon2 from '@material-ui/icons/Delete'
 import Filler from '../../../components/HOC/Filler'
+import EX from '@material-ui/icons/Close'
 import Axios from 'axios'
 class DocumentEditMetaData extends Component{
 
@@ -77,7 +73,7 @@ class DocumentEditMetaData extends Component{
       }
 
       SaveName = () => {
-          this.props.updateLessonPlanName(this.state.NewName)
+          this.props.updateDocumentName(this.state.NewName)
       }
 
       Document = () => {
@@ -105,7 +101,10 @@ class DocumentEditMetaData extends Component{
             <Filler>
                 <Paper style={{padding:4, margin:8}}>
                     <Grid container>
-                        <Grid item xs={5} style={{paddingTop:8}}>
+                        <Grid item xs={1} style={{paddingTop:8, textAlign:'left'}}>
+                            <Button  onClick={this.props.cancelDocumentView}><EX color='Error' style={{textAlign:'left'}} fontSize='large' onClick={this.props.cancelDocumentView}/></Button>
+                        </Grid>
+                        <Grid item xs={4} style={{paddingTop:8}}>
                             <BigHeading>Name : {this.props.document.title}</BigHeading>
                         </Grid>
                         <Grid item xs={4} className={'test2'}>
@@ -115,7 +114,7 @@ class DocumentEditMetaData extends Component{
                             <Button variant='contained' color='secondary' fullWidth onClick={this.SaveName} disabled={(this.state.NewName === "" ?  true : false)}>Update Name</Button>
                         </Grid>
                         <Grid item xs={1} style={{paddingTop:8, textAlign:'right'}}>
-                            <Star color='primary' style={{textAlign:'right'}} fontSize='large'/>
+                            <Button><Star color='primary' style={{textAlign:'right'}} fontSize='large'/></Button>
                         </Grid>
 
                         <Grid item xs={12} style={{paddingTop:8}}>
@@ -155,6 +154,13 @@ class DocumentEditMetaData extends Component{
                             <Grid xs={1} item></Grid>
                             <Grid xs={10} item style={{padding:16}}>
                                 <ReusableThemeSelect always={true} destination="Document Edit" style={{padding:8}}/>
+                            </Grid>
+                            <Grid xs={1} item></Grid>
+                        </Grid>
+                        <Grid xs={12} item container spacing={8}>
+                            <Grid xs={1} item></Grid>
+                            <Grid xs={10} item style={{padding:16}}> 
+                                <Button variant='contained' color='secondary' fullWidth style={{padding:8}} onClick={this.props.updateThemes}>Update Themes</Button>
                             </Grid>
                             <Grid xs={1} item></Grid>
                         </Grid>

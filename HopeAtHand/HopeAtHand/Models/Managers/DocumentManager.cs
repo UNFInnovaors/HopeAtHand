@@ -29,7 +29,7 @@ namespace HopeAtHand.Models.Managers
             ArtPiece artPiece = Data.ArtPieces.Where(A => A.ArtPieceId == id).FirstOrDefault();
             if (artPiece == null)
                 return null;
-            artPiece.ArtThemes = Data.ArtThemes.Where(At => At.ArtPieceId == id).ToList();
+            artPiece.Themes = Data.ArtThemes.Where(At => At.ArtPieceId == id).ToList();
             return artPiece;
         }
 
@@ -147,17 +147,17 @@ namespace HopeAtHand.Models.Managers
                     Data.Update(art);
                     art.Title = updateDTO.update;
                     Data.SaveChanges();
-                    break;
+                    return art.Title;
                 case '2':
                     var poem = GetPoem(updateDTO.id);
                     poem.Title = updateDTO.update;
                     Data.SaveChanges();
-                    break;
+                    return poem.Title;
                 case '3':
                     var writing = GetWritingAssignment(updateDTO.id);
                     writing.Title = updateDTO.update;
                     Data.SaveChanges();
-                    break;
+                    return writing.Title;
                 default:
                     return "Bad";
             }

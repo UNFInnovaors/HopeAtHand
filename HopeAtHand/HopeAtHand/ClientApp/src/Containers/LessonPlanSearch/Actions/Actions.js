@@ -91,7 +91,7 @@ class Actions extends React.Component{
                     <Grid container item xs={12}>
                         <Grid item xs={2}></Grid>
                         <Grid item xs={8}>
-                            <Button style={{marginRight:4}} variant='contained' color={'primary'} fullWidth onClick={this.beginView}>Add To Favorites</Button>
+                            <Button style={{marginRight:4}} variant='contained' color={'primary'} fullWidth onClick={this.beginLessonPlanView}>Add To Favorites</Button>
                         </Grid>
                         <Grid item xs={2}></Grid>
                     </Grid>

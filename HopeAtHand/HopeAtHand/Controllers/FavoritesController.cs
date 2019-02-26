@@ -57,9 +57,8 @@ namespace HopeAtHand.Controllers
                     default:
                         break;
                 }
-                return Ok(new { art, poem, writing,lessonplans});
             }
-            return Ok();
+            return Ok(new { art, poem, writing, lessonplans });
         }
     }
 }

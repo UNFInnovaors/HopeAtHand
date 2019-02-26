@@ -30,6 +30,7 @@ export default class App extends Component {
   state = {
     Theme: theme,
     UserName : 'Bill',
+    Role:"Facilitator",
     Favorites:{
       art:[],
       lessonplans:[],
@@ -74,17 +75,18 @@ export default class App extends Component {
     const LoginDTO = {
       Username: username
     }
+
     post('/user/RecieveUserData', LoginDTO).then( res => {
       console.log(res, 'recieved user data')
       const FavoriteFindDTO = {
         username : LoginDTO.Username
       }
-      console.log(FavoriteFindDTO,'This is the DTO')
 
       post('/Favorites/GetFavorites', FavoriteFindDTO).then(res2 => {
         console.log(res2)
         this.setState({Favorites : res2.data,
-                        UserName : res.data.username})
+                        UserName : res.data.username, 
+                       Role: res.data.role})
       })
     })
     
@@ -130,7 +132,7 @@ export default class App extends Component {
         <Filler>
           <MuiThemeProvider theme={this.state.Theme}>
           <Paper  style={{height : '100%', paddingBottom:'5%'}}>
-            <AppBar  LoggedIn ={this.state.UserName} favorites={this.state.Favorites}/>
+            <AppBar  LoggedIn ={this.state.UserName} favorites={this.state.Favorites} role={this.state.Role}/>
             <LogIn login={this.Login}/>
           </Paper>
           </MuiThemeProvider>
@@ -141,7 +143,7 @@ export default class App extends Component {
       <Filler>
         <MuiThemeProvider theme={this.state.Theme}>
           <Paper  style={{height : '100%', paddingBottom:'5%'}}>
-            <AppBar logOut={this.LogOut} LoggedIn ={this.state.UserName} favorites={this.state.Favorites}/>
+            <AppBar logOut={this.LogOut} LoggedIn ={this.state.UserName} favorites={this.state.Favorites} role={this.state.Role}/>
             
             <Route path="/" exact render={(props) => 
                 <CreateSmartComponent

@@ -28,13 +28,7 @@ namespace HopeAtHand.Models
     }
     public static class ArtPiecesRepo
     {
-        public static Dictionary<int, ArtPiece> ArtPieces => new Dictionary<int, ArtPiece>
-        {
-            {0, new ArtPiece{ ArtPieceId = 0, Title="Dream Vaction",ArtThemes = new List<ArtThemes>  { new ArtThemes {ThemeName = "Female Empowerment"}}}},
-            {1, new ArtPiece{ ArtPieceId = 1, Title="Vroom Vroom", ArtThemes = new List<ArtThemes>  { new ArtThemes {ThemeName = "Female Empowerment"}}}},
-            {2, new ArtPiece{ ArtPieceId = 2, Title="On The Big Screen", ArtThemes = new List<ArtThemes>  { new ArtThemes {ThemeName = "Female Empowerment"}}}},
-            {3, new ArtPiece{ ArtPieceId = 3, Title="A Pretty Flower", ArtThemes = new List<ArtThemes>  { new ArtThemes {ThemeName = "Female Empowerment"}}}}
-        };
+       
     }
     /*public static class LessonPlanRepo
     {

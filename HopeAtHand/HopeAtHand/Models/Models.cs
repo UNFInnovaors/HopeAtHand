@@ -53,7 +53,7 @@ namespace HopeAtHand.Models
         public string ImageURL { get; set; }
         public string SuppliesNeeded { get; set; }
         [NotMapped]
-        public List<ArtThemes> ArtThemes { get; set; }
+        public List<ArtThemes> Themes { get; set; }
         [NotMapped]
         public List<LessonPlan_ArtPiece> Lesson_Art { get; set; }
     }

@@ -55,7 +55,8 @@ class SearchResults extends Component{
 
                                             beginLessonPlanView={this.props.beginLessonPlanView}
                                             beginDocumentView={this.props.beginDocumentView}
-                                            isLessonPlanComponent={this.props.isLessonPlanComponent}>
+                                            isLessonPlanComponent={this.props.isLessonPlanComponent} 
+                                            cancelDocumentView={this.props.cancelDocumentView}>
                                             
                                         </ResultsDisplayModule></Grid>
                         )

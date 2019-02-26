@@ -30,10 +30,12 @@ class PrimarySearchSmartContainer extends Component{
     }
 
     BeginLessonPlanView = (document) => {
+        console.log('THis is the document sent to the view', document)
         this.setState({ViewLessonPlan:document})
     }
 
     CancelLessonPlanView = () => {
+        console.log('This happened')
         this.setState({ViewLessonPlan : null})
     }
 
@@ -57,13 +59,16 @@ class PrimarySearchSmartContainer extends Component{
     }
     render(){
         console.log('This is render in my search smart container', this.state)
-        if(this.state.ViewLessonPlan)
+        if(this.state.ViewLessonPlan && ! this.state.ViewDocument)
         {
             console.log('This is render in my search smart container', this.state)
             return(
                 <LessonPlan 
-                    viewLessonPlan={this.state.ViewLessonPLan}
-                    cancelViewDocument={this.state.CancelLessonPlanView}
+                    ViewLessonPlan={this.state.ViewLessonPlan}
+                    cancelViewDocument={this.CancelLessonPlanView}
+                    beginDocumentView={this.BeginDocumentView}
+                    cancelDocumentView={this.CancelDocumentView}
+                    
                 />
             )
         }

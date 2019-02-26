@@ -14,7 +14,7 @@ import './AppBar.css'
 
 const appBar = (props) => {
   console.log('this is props is appbar', props)
-    if(false)//props.LoggedIn === null || typeof(props.LoggedIn) === 'undefined'
+    if(props.LoggedIn === null || typeof(props.LoggedIn) === 'undefined')//props.LoggedIn === null || typeof(props.LoggedIn) === 'undefined'
     {
       return(
       <div className="margin2">
@@ -25,7 +25,7 @@ const appBar = (props) => {
           </Grid>
         </AppBar>
       </div>)
-    } else {
+    } else if(props.role === "Administrator") {
     return(
     <div className='margin'>
           <AppBar position="static">
@@ -33,14 +33,16 @@ const appBar = (props) => {
               <Grid xs={1} item/>
               <Grid item xs={1} style={{ marginTop: '14px' }}>
                 <Link to="/" style={{ textDecoration: 'none' }}><Button variant="contained" fullWidth color="secondary" >
-                  <Typography>Logo</Typography>
+                  <Typography>Home</Typography>
                 </Button></Link>
               </Grid>
-              <Grid item xs={1} style={{ marginTop: '14px' }}>
-                <Link to="/Admin" style={{ textDecoration: 'none' }}><Button variant="contained" fullWidth color="secondary">
-                  <Typography>Admin</Typography>
-                </Button></Link>
-              </Grid>
+              
+                <Grid item xs={1} style={{ marginTop: '14px' }}>
+                  <Link to="/Admin" style={{ textDecoration: 'none' }}><Button variant="contained" fullWidth color="secondary">
+                    <Typography>Admin</Typography>
+                  </Button></Link>
+                </Grid> 
+
               <Grid item xs={1} style={{ marginTop: '14px' }}>
                 <Link to="/Search" style={{ textDecoration: 'none' }}><Button variant="contained" fullWidth color="secondary">
                   <Typography>Search</Typography>
@@ -63,7 +65,7 @@ const appBar = (props) => {
               </Grid>
               
               <Grid item xs={1} style={{ marginTop: '14px' }}>
-                <Link to="/Create"><Button variant="contained" fullWidth color="secondary">
+                <Link to="/Create" style={{ textDecoration: 'none' }}><Button variant="contained" fullWidth color="secondary">
                   <Typography>Create</Typography>
                 </Button>
                 </Link>
@@ -81,6 +83,95 @@ const appBar = (props) => {
           </AppBar>
         </div>
         )
+      } else if(props.role === "Creating Facilitator"){
+        return ( 
+        <div className='margin'>
+        <AppBar position="static">
+          <Grid container spacing={24}>
+            <Grid item xs={1}></Grid>
+            <Grid item xs={1} style={{ marginTop: '14px' }}>
+              <Link to="/" style={{ textDecoration: 'none' }}><Button variant="contained" fullWidth color="secondary" >
+                <Typography>Home</Typography>
+              </Button></Link>
+            </Grid>
+
+            <Grid item xs={2} style={{ marginTop: '14px' }}>
+              <Link to="/Search" style={{ textDecoration: 'none' }}><Button variant="contained" fullWidth color="secondary">
+                <Typography>Search</Typography>
+              </Button></Link>
+            </Grid>
+            <Grid item xs={2} style={{ marginTop: '14px' }}>
+              <Link to="/Upload" style={{ textDecoration: 'none' }}><Button variant="contained" fullWidth color="secondary">
+                <Typography>Upload Documents</Typography>
+              </Button>
+              </Link>
+            </Grid>
+            
+            <Grid item xs={2}>
+              <InputBase
+                style={{ margin: '8px' }}
+                placeholder="Search Lesson Plans"
+                variant="outlined"
+                fullWidth
+              />
+            </Grid>
+            
+            <Grid item xs={2} style={{ marginTop: '14px' }}>
+              <Link to="/Create" style={{ textDecoration: 'none' }}><Button variant="contained" fullWidth color="secondary">
+                <Typography>Create Lesson Plan</Typography>
+              </Button>
+              </Link>
+            </Grid>
+            <Grid item xs={1} style={{  marginTop: '14px' }}>
+              <Button variant="contained" fullWidth color="secondary" onClick={props.logOut}>
+                <Typography>LOGOUT</Typography>
+              </Button>
+            </Grid>
+
+            <Grid item xs={1}>
+              <Account favorites={props.favorites}/>
+            </Grid>
+
+            <Grid item xs={1}></Grid>
+          </Grid>
+        </AppBar>
+      </div>)
+      }
+      else
+      {
+        return (    <div className='margin'>
+        <AppBar position="static">
+          <Grid container spacing={24}>
+            <Grid item xs={1}></Grid>
+
+            <Grid item xs={3} style={{ marginTop: '14px' }}>
+              <Link to="/Search" style={{ textDecoration: 'none' }}><Button variant="contained" fullWidth color="secondary">
+                <Typography>Search</Typography>
+              </Button></Link>
+            </Grid>
+            
+            <Grid item xs={3}>
+              <InputBase
+                style={{ marginTop: '8px' }}
+                placeholder="Search Lesson Plans"
+                variant="outlined"
+                fullWidth
+              />
+            </Grid>
+            
+            <Grid item xs={3} style={{  marginTop: '14px' }}>
+              <Button variant="contained" fullWidth color="secondary" onClick={props.logOut}>
+                <Typography>LOGOUT</Typography>
+              </Button>
+            </Grid>
+
+            <Grid item xs={1}>
+              <Account favorites={props.favorites}/>
+            </Grid>
+          </Grid>
+          <Grid item xs={1}></Grid>
+        </AppBar>
+      </div>)
       }
 }
 

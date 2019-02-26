@@ -10,7 +10,6 @@ class SearchLessonPlan extends Component{
 
     state={
         name:'',
-        author:'',
         Loading: false,
         WithThemes : false
     }
@@ -20,12 +19,7 @@ class SearchLessonPlan extends Component{
     }
 
     handleChange = (event) => {
-        console.log(event.target.dataset["input"])
-        if(event.target.dataset["input"] === 'name'){
-            this.setState({name: event.target.value})
-        } else {
-            this.setState({author: event.target.value})
-        }
+        this.setState({name:event.target.value})
     }
     Search = () => {
         

@@ -4,6 +4,7 @@ import Heading from '../../../components/UI Components/Heading/Heading'
 import BigHeading from '../../../components/UI Components/Heading/BigHeading'
 import SearchResults from '../../../Containers/PrimarySearchComponent/PrimarySearchComponents/SearchResults/SearchResults'
 import Star from '@material-ui/icons/StarBorder'
+import EX from '@material-ui/icons/Close'
 import StarFilled from '@material-ui/icons/Star'
 import ReadOnlyThemes from '../../../components/UI/ReusableThemeSelect/ReadOnlyThemeBox'
 import Filler from '../../../components/HOC/Filler'
@@ -113,7 +114,10 @@ class LessonPlanData extends Component{
             <Filler>
                 <Paper style={{padding:4, margin:8}}>
                     <Grid container>
-                        <Grid item xs={11} style={{paddingTop:8}}>
+                        <Grid item xs={1} style={{paddingTop:8, textAlign:'left'}}>
+                            <Button onClick={this.props.cancelViewDocument}><EX color='Error' style={{textAlign:'left'}} fontSize='large' onClick={this.props.cancelViewDocument}/></Button>
+                        </Grid>
+                        <Grid item xs={10} style={{paddingTop:8}}>
                             <BigHeading>Lesson : {this.props.document.title}</BigHeading>
                         </Grid>
                         <Grid item xs={1} style={{paddingTop:8, textAlign:'right'}}>
@@ -171,7 +175,7 @@ class LessonPlanData extends Component{
                             </Grid>
                         </Grid>
                         <Grid item xs={12}>
-                            <SearchResults searchResults={documents} isLessonPlanComponent={true}/>
+                            <SearchResults searchResults={documents} isLessonPlanComponent={true} beginDocumentView={this.props.beginDocumentView} cancelDocumentView={this.props.cancelDocumentView}/>
                         </Grid>
                     </Grid>
                 </Paper>

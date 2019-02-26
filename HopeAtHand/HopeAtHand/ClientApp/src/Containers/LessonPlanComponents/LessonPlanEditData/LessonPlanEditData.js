@@ -8,6 +8,7 @@ import StarFilled from '@material-ui/icons/Star'
 import ReadOnlyThemes from '../../../components/UI/ReusableThemeSelect/ReadOnlyThemeBox'
 import ReusableThemeSelect from '../../../components/UI/ReusableThemeSelect/ReusableThemeSelect'
 import DeleteIcon from '@material-ui/icons/DeleteOutlined'
+import EX from '@material-ui/icons/Close'
 import DeleteIcon2 from '@material-ui/icons/Delete'
 import Filler from '../../../components/HOC/Filler'
 import Axios from 'axios'
@@ -180,7 +181,10 @@ class LessonPlanEditData extends Component{
             <Filler>
                 <Paper style={{padding:4, margin:8}}>
                     <Grid container>
-                        <Grid item xs={5} style={{paddingTop:8}}>
+                        <Grid item xs={1} style={{paddingTop:8, textAlign:'left'}}>
+                            <Button onClick={this.props.cancelViewDocument}><EX color='Error' style={{textAlign:'left'}} fontSize='large' onClick={this.props.cancelViewDocument}/></Button>
+                        </Grid>
+                        <Grid item xs={4} style={{paddingTop:8}}>
                             <BigHeading>Lesson Title: {this.props.document.title}</BigHeading>
                         </Grid>
                         <Grid item xs={4} className={'test2'}><TextField variant='standard' fullWidth onChange={this.UpdateName} label="Enter New Lesson Plan Name"/></Grid>
@@ -298,7 +302,7 @@ class LessonPlanEditData extends Component{
                             type="file"
                         />
                         <Grid item xs={12}>
-                            <SearchResults searchResults={documents} isLessonPlanComponent={true}/>
+                            <SearchResults searchResults={documents} isLessonPlanComponent={true} beginDocumentView={this.props.beginDocumentView} cancelDocumentView={this.props.cancelDocumentView}/>
                         </Grid>
                     </Grid>
                 </Paper>

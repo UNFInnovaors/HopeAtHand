@@ -61,6 +61,22 @@ class ViewComponent extends Component{
                             <Grid item xs={1}></Grid>
                         </Grid>
                     : "")}
+                    {(this.props.isModal === true ? <Grid item xs={12} style={{textAlign:'center'}}>
+                        <ReactImageMagnify {...{
+                            smallImage: {
+                                alt: this.props.urls[this.state.ImageIndex].name + "Was unable to load",
+                                isFluidWidth: false,
+                                src: this.props.urls[this.state.ImageIndex].image,
+                                width: 400,
+                                height: 400
+                            },
+                            largeImage: {
+                                src: this.props.urls[this.state.ImageIndex].image,
+                                width: 600,
+                                height: 1200
+                            }
+                        }}/>
+                    </Grid> :
                     <Grid item xs={12} style={{textAlign:'center'}}>
                         <ReactImageMagnify {...{
                             smallImage: {
@@ -76,7 +92,7 @@ class ViewComponent extends Component{
                                 height: 1700
                             }
                         }}/>
-                    </Grid>
+                    </Grid>)}
                 </Grid>
             </Paper>
         )

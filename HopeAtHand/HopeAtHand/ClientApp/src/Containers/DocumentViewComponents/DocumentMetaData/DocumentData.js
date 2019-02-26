@@ -5,6 +5,7 @@ import BigHeading from '../../../components/UI Components/Heading/BigHeading'
 import SearchResults from '../../../Containers/PrimarySearchComponent/PrimarySearchComponents/SearchResults/SearchResults'
 import Star from '@material-ui/icons/StarBorder'
 import StarFilled from '@material-ui/icons/Star'
+import EX from '@material-ui/icons/Close'
 import ReadOnlyThemes from '../../../components/UI/ReusableThemeSelect/ReadOnlyThemeBox'
 import Filler from '../../../components/HOC/Filler'
 import Axios from 'axios'
@@ -76,12 +77,16 @@ class DocumentData extends Component{
             <Filler>
                 <Paper style={{padding:4, margin:8}}>
                     <Grid container>
-                        <Grid item xs={11} style={{paddingTop:8}}>
+                         <Grid item xs={1} style={{paddingTop:8, textAlign:'left'}}>
+                            <Button onClick={this.props.cancelDocumentView}><EX color='Error' style={{textAlign:'left'}} fontSize='large' onClick={this.props.cancelDocumentView}/></Button>
+                        </Grid>
+
+                        <Grid item xs={10} style={{paddingTop:8}}>
                             <BigHeading>Name : {this.props.document.title}</BigHeading>
                         </Grid>
                         
                         <Grid item xs={1} style={{paddingTop:8, textAlign:'right'}}>
-                            <Star color='primary' style={{textAlign:'right'}} fontSize='large'/>
+                            <Button><Star color='primary' style={{textAlign:'right'}} fontSize='large'/></Button>
                         </Grid>
 
                         <Grid item xs={12} style={{paddingTop:8}}>

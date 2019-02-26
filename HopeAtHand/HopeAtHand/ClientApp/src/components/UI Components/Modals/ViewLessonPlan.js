@@ -6,6 +6,7 @@ import LessonPlanMetaData from '../../../Containers/LessonPlanComponents/LessonP
 import LessonPlanEditData from '../../../Containers/LessonPlanComponents/LessonPlanEditData/LessonPlanEditData'
 import Snackbar from '../../UI/SnackBar/Snackbar';
 import axios from 'axios'
+import Heading from '../Heading/Heading';
   
   class LessonPlanView extends Component {
     state = {
@@ -26,12 +27,26 @@ import axios from 'axios'
     };
 
     componentDidMount(){ //+ props.document.documentId
-      console.log(this.props.viewLessonPlan.lessonPlanId)
-         this.onLoad()
+      console.log(this.props, this.state, 'This is component did mount')
+      //console.log(this.props.ViewLessonPlan.lessonPlanId)
+      if(!this.props.ViewLessonPlan)
+      {
+        return
+      }   
+      this.onLoad()
+      }
+
+      shouldComponentUpdate(nextProps, nextState){
+        if(nextProps.ViewLessonPlan && !this.props.ViewLessonPlan){
+          console.log('causafjkafnasdjkofnasjkflas')
+          this.onLoad()
+          return true
         }
+        return true
+      }
 
     onLoad = () => {
-      get('/Search/SearchForLessonsById/'+this.props.viewLessonPlan.lessonPlanId).then( res => {
+      get('/Search/SearchForLessonsById/'+this.props.ViewLessonPlan.lessonPlanId).then( res => {
         console.log(res)
         const data = res.data
         let urls = []
@@ -249,11 +264,14 @@ import axios from 'axios'
 
   
     render() {
-      console.log(this.state, this.props, "state and props in new LessonPLanView")
+      if(!this.props.ViewDocument && !this.state.Document){
+        return <Heading>Loading</Heading>
+      }
       const metaDataViewer = this.state.Editing === false ? 
           <LessonPlanMetaData enableEditing={this.EnableEditing} style={{marginTop:16}} document={this.state.Document}
            notes={this.state.Notes} locations={this.state.Locations} addNote={this.AddNewNote} addLocation={this.AddNewLocation}
-           newNote={this.NewNote} newLocation={this.NewLocation} newNoteVal={this.state.NewNote} newLocationVal={this.state.NewLocation}/>          : 
+           newNote={this.NewNote} newLocation={this.NewLocation} newNoteVal={this.state.NewNote} newLocationVal={this.state.NewLocation}
+           beginDocumentView={this.props.beginDocumentView} cancelDocumentView={this.props.cancelDocumentView} cancelViewDocument={this.props.cancelViewDocument}/>          : 
 
           <LessonPlanEditData cancelEditing={this.CancelEditing} style={{marginTop:16}} document={this.state.Document}
            notes={this.state.Notes} locations={this.state.Locations} addNote={this.AddNewNote} addLocation={this.AddNewLocation}
@@ -261,7 +279,8 @@ import axios from 'axios'
            updateLessonPlanName={this.UpdateLessonPlanName} removeLocation={this.RemoveLocations} removeNote={this.RemoveNotes}
            updateNotes={this.UpdateNotes} updateLocations={this.UpdateLocations} updateThemes={this.UpdateThemes}
            postData = {this.PostData} displayComplete={this.state.DisplayComplete} displayOutline={this.state.DisplayOutline} displayPicture={this.state.DisplayPicture}
-           selectComplete={this.SelectComplete} selectOutline={this.SelectOutline} selectPicture={this.SelectPicture}/>
+           selectComplete={this.SelectComplete} selectOutline={this.SelectOutline} selectPicture={this.SelectPicture} beginDocumentView={this.props.beginDocumentView}
+           cancelDocumentView={this.props.cancelDocumentView} cancelViewDocument={this.props.cancelViewDocument}/>
 
       let document = ""
       /*if(this.state.Document !== null)

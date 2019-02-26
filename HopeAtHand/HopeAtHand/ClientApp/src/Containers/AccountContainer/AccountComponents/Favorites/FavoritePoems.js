@@ -31,12 +31,14 @@ function SimpleExpansionPanel(props) {
         </ExpansionPanelSummary>
         <ExpansionPanelDetails>
           {props.poems.map( (p, index) => {
+            if(p == null)
+              return ""
             return <Grid container item xs={12} key={index}>
                     <Grid xs={2}></Grid>
-                    <Grid xs={8}><Button color='primary' fullWidth >{p.title}</Button></Grid>
+                    <Grid xs={8}>{p.title}</Grid>
                     <Grid xs={2}></Grid>
                     <Grid xs={2}></Grid>
-                    <Grid xs={8}><Modal id={p.poemId}></Modal></Grid>
+                    <Grid xs={8}><Modal viewDocument={p} id={p.poemId}></Modal></Grid>
                     <Grid xs={2}></Grid>
                     <Divider/>
                   </Grid>

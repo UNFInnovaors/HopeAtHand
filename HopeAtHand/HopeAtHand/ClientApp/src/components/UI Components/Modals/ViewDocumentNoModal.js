@@ -68,25 +68,27 @@ class DocumentView extends Component {
 
     /*These method control the editing of componenets*/
     UpdateDocumentName = (newName) => {
-      const updateDTO = {
-        lessonPlanId : this.state.Document.lessonPlanId,
+      const updateDocumentDTO = {
+        id : this.state.Id,
         update: newName
       }
-      post('/Document/UpdateName', updateDTO).then(res => {
+      post('/Document/UpdateName', updateDocumentDTO).then(res => {
         console.log(res)
-        let document = JSON.parse(JSON.stringify(this.state.Document))
-        document.title = res.data
-        this.setState({Document: document})
+        if(res.data !== "Bad")
+        {
+          let document = JSON.parse(JSON.stringify(this.state.Document))
+          document.title = res.data
+          this.setState({Document: document})
+        }
       })
     }
 
     UpdateThemes = () => {
-      const updateDTO = {
-        lessonPlanId : this.state.Document.lessonPlanId,
+      const updateDocumentDTO = {
+        id : this.state.Id,
         update : sessionStorage.getItem("DocumentEdit")
       }
-      console.log('THis is the updateDTO', updateDTO)
-      post('Document/UpdateThemesFromEdit', updateDTO).then( res => {
+      post('Document/UpdateThemesFromEdit', updateDocumentDTO).then( res => {
         this.setState({Open: true, Message:'Themes Have Been Successfully Updated'})
       })
     }
@@ -150,8 +152,8 @@ class DocumentView extends Component {
            type={this.state.Type}/>          : 
 
           <DocumentEditMetaData style={{marginTop:16}} 
-          cancelEditing={this.CancelEditing} document={this.state.Document} 
-           updateDocumentName={this.DocumentName} updateThemes={this.UpdateThemes}
+           cancelEditing={this.CancelEditing} document={this.state.Document} 
+           updateDocumentName={this.UpdateDocumentName} updateThemes={this.UpdateThemes}
            postData = {this.PostData} displayDocument={this.state.DisplayDocument}  displayPicture={this.state.DisplayPicture}
            selectDocument={this.SelectDocument}  selectPicture={this.SelectPicture}  type={this.state.Type}/>
 
@@ -159,7 +161,7 @@ class DocumentView extends Component {
         return(
             <Filler>
                 {metaDataViewer}
-                <ImageViewer urls={this.state.URLS}/>
+                <ImageViewer urls={this.state.URLS} isModal={this.props.isModal}/>
                 <Snackbar open={this.state.Open} message={this.state.Message} close={this.Close}/>
             </Filler>
       );
