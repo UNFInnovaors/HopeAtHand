@@ -25,26 +25,32 @@ class Login extends Component {
     login = () => {
         this.props.login(this.state.Username)
     }
+    trythis = () => {
+        hello.init(
+            {windows: '9157ef49-4ec9-491b-94a2-a31b6963bf98'},
+            {redirect_uri : '../',
+             oauth_proxy : 'https://auth-server.herokuapp.com',
+             oauth_version: '2.0' // probably 1.0a with hello.js
+           },{scope: 'email'}
+          
+       );
+       hello('windows').login().then( (res) => {console.log('hello')
+                                                console.log(res)})
+        }
+    
     render(){
 
-        hello.init(
-             {windows: '0c0cb088-99ec-4dcc-943b-ea815d73ee89'},
-             {redirect_uri : 'https://login.live.com/oauth20_desktop.srf',
-              oauth_proxy : 'https://auth-server.herokuapp.com',
-              oauth_version: '1.0' // probably 1.0a with hello.js
-            }
-        );
+        
         let disabled = (this.state.Username === null || this.state.Username === "" || this.state.Password === null || this.state.Password === "")
         return (
             
             <Filler>
-                <script src="../../scripts/hello.all.js"></script>
                 <LogInForm logIn={this.login}
                                 buttonDisabled={disabled} 
                                 changeUsername={this.ChangeUsername} 
                                 changePassword={this.ChangePassword}
                     />
-                    <button onClick={ () => hello('windows').login().then( () => console.log('hello'))}>windows</button>
+                    <button onClick={this.trythis}>windows</button>
             </Filler>
                 )
     }
