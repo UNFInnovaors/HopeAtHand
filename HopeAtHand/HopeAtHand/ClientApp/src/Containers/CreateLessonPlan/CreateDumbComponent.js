@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Grid, Select, Divider, Button, Typography, TextField } from '@material-ui/core';
 import Filler from '../../components/HOC/Filler'
 import ThemeSelector from '../../components/UI/ReusableThemeSelect/ReusableThemeSelect'
+import Heading from '../../components/UI Components/Heading/Heading'
 //import ThemeSelect from '../../components/UI/ThemeSelect/LeesonPLanThemes';
 import Action from './CreateAction/CreateAction'
 import Components from './ComponentsForDDisplay/ComponentsForDisplay'
@@ -90,10 +91,16 @@ class CreateDumbComponent extends Component {
             this.setState({ImageIndex: newIndex + 1 })
         }
     }
+    Back = () => {
+        if(this.state.ImageIndex -1 < 0){
+            this.setState({ImageIndex: this.props.components.length -1})
+        } else {
+            let newIndex = this.state.ImageIndex
+            this.setState({ImageIndex: newIndex -1})
+        }
+    }
     //<ThemeSelect updateThemes={this.props.alterThemes} removeTheme={this.props.removeTheme} themes={this.props.themes}/>
     render(){
-        let CreateForm = (this.state.CreateForm.Controls)
-        let eachComponent = (<Filler><Typography variant="body2">Now there are components</Typography></Filler>)
         let form = this.state.CreateForm.Controls
         let aUrl = null
         let rUrl = null
@@ -118,7 +125,7 @@ class CreateDumbComponent extends Component {
                         <Grid container item spacing={24} style={{paddingTop:28}}>
                              
                             <Grid xs={6} item container spacing={8} style={{paddingTop:6}}>
-                                <Grid xs={12}>
+                                <Grid xs={12} className='test1'>
                                     <TextField value={this.props.lessonPLanNameKs} placeholder="Please choose the name of your lesson plan" fullWidth error={form[0].error} helperText={form[0].errorMessage} 
                                         type={form[0].config.type} label={form[0].label} fullWidth hidden={form[0].hidden} onChange={this.props.lessonPlanNameChangeHandler}> 
                                     </TextField>
@@ -209,21 +216,37 @@ class CreateDumbComponent extends Component {
                                             ></Components></Grid>)}     
                     
                 </Grid>
-
-                    <ReactImageMagnify {...{
-                        smallImage: {
-                            alt: 'Upload a file to active viewer',
-                            isFluidWidth: false,
-                            src: urls[this.state.ImageIndex],
-                            width: 700,
-                            height: 900
-                        },
-                        largeImage: {
-                            src: urls[this.state.ImageIndex],
-                            width: 1400,
-                            height: 1700
-                        }
-                    }} />
+                        {(urls.length > 0 ? 
+                    <Paper style={{width:'100%', margin:8, padding:12}}>
+                        <Heading>Document Viewer</Heading>
+                        {(urls.length > 1 ? 
+                            <Grid item container xs={12} style={{marginTop:12}}>
+                                <Grid item xs={1}></Grid>
+                                <Grid item xs={4}>
+                                    <Button onClick={this.Back} fullWidth variant='contained' color='primary'>Previous Image</Button>
+                                </Grid>
+                                <Grid item xs={2}></Grid>
+                                <Grid item xs={4}>
+                                    <Button onClick={this.Next} fullWidth variant='contained' color='primary'>Next Image</Button>
+                                </Grid>                
+                                <Grid item xs={1}></Grid>
+                            </Grid>
+                         : "")}
+                        <ReactImageMagnify {...{
+                            smallImage: {
+                                alt: 'Upload a file to active viewer',
+                                isFluidWidth: false,
+                                src: urls[this.state.ImageIndex],
+                                width: 700,
+                                height: 900
+                            },
+                            largeImage: {
+                                src: urls[this.state.ImageIndex],
+                                width: 1400,
+                                height: 1700
+                            }
+                        }} />
+                    </Paper> : "")}
                
                 
             </Filler>

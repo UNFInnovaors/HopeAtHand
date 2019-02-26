@@ -121,7 +121,7 @@ class ThemeSelect extends Component {
                 
               />
             }
-            label="Search With Themes"
+            label={(this.props.forUpload ? "Add Themes To Document" : "Search With Themes" )}
       />
         </Grid>
         {showThemes}

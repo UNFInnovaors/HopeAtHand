@@ -32,22 +32,22 @@ const appBar = (props) => {
             <Grid container spacing={24}>
               <Grid xs={1} item/>
               <Grid item xs={1} style={{ marginTop: '14px' }}>
-                <Link to="/"><Button variant="contained" fullWidth color="secondary">
-                  LOGO
+                <Link to="/" style={{ textDecoration: 'none' }}><Button variant="contained" fullWidth color="secondary" >
+                  <Typography>Logo</Typography>
                 </Button></Link>
               </Grid>
               <Grid item xs={1} style={{ marginTop: '14px' }}>
-                <Link to="/Admin"><Button variant="contained" fullWidth color="secondary">
+                <Link to="/Admin" style={{ textDecoration: 'none' }}><Button variant="contained" fullWidth color="secondary">
                   <Typography>Admin</Typography>
                 </Button></Link>
               </Grid>
               <Grid item xs={1} style={{ marginTop: '14px' }}>
-                <Link to="/Search"><Button variant="contained" fullWidth color="secondary">
+                <Link to="/Search" style={{ textDecoration: 'none' }}><Button variant="contained" fullWidth color="secondary">
                   <Typography>Search</Typography>
                 </Button></Link>
               </Grid>
               <Grid item xs={1} style={{ marginTop: '14px' }}>
-                <Link to="/Upload"><Button variant="contained" fullWidth color="secondary">
+                <Link to="/Upload" style={{ textDecoration: 'none' }}><Button variant="contained" fullWidth color="secondary">
                   <Typography>Upload</Typography>
                 </Button>
                 </Link>

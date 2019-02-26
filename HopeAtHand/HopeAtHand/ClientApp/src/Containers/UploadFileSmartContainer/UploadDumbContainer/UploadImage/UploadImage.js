@@ -56,7 +56,7 @@ const uploadImage = (props) => {
         </Grid>
     </Grid></Filler>)
     } else {
-        uploadInterface = <Typography>No image of it will be uploaded</Typography>
+        uploadInterface = <Typography>No image of the document will currently be uploaded</Typography>
     }
 }
     

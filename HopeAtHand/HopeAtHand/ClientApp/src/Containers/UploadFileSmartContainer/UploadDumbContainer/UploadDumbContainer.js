@@ -53,7 +53,7 @@ const uploadDocumentDumbContainer = (props) => {
             <Grid container item spacing={24}>
                 <Grid item xs={12}><Typography variant="h2" align="center">Upload</Typography></Grid>
                 <Grid style={{marginTop:'2.5%'}} item xs={12}><Typography align='center'>Loading</Typography></Grid>
-                <Typography variant='body1' align='center'><CircularProgress/></Typography>
+                <Typography variant='body1' align='center'><CircularProgress style={{textAlign:'center'}}/></Typography>
             </Grid>
         )
     }
@@ -78,7 +78,8 @@ const uploadDocumentDumbContainer = (props) => {
                     label="Choose A Document Type To Upload"
                     changeStateOfOptions={props.selectDocumentFunction} 
                     value={props.selectedDocumentType} 
-                    valuesForOptions={props.documentTypes} >
+                    valuesForOptions={props.documentTypes}
+                     >
                 </ReusableSelect>
             </Grid>
             <Grid item xs={3}></Grid>
@@ -103,7 +104,7 @@ const uploadDocumentDumbContainer = (props) => {
             <Filler>
             <Grid container item xs={12}>
                 <Grid item xs={1}></Grid>
-                <Grid item xs={10} style={{marginTop:'1.25%'}}><ThemeSelect destination={props.selectedDocumentType.replace(/\s/g, '')+"UploadThemes"}/></Grid><Grid item xs={1}></Grid>
+                <Grid item xs={10} style={{marginTop:'1.25%'}}><ThemeSelect destination={props.selectedDocumentType.replace(/\s/g, '')+"UploadThemes"} forUpload={true}/></Grid><Grid item xs={1}></Grid>
             </Grid>
             <Grid item xs={1}></Grid>
             
