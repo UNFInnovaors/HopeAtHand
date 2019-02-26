@@ -16,7 +16,6 @@ function getModalStyle() {
     return {
       top: `${top}%`,
       left: `${left}%`,
-      overFlow:'scroll',
       margin:'auto',
       overFlowY: 'scroll'
     };

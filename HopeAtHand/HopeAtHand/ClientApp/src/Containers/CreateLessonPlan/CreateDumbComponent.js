@@ -232,20 +232,22 @@ class CreateDumbComponent extends Component {
                                 <Grid item xs={1}></Grid>
                             </Grid>
                          : "")}
-                        <ReactImageMagnify {...{
-                            smallImage: {
-                                alt: 'Upload a file to active viewer',
-                                isFluidWidth: false,
-                                src: urls[this.state.ImageIndex],
-                                width: 700,
-                                height: 900
-                            },
-                            largeImage: {
-                                src: urls[this.state.ImageIndex],
-                                width: 1400,
-                                height: 1700
-                            }
-                        }} />
+                            <Grid style={{marginTop:16}}>
+                                <ReactImageMagnify {...{
+                                    smallImage: {
+                                        alt: 'Upload a file to active viewer',
+                                        isFluidWidth: false,
+                                        src: urls[this.state.ImageIndex],
+                                        width: 700,
+                                        height: 900
+                                    },
+                                    largeImage: {
+                                        src: urls[this.state.ImageIndex],
+                                        width: 1400,
+                                        height: 1700
+                                    }
+                                    }} />
+                            </Grid>
                     </Paper> : "")}
                
                 

@@ -3,6 +3,8 @@ import Filler from '../../components/HOC/Filler';
 import CreateDumbComponent from './CreateDumbComponent';
 import Axios from 'axios';
 import { get, post } from '../../components/Axios/Instances'
+import Heading from '../../components/UI Components/Heading/Heading';
+import Snackbar from '../../components/UI/SnackBar/Snackbar'
 
 class CreateSmartContainer extends Component {
   state = {
@@ -20,8 +22,32 @@ class CreateSmartContainer extends Component {
     OutlineDocument : null,
     OutlineDocumentUploaded: false,
     OutlinePicture : null,
-    OutlinePictureUploaded: false
+    OutlinePictureUploaded: false,
+    Loading:false
   };
+
+  InitialState = {
+    IsNew: true,
+    LessonPLanName: '',
+    DocumentTypes: ['Poem', 'Writing Template', 'Art Piece'],
+    SelectedThemes: [],
+    LessonPlanComponents : [],
+    Action : null,
+    NameError: false,
+    ThemeError: false,
+    ImageUrl:"",
+    Complete_Lesson : null,
+    CompleteLessonUploaded : false,
+    OutlineDocument : null,
+    OutlineDocumentUploaded: false,
+    OutlinePicture : null,
+    OutlinePictureUploaded: false,
+    Loading:false
+  };
+
+  componentDidMount(){
+
+  }
 
   AddLessonPlanComponent = ( id, metaData, type, image) => {
     console.log(
@@ -121,11 +147,19 @@ class CreateSmartContainer extends Component {
         documentOutlineURL : res.data.documentOutlineURL,
       }
       console.log(LessonPlanCreationDTO, 'this is the lesson plan creation DTO')
-      Axios.post("/API/LessonPlan/SaveLesson", LessonPlanCreationDTO).then(response => console.log(response)).catch(err => console.log(err))
+      Axios.post("/API/LessonPlan/SaveLesson", LessonPlanCreationDTO).then(response => {
+        console.log(response)
+        this.setState({...this.InitialState, Message:"The Lesson Was Successfully Uploaded", Open:true,})
+      }).catch(err => {
+        console.log(err)
+        this.setState({Loading:false,  Message:"The Lesson Could Not Be Uploaded", Open:true})
+      })
     
     }).catch(err => {
       console.log(err)
+      this.setState({Loading: false,  Message:"The Lesson Could Not Be Uploaded", Open:true})
     })  
+    this.setState({Loading:true})
   }
 
   SelectFile = (event) => {
@@ -146,6 +180,9 @@ class CreateSmartContainer extends Component {
     }
   }
   
+  Close = () => {
+    this.setState({Open:false})
+  }
   RemoveThemes = () => {
     console.log("hmmm")
   }
@@ -155,6 +192,9 @@ class CreateSmartContainer extends Component {
   }
   render() {
     console.log('This is the state of the lesson plan smart container',this.state, this.props)
+    if(this.state.Loading === true){
+      return <Heading>Loading</Heading>
+    }
     return (
       <Filler>
         <CreateDumbComponent
@@ -184,6 +224,7 @@ class CreateSmartContainer extends Component {
           lessonPlanImage={this.state. OutlinePicture} 
 
         ></CreateDumbComponent>
+        <Snackbar message={this.state.Message} open={this.state.Open} close={this.Close}/>
       </Filler>
     );
   }
