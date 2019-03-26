@@ -88,7 +88,7 @@ class ThemeSelect extends Component {
                             hideSelectedOptions={true}
                         />
                 </Grid>
-                <Grid style={{marginTop:32}} xs={12}item>
+                <Grid xs={12}item>
                     <ThemeBox themes={themesToDisplay} reset={this.renderAgain} destination={this.props.destination.replace(/\s/g, '')}  />
                 </Grid>
             </Filler>

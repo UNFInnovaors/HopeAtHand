@@ -6,7 +6,6 @@ import {Grid, Paper} from '@material-ui/core'
 import Filler from '../../../components/HOC/Filler'
 
 const Layout = (props) => {
-
     return(
         <Filler>
             <Grid container>
@@ -16,20 +15,24 @@ const Layout = (props) => {
                      selectSearchDomain={props.selectSearchDomain} 
                      searchDomain={props.selectedSearchDomain} 
                      searchOptions={props.searchOptions}
+                     searchOptions2={props.searchOptions2}
                      setSearchResults={props.setSearchResults}
                      isUpload={props.isUpload}
                      addFavorites={props.addFavorites}/>
+
                 </Grid>
                 <Grid item xs={1}></Grid>
                 
                 <Grid item xs={1}></Grid>
                 <Grid style={{marginTop:24}} item xs={10}>
-                    <SearchResults searchResults={props.searchResults}
-                                    isUpload={props.isUpload}
-                                    addToLesson={props.addToLesson}
-                                    addFavorites={props.addFavorites}
-                                    beginLessonPlanView={props.beginLessonPlanView}
-                                    beginDocumentView={props.beginDocumentView}/>
+                    <SearchResults 
+                        searchResults={props.searchResults}
+                        isUpload={props.isUpload}
+                        addToLesson={props.addToLesson}
+                        addFavorites={props.addFavorites}
+                        beginLessonPlanView={props.beginLessonPlanView}
+                        beginDocumentView={props.beginDocumentView}
+                        setSearchResults={props.setSearchResults}/>
                                     
                 </Grid>
                 <Grid item xs={1}></Grid>

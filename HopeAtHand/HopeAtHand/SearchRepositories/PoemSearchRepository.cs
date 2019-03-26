@@ -10,6 +10,7 @@ namespace HopeAtHand.SearchRepositories
     public interface IPoemSearchRepository
     {
         List<Poem> SeachForPoem(PoemSearchDTO poemSearchDTO);
+        List<Poem> SeachForPoemWithThemes(PoemSearchDTO poemSearchDTO);
     }
 
     public class PoemSearchRepository : IPoemSearchRepository
@@ -21,8 +22,36 @@ namespace HopeAtHand.SearchRepositories
             this.Data = Data;
         }
 
+        public List<Poem> SeachForPoemWithThemes(PoemSearchDTO poemSearchDTO)
+        {
+            List<Poem> poems = new List<Poem>();
+            Dictionary<int, string> foundId = new Dictionary<int, string>();
+
+            foreach (var lesson in Data.PoemThemes)
+            {
+                foreach (string theme in poemSearchDTO.Themes)
+                {
+                    if (theme == lesson.ThemeName)
+                    {
+                        if (foundId.GetValueOrDefault(lesson.PoemId) is null)
+                            poems.Add(Data.Poems.Find(lesson.PoemId));
+                        break;
+                    }
+                }
+            }
+            foreach (var lesson in Data.Poems)
+            {
+                if ((foundId.GetValueOrDefault(lesson.PoemId) is null && (lesson.Title == poemSearchDTO.Name) || lesson.Author == poemSearchDTO.Author))
+                    poems.Add(lesson);
+            }
+            List<Poem> finalized = poems.Where(l => l != null).ToList();
+            return finalized;
+        }
+
         public List<Poem> SeachForPoem(PoemSearchDTO poemSearchDTO)
         {
+            poemSearchDTO.Name = poemSearchDTO.Name.ToLower();
+            poemSearchDTO.Author = poemSearchDTO.Author.ToLower();
             List<Poem> poems;
 
             if (poemSearchDTO.Author.Length > 0 && poemSearchDTO.Name.Length > 0)

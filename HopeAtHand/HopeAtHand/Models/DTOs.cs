@@ -74,5 +74,28 @@ namespace HopeAtHand.Models
         public string LesssonName { get; set; } = "";
         public string[] Themes { get; set; }
     }
+    public class CreateUserDTO
+    {
+        public string phone { get; set; } = "";
+        public string name { get; set; } = "";
+        public string email { get; set; } = "";
+        public string org { get; set; } = "";
+    }
+    public class ResetDTO
+    {
+        public string email { get; set; }
+    }
+    public class ArtPieceSearchThemesDTO
+    {
+        public string Name { get; set; } = "";
+        public string[] SuppliesNeeded { get; set; } = null;
+        public string[] Themes { get; set; }
+    }
+    public class PoemSearchDTO
+    {
+        public string Name { get; set; } = "";
+        public string Author { get; set; } = "";
+        public string[] Themes { get; set; }
+    }
 
 }

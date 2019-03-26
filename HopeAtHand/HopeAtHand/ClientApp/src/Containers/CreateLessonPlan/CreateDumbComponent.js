@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
-import { Grid, Select, Divider, Button, Typography, TextField } from '@material-ui/core';
+import { Grid, Select, Divider, Button, Typography, TextField, Tooltip } from '@material-ui/core';
+import { withStyles } from '@material-ui/core/styles';
 import Filler from '../../components/HOC/Filler'
 import ThemeSelector from '../../components/UI/ReusableThemeSelect/ReusableThemeSelect'
 import Heading from '../../components/UI Components/Heading/Heading'
@@ -9,6 +10,19 @@ import Components from './ComponentsForDDisplay/ComponentsForDisplay'
 import { Paper } from '@material-ui/core';
 import ReactImageMagnify from 'react-image-magnify';
 
+const styles = theme => ({
+    button: {
+      margin: theme.spacing.unit,
+    },
+    customWidth: {
+      maxWidth: 500,
+      fontSize: '20px'
+    },
+    noMaxWidth: {
+      maxWidth: 'none',
+    },
+  });
+  
 class CreateDumbComponent extends Component {
     componentDidMount(){
     }
@@ -101,10 +115,24 @@ class CreateDumbComponent extends Component {
     }
     //<ThemeSelect updateThemes={this.props.alterThemes} removeTheme={this.props.removeTheme} themes={this.props.themes}/>
     render(){
+        const {classes} = this.props
         let form = this.state.CreateForm.Controls
         let aUrl = null
         let rUrl = null
         let urls = []
+        let validationArray = []
+
+        
+        if(this.props.lessonPLanName === "")
+            validationArray.push('You Must Give Your Lesson Plan A Name\n')
+        if(this.props.complete_Lesson === null)
+            validationArray.push("You Must Upload A Lesson\n")
+        if(this.props.outlineDocument === null)
+            validationArray.push("You Must Upload A Lesson Plan Outline\n")
+        if(this.props.lessonPlanImage === null)
+            validationArray.push("You Must Upload An Image For The Lesson Plan\n")
+        const message = (validationArray.length > 0 ? validationArray.join(" ") : "")
+        
         if(this.props.lessonPlanImage !== null)
         {
             urls.push(URL.createObjectURL(this.props.lessonPlanImage));
@@ -127,7 +155,7 @@ class CreateDumbComponent extends Component {
                             <Grid xs={6} item container spacing={8} style={{paddingTop:6}}>
                                 <Grid xs={12} className='test1'>
                                     <TextField value={this.props.lessonPLanNameKs} placeholder="Please choose the name of your lesson plan" fullWidth error={form[0].error} helperText={form[0].errorMessage} 
-                                        type={form[0].config.type} label={form[0].label} fullWidth hidden={form[0].hidden} onChange={this.props.lessonPlanNameChangeHandler}> 
+                                        type={form[0].config.type} label={form[0].label} fullWidth hidden={form[0].hidden} onChange={this.props.lessonPlanNameChangeHandler} value={this.props.lessonPLanName}> 
                                     </TextField>
                                 </Grid>
                                 <Grid item xs={5}>
@@ -173,17 +201,38 @@ class CreateDumbComponent extends Component {
                                     <TextField fullWidth disabled  value={(this.props.lessonPlanImage === null ? "Please upload a picture of the outline" : this.props.lessonPlanImage.name)}></TextField>
                                 </Grid>
                             </Grid>
-                            <Grid xs={6} item container> <ThemeSelector destination={'LessonThemes'} always={true}/>
-                                <Grid xs={12} item container spacing={8} style={{paddingTop: 18}}>
-                                    <Grid xs={1} item></Grid>
-                                    <Grid xs={5} item><Button fullWidth variant='contained' color='primary'> Validate Upload</Button></Grid>
-                                    <Grid xs={5} item><Button fullWidth variant='contained' color='primary'> Next Step</Button></Grid>
-                                    <Grid xs={1} item></Grid>
-                                    
-                                </Grid>
-                            </Grid>
+                            <Grid xs={6} item container> <ThemeSelector destination={'LessonThemes'} always={true}/></Grid>
                         </Grid>
                     </Paper>
+                    
+                        <Paper style={{padding:28, width:'100%', margin:'5%', marginBottom: '1%', marginTop: '1%' }}>
+                            <Grid item xs={12}>
+                                {(this.props.components.length === 0 ? 
+                                <Typography align="center" variant="h5">This Lesson Plan Has No Components</Typography>: <Typography align="center" variant="h5">This Lesson Plan Components</Typography> )}
+                            </Grid> 
+                            <Grid item xs={12}><Components 
+                                                components={this.props.components} 
+                                                uploadLessonPLan={this.props.uploadLessonPLan}
+                                                removeFromLesson={this.props.removeFromLesson}
+                                                addFavorites={this.props.addFavorites}
+                                            ></Components>
+                            </Grid>
+                            <Grid container style={{marginTop:12}}>
+                                <Grid item xs={3}></Grid>   
+                                <Grid item xs={6}><Button disabled={(validationArray.length > 0)} fullWidth color="primary" onClick={this.props.uploadLessonPLan} variant="contained">Upload Lesson</Button></Grid>
+                                <Grid item xs={3}></Grid>
+                                
+                                {(validationArray.length > 0 ?
+                                <Grid container>
+                                    <Grid xs={2}></Grid>
+                                    <Grid xs={8}>
+                                        <Typography variant='h4' align='center' style={{marginTop:8}}>Before you can upload your lesson plan you must complete the following</Typography>
+                                        {validationArray.map(val => <Typography variant='headline' align='center' style={{marginTop:8}}>{val}</Typography>)}
+                                    </Grid>
+                                    <Grid xs={2}></Grid>
+                                </Grid> : "")}
+                            </Grid>
+                        </Paper>
                     <Grid container item>
                         <Grid item xs={1}></Grid>
                         <Grid item xs={4}><Button variant="outlined" fullWidth onClick={() => this.props.changeAction("create")}>Add New Components</Button></Grid>
@@ -200,20 +249,7 @@ class CreateDumbComponent extends Component {
                                     removeFromLesson={this.props.removeFromLesson}
                                     addFavorites={this.props.addFavorites}></Action>
                         </Paper> :
-                    <div></div> )}
-                   
-                    {(this.props.components.length === 0 ? 
-                        <Paper style={{padding:28, width:'100%', margin:'5%', marginBottom: '1%', marginTop: '1%' }}>
-                            <Grid item xs={12}>
-                                <Typography align="center" variant="h5">This Lesson Plan Has No Components</Typography>
-                            </Grid> 
-                        </Paper>
-                         : <Grid item xs={12}><Components 
-                                                components={this.props.components} 
-                                                uploadLessonPLan={this.props.uploadLessonPLan}
-                                                removeFromLesson={this.props.removeFromLesson}
-                                                addFavorites={this.props.addFavorites}
-                                            ></Components></Grid>)}     
+                    <div></div> )}     
                     
                 </Grid>
                         {(urls.length > 0 ? 
@@ -266,4 +302,4 @@ class CreateDumbComponent extends Component {
                             <Button onClick={this.Next} disabled={this.props.components.length === 0} fullWidth variant='contained' color={'primary'}>Next Image</Button>
                         </Grid>
                     </Grid>*/
-export default CreateDumbComponent
+export default withStyles(styles)(CreateDumbComponent)

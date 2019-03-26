@@ -29,6 +29,7 @@ class SearchLessonPlan extends Component{
             name:this.state.name,
         }
         if(!this.state.WithThemes || themes == ''){
+           
             post('/search/SearchForLessonsByName', PoemSearchDTO).then( resultsInner => {
                 //console.log('This is the results in poem search',resultsInner);
                 this.props.setSearchResults(resultsInner.data);
@@ -36,18 +37,22 @@ class SearchLessonPlan extends Component{
             }).catch( err => console.log(err))
             //console.log('this is results out of the method')
             this.setState({Loading: true})
+        
         } else {
-         PoemSearchDTO = {
-            name:this.state.name,
-            Themes:themes
-         }
-         post('/search/SearchForLessons', PoemSearchDTO).then( resultsInner => {
-            //console.log('This is the results in poem search',resultsInner);
-            this.props.setSearchResults(resultsInner.data);
-            this.setState({Loading: false})
-        }).catch( err => console.log(err))
-        //console.log('this is results out of the method')
-        this.setState({Loading: true})
+
+            PoemSearchDTO = {
+                name:this.state.name,
+                Themes:themes
+            }
+            
+            post('/search/SearchForLessons', PoemSearchDTO).then( resultsInner => {
+                //console.log('This is the results in poem search',resultsInner);
+                this.props.setSearchResults(resultsInner.data);
+                this.setState({Loading: false})
+            }).catch( err => console.log(err))
+            //console.log('this is results out of the method')
+            
+            this.setState({Loading: true})
         }
     }
     

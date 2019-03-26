@@ -7,12 +7,15 @@ import { Button, TextField, Grid, Typography, Paper } from '@material-ui/core'
 import Filler from '../../../../../../../components/HOC/Filler'
 import SearchSelect from '../../../../../../../components/UI/ThemeSelect/ThemeSelect'
 import SearchThemes from '../../../../../../../components/UI/ThemeSelect/SearchThemes'
+import ReUsableThemes from '../../../../../../../components/UI/ReusableThemeSelect/ReusableThemeSelect'
+import SearchTemplates from '../../../../../../../components/UI/TemplateTypeSelect/Template'
 class SearchArtPieces extends Component{
     
     state = {
         name:"",
         SuppliesNeeded:"",
-        Loading: false
+        Loading: false,
+        WithThemes: false
     }
 
     componentDidMount(){
@@ -20,19 +23,37 @@ class SearchArtPieces extends Component{
     }
 
     Search = () => {
-        
-        const ArtSearchDTO = {
-            name:this.state.name,
-            suppliesNeeded:this.state.SuppliesNeeded
-        }
-
-        post('/search/SearchForArtPieces', ArtSearchDTO).then( resultsInner => {
+        const themes = sessionStorage.getItem("ArtSearchThemes") === null ? '' : sessionStorage.getItem("ArtSearchThemes").split(',')
+        if(this.state.WithThemes === true && themes != ''){
+           
+            const ArtPieceSearchThemesDTO = {
+                name:this.state.name,
+                suppliesNeeded:this.state.SuppliesNeeded,
+                Themes:themes
+            }
+    
+            post('/search/SearchForArtPiecesWithThemes', ArtPieceSearchThemesDTO).then( resultsInner => {
+                console.log(resultsInner, 'Helllllpp')
+                this.props.setSearchResults(resultsInner.data);
+                this.setState({Loading: false, WithThemes: false})
+            }).catch( err => console.log(err))
             
-            this.props.setSearchResults(resultsInner.data);
-            this.setState({Loading: false})
-        }).catch( err => console.log(err))
-        
-        this.setState({Loading: true})
+            this.setState({Loading: true})
+        } else {
+
+            const ArtSearchDTO = {
+                name:this.state.name,
+                suppliesNeeded:this.state.SuppliesNeeded
+            }
+    
+            post('/search/SearchForArtPieces', ArtSearchDTO).then( resultsInner => {
+                console.log(resultsInner, 'Helllllpp')
+                this.props.setSearchResults(resultsInner.data);
+                this.setState({Loading: false})
+            }).catch( err => console.log(err))
+            
+            this.setState({Loading: true})
+        }
     }
 
     ChangeName = (event) => {
@@ -41,6 +62,10 @@ class SearchArtPieces extends Component{
 
     ChangeSupplies = (event) => {
         this.setState({SuppliesNeeded: event.target.value})
+    }
+    SearchWithThemes = () => {
+        let withThemes = !this.state.WithThemes
+        this.setState({WithThemes : withThemes})
     }
 
 
@@ -59,13 +84,12 @@ class SearchArtPieces extends Component{
                     <Grid item xs={6}>
                         <TextField fullWidth label="Please enter the art assignment's name" onChange={this.ChangeName} inputProps={{"data-input" : "name"}} data-input="name"></TextField>
                     </Grid>
-                    <Grid item xs={6} >
-                        <TextField fullWidth label="Please enter the art supplies required" onChange={this.ChangeSupplies} inputProps={{"data-input" : "supplies"}}></TextField>
+                    <Grid item xs={6}>
                     </Grid>
                 </Grid>
                 <Grid xs={3} style={{marginTop:12}}><Button fullWidth color='primary' variant='contained' onClick={this.Search}>Search</Button></Grid>
                 <Grid  item xs={7} style={{marginTop:12, marginLeft:12}}>
-                    <SearchThemes/>
+                    <ReUsableThemes destination={'ArtSearchThemes'} withThemes={true} themeSearch={this.SearchWithThemes}/>
                 </Grid>
             </Grid>
             

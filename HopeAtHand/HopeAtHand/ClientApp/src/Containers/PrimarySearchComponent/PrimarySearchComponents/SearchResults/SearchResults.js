@@ -42,33 +42,35 @@ class SearchResults extends Component{
            // console.log(themeRow, 'This is a themeRow')
             
             return(
-                <Grid xs={12} item container>
+                <Grid xs={12} item container key={index}>
                     {rowOfResults.map((result,index) => {
                         count++;
+                        console.log(result)
                         //console.log(theme, "this is a theme")
                         return (
-                            <Grid item xs={3}><ResultsDisplayModule 
-                                            documentData={result} 
-                                            isUpload={this.props.isUpload}
-                                            addToLesson={this.props.addToLesson}
-                                            addFavorites={this.props.addFavorites}
+                            <Grid item xs={3} key={index+"-1"}>
+                                <ResultsDisplayModule 
+                                    
+                                    documentData={result} 
+                                    isUpload={this.props.isUpload}
+                                    addToLesson={this.props.addToLesson}
+                                    addFavorites={this.props.addFavorites}
 
-                                            beginLessonPlanView={this.props.beginLessonPlanView}
-                                            beginDocumentView={this.props.beginDocumentView}
-                                            isLessonPlanComponent={this.props.isLessonPlanComponent} 
-                                            cancelDocumentView={this.props.cancelDocumentView}>
-                                            
-                                        </ResultsDisplayModule></Grid>
+                                    beginLessonPlanView={this.props.beginLessonPlanView}
+                                    beginDocumentView={this.props.beginDocumentView}
+                                    isLessonPlanComponent={this.props.isLessonPlanComponent} 
+                                    cancelDocumentView={this.props.cancelDocumentView}>
+                                    
+                                </ResultsDisplayModule></Grid>
                         )
                     })}
                 </Grid>
             )
         })
-        console.log(TableToDisplay)
         return TableToDisplay
     }
     render(){
-        console.log(this.props, 'these are the search restulrs')
+        console.log(this.props)
         const table= this.FormatResultsForDisplay(this.props.searchResults)
         
         if(this.props.isUpload === true)

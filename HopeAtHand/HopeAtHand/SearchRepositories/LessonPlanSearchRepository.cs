@@ -12,7 +12,7 @@ namespace HopeAtHand.SearchRepositories
         List<LessonPlan> SeachForLessonPlan(LessonPlanSearchDTO LessonPlanSearchDTO);
         List<LessonPlan> SearchForLessonPlan(LessonPlanThemeSearch lessonPlanSearchDTO);
         LessonPlan GetLessonPlanById(int id);
-
+        List<LessonPlan> LessonPlans();
     }
 
     public class LessonPlanSearchDTO
@@ -28,6 +28,11 @@ namespace HopeAtHand.SearchRepositories
         public LessonPlanSearchRepository(ApplicationDbContext Data)
         {
             this.Data = Data;
+        }
+
+        public List<LessonPlan> LessonPlans()
+        {
+            return Data.Lessonplans.ToList();
         }
 
         public List<LessonPlan> SeachForLessonPlan(LessonPlanSearchDTO LessonPlanSearchDTO)

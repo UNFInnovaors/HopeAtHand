@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import LogInForm from './LogInComponents/LoginForm'
 import Filler from '../../components/HOC/Filler'
 import * as hello from 'hellojs'
+import { post } from '../../components/Axios/Instances'
 import { Paper, Grid, Button } from '@material-ui/core';
  
 
@@ -25,7 +26,7 @@ class Login extends Component {
         this.setState({Password : event.target.value})
     }
     login = () => {
-        this.props.login(this.state.Username)
+        this.props.login(this.state.Username, this.state.Password)
     }
     Auth = () => {
         hello.init(
@@ -43,6 +44,24 @@ class Login extends Component {
     
     render(){
 
+        let disabled = (this.state.Username === null || this.state.Username === "" || this.state.Password === null || this.state.Password === null)
+        return (
+            
+            <Filler>
+                <LogInForm      logIn={this.login}
+                                buttonDisabled={disabled} 
+                                changeUsername={this.ChangeUsername} 
+                                changePassword={this.ChangePassword}
+                                Invalid={this.props.Invalid}
+                    />
+            </Filler>
+                )
+    }
+}
+
+export default Login
+
+/*
         if(this.state.Authorized === false){
             return(
             <Filler>
@@ -55,18 +74,4 @@ class Login extends Component {
                     </Paper>
             </Filler>)
         }
-        let disabled = (this.state.Username === null || this.state.Username === "")
-        return (
-            
-            <Filler>
-                <LogInForm logIn={this.login}
-                                buttonDisabled={disabled} 
-                                changeUsername={this.ChangeUsername} 
-                                changePassword={this.ChangePassword}
-                    />
-            </Filler>
-                )
-    }
-}
-
-export default Login
+    */

@@ -15,6 +15,7 @@ import blue from '@material-ui/core/colors/blue';
 import pink from '@material-ui/core/colors/green'
 import AppBar from './components/AppBar/AppBar'
 import LessonPlanViewer from './Containers/LessonPlanView/LessonPLanViewSmartContainer'
+import ChangePasswordForm from './Containers/ChangePasswordForm/ChangePassword'
 
 let theme = createMuiTheme({
   palette: {
@@ -36,7 +37,9 @@ export default class App extends Component {
       lessonplans:[],
       writing:[],
       poem:[]
-    }
+    },
+    ChangePassword: "No",
+    Invalid: "Initial"
   }
   
   componentDidMount(){
@@ -54,7 +57,9 @@ export default class App extends Component {
     this.setState({Theme:themez})
   }
 
-
+  PasswordChanged = () => {
+    this.setState({ChangePassword: "No"})
+  }
 
   AddFavorites = (documentId) => {
     console.log('This is AddFavorites!!!!!!!!!!!!!!!', documentId)
@@ -70,30 +75,41 @@ export default class App extends Component {
     })
   }
 
-  Login = (username) => {
+  Login = (username, password) => {
     console.log('This is the username in login', username)
     const LoginDTO = {
-      Username: username
+      Username: username,
+      Password: password
     }
-
-    post('/user/RecieveUserData', LoginDTO).then( res => {
+    
+    post('/user/Login', LoginDTO).then( res => {
       console.log(res, 'recieved user data')
       const FavoriteFindDTO = {
         username : LoginDTO.Username
       }
-
-      post('/Favorites/GetFavorites', FavoriteFindDTO).then(res2 => {
-        console.log(res2)
-        this.setState({Favorites : res2.data,
-                        UserName : res.data.username, 
-                       Role: res.data.role})
-      })
-    })
-    
+      if(res.data === "Not Found"){
+        this.setState({Invalid: true})
+      } else {
+        console.log('This is res', res)
+        post('/Favorites/GetFavorites', FavoriteFindDTO).then(res2 => {
+          console.log(res2)
+          this.setState({Favorites: res2.data,
+                         UserName: res.data.email, 
+                         Role: res.data.role, 
+                         LoginError: false, 
+                         LoggedIn: true,
+                         ChangePassword: res.data.changePassword,
+                         Authorized: true,
+                         Invalid: false})
+        })
+      }
+    }).catch( err => this.setState({Invalid: true}))
   }
+
   LogOut = () => {
     this.setState({UserName : null})
   }
+
   ChangeSecondary = (event) => {
     let themez = JSON.parse(JSON.stringify(this.state.Theme))
     console.log('this is themez', themez, event.target.value, themez.palette.primary)
@@ -125,7 +141,7 @@ export default class App extends Component {
   }
 
   render() {
-    console.log(this.state)
+    console.log(this.state, 'this is state in appjs')
     if(this.state.UserName === null) //
     {
       return (
@@ -133,12 +149,21 @@ export default class App extends Component {
           <MuiThemeProvider theme={this.state.Theme}>
           <Paper  style={{height : '100%', paddingBottom:'5%'}}>
             <AppBar  LoggedIn ={this.state.UserName} favorites={this.state.Favorites} role={this.state.Role}/>
-            <LogIn login={this.Login}/>
+            <LogIn login={this.Login} Invalid={this.state.Invalid}/>
           </Paper>
           </MuiThemeProvider>
         </Filler>
       )
     } else {
+      if(this.state.ChangePassword === 'Yes'){
+        return (
+        <MuiThemeProvider theme={this.state.Theme}>
+          <Paper  style={{height : '100%', paddingBottom:'5%'}}>
+            <AppBar logOut={this.LogOut} LoggedIn={null} favorites={this.state.Favorites} role={this.state.Role}/>
+            <ChangePasswordForm email={this.state.UserName} PasswordChanged={this.PasswordChanged}/>
+          </Paper>
+        </MuiThemeProvider>
+        )}
     return (
       <Filler>
         <MuiThemeProvider theme={this.state.Theme}>

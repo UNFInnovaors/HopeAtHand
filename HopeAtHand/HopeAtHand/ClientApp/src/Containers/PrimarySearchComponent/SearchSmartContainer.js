@@ -9,7 +9,8 @@ class PrimarySearchSmartContainer extends Component{
 
     state = {
         DocumentTypes: ['Poem', 'Writing Template', 'Art Piece'],
-        SearchOptions: ['Choose how you would like to search','Lesson Plans','Art Pieces','Poems','Writing Templates','By Themes','All' ],
+        SearchOptions: ['Choose how you would like to search','Lesson Plans','Art Pieces','Poems','Writing Templates'],
+        SearchOptions2: ['Choose how you would like to search','Art Pieces','Poems','Writing Templates'],
         
         //Search MetaData
         ChosenSearchOption: 'Initial',
@@ -24,22 +25,25 @@ class PrimarySearchSmartContainer extends Component{
         ViewLessonPlan : null,
         ViewDocument: null
     }
-    
+    componentWillUnmount(){
+        sessionStorage.removeItem("ArtSearch")
+    }
     componentDidMount(){
-
+        if(sessionStorage.getItem("ArtSearch")){
+            this.setState({SearchResults: JSON.parse(sessionStorage.getItem("ArtSearch"))})
+        }
     }
 
     BeginLessonPlanView = (document) => {
-        console.log('THis is the document sent to the view', document)
         this.setState({ViewLessonPlan:document})
     }
 
     CancelLessonPlanView = () => {
-        console.log('This happened')
         this.setState({ViewLessonPlan : null})
     }
 
     ChooseSearchOption = (ChosenSearchOption) => {
+        sessionStorage.removeItem("ArtSearch")
         this.setState({ ChosenSearchOption })
     }
 
@@ -47,21 +51,26 @@ class PrimarySearchSmartContainer extends Component{
         this.setState({ SearchString })
     }
 
-    SetSearchResults = (SearchResults) => {
-        this.setState({ SearchResults })}
+    SetSearchResults = (searchResults) => {
+        if(searchResults !== [])
+        {
+            sessionStorage.setItem("ArtSearch", JSON.stringify(searchResults))
+        }
+        
+        this.setState({ SearchResults: searchResults })}
 
     BeginDocumentView = (document) => {
-        console.log('This is in BeginDocumentView')
         this.setState({ViewDocument: document})
     }
     CancelDocumentView = () => {
         this.setState({ViewDocument: null})
     }
     render(){
-        console.log('This is render in my search smart container', this.state)
+        if(sessionStorage.getItem("ArtSearch") !== null && this.state.SearchResults.length === 0 && JSON.parse(sessionStorage.getItem("ArtSearch")).length > 0 ){
+            this.setState({SearchResults: JSON.parse(sessionStorage.getItem("ArtSearch"))})
+        }
         if(this.state.ViewLessonPlan && ! this.state.ViewDocument)
         {
-            console.log('This is render in my search smart container', this.state)
             return(
                 <LessonPlan 
                     ViewLessonPlan={this.state.ViewLessonPlan}
@@ -73,12 +82,13 @@ class PrimarySearchSmartContainer extends Component{
             )
         }
         if(this.state.ViewDocument){
-            console.log("!@#&*(!@#7*@!(37!*(2#&!@*(3&!@*93", this.state.ViewDocument)
             return(   
-            <Document
-                viewDocument={this.state.ViewDocument}
-                cancelDocumentView={this.CancelDocumentView}
-            />)
+                <Filler>
+                    <Document
+                        viewDocument={this.state.ViewDocument}
+                        cancelDocumentView={this.CancelDocumentView}/>
+                </Filler>
+            )
                 
         }
         return(
@@ -86,6 +96,7 @@ class PrimarySearchSmartContainer extends Component{
             <Layout  
                 documentTypes={this.state.DocumentTypes}
                 searchOptions={this.state.SearchOptions} 
+                searchOptions2={this.state.SearchOptions2} 
                 isUpload={this.props.isUpload}               
             
                 searchString={this.state.SearchString}
@@ -107,7 +118,6 @@ class PrimarySearchSmartContainer extends Component{
 
         )
     }
-
 }
 
 export default PrimarySearchSmartContainer

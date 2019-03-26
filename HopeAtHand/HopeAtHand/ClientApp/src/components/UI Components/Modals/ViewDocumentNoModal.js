@@ -20,15 +20,21 @@ class DocumentView extends Component {
     };
 
     componentDidMount(){ //+ props.document.documentId
-         let id = -1;
-         if(typeof(this.props.viewDocument["writingAssignmentId"]) !== 'undefined' && this.props.viewDocument["writingAssignmentId"] !== null){
-             id = this.props.viewDocument.writingAssignmentId;
-         } else if(typeof(this.props.viewDocument["poemId"]) !== 'undefined' && this.props.viewDocument["poemId"] !== null){
+      let id = -1  
+      if(this.props.viewDocument.id)
+        {
+          id = this.props.viewDocument.id
+        }
+        else {
+          if(typeof(this.props.viewDocument["writingAssignmentId"]) !== 'undefined' && this.props.viewDocument["writingAssignmentId"] !== null){
+            id = this.props.viewDocument.writingAssignmentId;
+          } else if(typeof(this.props.viewDocument["poemId"]) !== 'undefined' && this.props.viewDocument["poemId"] !== null){
             id = this.props.viewDocument.poemId
-         }
-         else if(typeof(this.props.viewDocument["artPieceId"]) !== 'undefined' && this.props.viewDocument["artPieceId"] !== null){
+          }
+          else if(typeof(this.props.viewDocument["artPieceId"]) !== 'undefined' && this.props.viewDocument["artPieceId"] !== null){
             id = this.props.viewDocument.artPieceId
-         }
+          }
+        }
          this.setState({Id:id})
          this.onLoad(id)
         }
@@ -66,7 +72,6 @@ class DocumentView extends Component {
       this.setState({Editing:false})
     }
 
-    /*These method control the editing of componenets*/
     UpdateDocumentName = (newName) => {
       const updateDocumentDTO = {
         id : this.state.Id,
@@ -149,13 +154,14 @@ class DocumentView extends Component {
           
           <DocumentMetaData style={{marginTop:16}} 
           enableEditing={this.EnableEditing} document={this.state.Document}
-           type={this.state.Type}/>          : 
+           type={this.state.Type} cancelDocumentView={this.Close} cancelDocumentView={this.props.cancelDocumentView} isModal={this.props.isModal} close={this.props.close}/>          : 
 
           <DocumentEditMetaData style={{marginTop:16}} 
            cancelEditing={this.CancelEditing} document={this.state.Document} 
            updateDocumentName={this.UpdateDocumentName} updateThemes={this.UpdateThemes}
            postData = {this.PostData} displayDocument={this.state.DisplayDocument}  displayPicture={this.state.DisplayPicture}
-           selectDocument={this.SelectDocument}  selectPicture={this.SelectPicture}  type={this.state.Type}/>
+           selectDocument={this.SelectDocument}  selectPicture={this.SelectPicture}  type={this.state.Type} cancelDocumentView={this.props.cancelDocumentView} 
+           isModal={this.props.isModal} close={this.props.close}/>
 
       
         return(

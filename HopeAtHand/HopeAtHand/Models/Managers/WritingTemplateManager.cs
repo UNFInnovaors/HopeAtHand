@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using HopeAtHand.Controllers;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +10,7 @@ namespace HopeAtHand.Models.Managers
     public class CreateWritingAssignmentData
     {
         public string WritingAssignmentName { get; set; }
-        public string AgeGroup { get; set; }
+        public int TemplateId { get; set; }
         public string ImageURL { get; set; }
         public string WritingURL { get; set; }
         public List<Themes> Themes;
@@ -18,6 +19,8 @@ namespace HopeAtHand.Models.Managers
     public interface IWritingTemplateManager
     {
         CreateResultDTO CreateWritingAssignment(CreateWritingAssignmentData createData);
+        string CreateTemplateType(CreateTemplateDTO createTemplate);
+        List<WritingTemplate> WritingTempaltes();
     }
 
     public class WritingTemplateManager : IWritingTemplateManager
@@ -34,7 +37,7 @@ namespace HopeAtHand.Models.Managers
         public CreateResultDTO CreateWritingAssignment(CreateWritingAssignmentData create)
         {
 
-            if (create.AgeGroup == "" || create.WritingAssignmentName == "")
+            if (create.TemplateId == -1 || create.WritingAssignmentName == "")
             {
                 return null;
             }
@@ -43,7 +46,7 @@ namespace HopeAtHand.Models.Managers
 
             WAToAdd.Title = create.WritingAssignmentName;
             WAToAdd.ImageURL = create.ImageURL;
-            WAToAdd.AgeGroup = create.AgeGroup;
+            WAToAdd.TemplateId = create.TemplateId;
             WAToAdd.DocumentBlobURL = create.WritingURL;
             Data.SaveChanges();
             return new CreateResultDTO
@@ -81,6 +84,27 @@ namespace HopeAtHand.Models.Managers
                 Data.Database.CloseConnection();
             }
             return writing;
+        }
+
+        public string CreateTemplateType(CreateTemplateDTO createTemplate)
+        {
+            var checkExistance = Data.WritingTemplates.Where(temp => temp.Name == createTemplate.TemplateName).FirstOrDefault();
+            if(checkExistance == null)
+            {
+                Data.Add(new WritingTemplate
+                {
+                    Name = createTemplate.TemplateName
+                });
+                Data.SaveChanges();
+                return "Success";
+            }
+            return "Failed";
+           
+        }
+
+        public List<WritingTemplate> WritingTempaltes()
+        {
+            return Data.WritingTemplates.OrderBy(temp => temp.Name).ToList();
         }
     }
 }

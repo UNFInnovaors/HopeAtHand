@@ -4,14 +4,16 @@ using HopeAtHand.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace HopeAtHand.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20190324172619_Filled User")]
+    partial class FilledUser
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -54,8 +56,6 @@ namespace HopeAtHand.Migrations
                     b.Property<int>("FacilitatorID")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("ChangePassword");
 
                     b.Property<string>("Email");
 
@@ -208,30 +208,17 @@ namespace HopeAtHand.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("AgeGroup");
+
                     b.Property<string>("DocumentBlobURL");
 
                     b.Property<string>("ImageURL");
-
-                    b.Property<int>("TemplateId");
 
                     b.Property<string>("Title");
 
                     b.HasKey("WritingAssignmentId");
 
                     b.ToTable("WritingAssignments");
-                });
-
-            modelBuilder.Entity("HopeAtHand.Models.WritingTemplate", b =>
-                {
-                    b.Property<int>("WritingTemplateId")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Name");
-
-                    b.HasKey("WritingTemplateId");
-
-                    b.ToTable("WritingTemplates");
                 });
 
             modelBuilder.Entity("HopeAtHand.Models.WritingThemes", b =>

@@ -115,7 +115,7 @@ namespace HopeAtHand.Controllers
                 {
                     result = WritingTemplate.CreateWritingAssignment(new CreateWritingAssignmentData
                     {
-                        AgeGroup = keyValuePairs.GetValueOrDefault("writingType"),
+                        TemplateId = Int32.Parse(keyValuePairs.GetValueOrDefault("templateId")),
                         ImageURL = imageURL,
                         WritingURL = documentURL,
                         Themes = themes,

@@ -52,6 +52,8 @@ namespace HopeAtHand.Models
 
         }
 
+        public DbSet<WritingTemplate> WritingTemplates { get; set; }
+
         public DbSet<LessonPlan> Lessonplans { get; set; }
 
         public DbSet<Themes> Themes {get;set;}

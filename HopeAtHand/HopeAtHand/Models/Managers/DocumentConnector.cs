@@ -41,11 +41,11 @@ namespace HopeAtHand.Models.Managers
         {
             try
             {
-                LessonPlan_WritingAssignment connection = new LessonPlan_WritingAssignment()
+                Data.Add(new LessonPlan_WritingAssignment()
                 {
                     LessonPlanId = lesson.LessonPlanId,
                     WritingAssignmentId = writing
-                };
+                });
             }
             catch
             {
@@ -58,11 +58,11 @@ namespace HopeAtHand.Models.Managers
         {
             try
             {
-                LessonPlan_ArtPiece connection = new LessonPlan_ArtPiece()
+                Data.Add( new LessonPlan_ArtPiece()
                 {
                     ArtPieceId = art,
                     LessonPlanId = lesson.LessonPlanId
-                };
+                });
             }
             catch
             {

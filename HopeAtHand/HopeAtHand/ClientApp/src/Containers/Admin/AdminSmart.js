@@ -21,7 +21,15 @@ class Admin extends Component {
         
         this.setState({Loading: true})
     }
-
+    reload = () => {
+        get('/User/GetUsers').then( res => {
+            console.log('This is the results in admin', res);
+            this.setState({Loading: false,
+                    Facilitators: res.data})
+            }).catch( err => console.log(err))
+        
+        this.setState({Loading: true})
+    }
     update =() => {
         get('/User/GetUsers').then( res => {
             console.log('This is the results in admin', res);
@@ -81,7 +89,10 @@ class Admin extends Component {
                                 changeSearchType={this.changeSearchType}
                                 search={this.state.Search}
                                 handleChange={this.handleChange}
-                                searchMethod={this.Search}>
+                                searchMethod={this.Search}
+                                reload={this.reload}
+                                >
+                                
 
             
         </AdminFunctions>)

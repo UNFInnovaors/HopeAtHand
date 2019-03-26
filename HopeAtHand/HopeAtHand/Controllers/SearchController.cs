@@ -47,7 +47,12 @@ namespace HopeAtHand.Controllers
             }
             return Ok(lessonDTO);
         }
-
+        [HttpPost]
+        public IActionResult SearchForPoemsWithThemes([FromBody] PoemSearchDTO poemSearchDTO)
+        {
+            var result = poemSearch.SeachForPoemWithThemes(poemSearchDTO);
+            return Ok(result);
+        }
         [HttpPost]
         public IActionResult SearchForPoems([FromBody] PoemSearchDTO poemSearchDTO)
         {
@@ -60,9 +65,18 @@ namespace HopeAtHand.Controllers
             return Ok(artPieceSearchRepository.SeachForArtPiece(artSearchDTO));
         }
         [HttpPost]
+        public IActionResult SearchForArtPiecesWithThemes([FromBody] ArtPieceSearchThemesDTO artSearchDTO)
+        {
+            return Ok(artPieceSearchRepository.SeachForArtPieceWithThemes(artSearchDTO));
+        }
+        [HttpPost]
         public IActionResult SearchForWritingAssignments([FromBody] WritingAssignmentSearchDTO writingSearchDTO)
         {
             return Ok(writingSearch.SeachForWritingAssignment(writingSearchDTO));
+        }
+        public IActionResult SearchForWritingAssignmentsWithThemes([FromBody] WritingAssignmentSearchDTO writingSearchDTO)
+        {
+            return Ok(writingSearch.SearchForWritingAssignmentsWithThemes(writingSearchDTO));
         }
         //No Themes
         [HttpPost]
@@ -86,14 +100,7 @@ namespace HopeAtHand.Controllers
         {
             return Ok(themeSearch.SearchThemes(themeSearchDTO.Themes));
         }
-
     }
-
-        public class PoemSearchDTO
-        {
-            public string Name { get; set; }
-            public string Author { get; set; }
-        }
 }
 
 

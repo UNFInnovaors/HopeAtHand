@@ -29,7 +29,7 @@ class ReadonlyThemeBox extends  Component{
             return(
                     themeRow.map((theme,index) => {
                         return (
-                            <Grid key={index} style={{marginBottom:6, marginRight:3}}><Chip style={{textAlign:'center', margin:'auto', minWidth:120}} label={theme}></Chip></Grid>
+                            <Grid key={index} style={{marginBottom:6, marginRight:3}}><Chip color={'secondary'} style={{textAlign:'center', margin:'auto',  minWidth:150, fontSize:15}} label={theme}></Chip></Grid>
                         )
                     })
                 

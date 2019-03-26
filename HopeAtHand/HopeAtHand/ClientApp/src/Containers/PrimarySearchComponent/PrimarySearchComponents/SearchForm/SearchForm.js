@@ -29,7 +29,7 @@ class SearchForm extends Component{
                                 label="What Would You Like To Search For"
                                 changeStateOfOptions={this.props.selectSearchDomain} 
                                 value={this.props.selectedSearchDomain} 
-                                valuesForOptions={this.props.searchOptions} >
+                                valuesForOptions={this.props.searchOptions2} >
                             </ReusableSelect>
                         </Grid>
                         <Grid item xs={3}></Grid>

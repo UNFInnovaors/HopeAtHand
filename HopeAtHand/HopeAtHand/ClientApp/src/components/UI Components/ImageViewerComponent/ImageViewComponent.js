@@ -35,7 +35,6 @@ class ViewComponent extends Component{
             return <Paper> <p>Loading</p></Paper>
         }
         let width= window.screen.width/2.09
-        console.log(width)
         return(
             <Paper style={{margin:4, padding:4}}>
                 <Grid item container xs={12} spacing={16}>

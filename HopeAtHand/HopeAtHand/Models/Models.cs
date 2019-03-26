@@ -9,8 +9,15 @@ namespace HopeAtHand.Models
 {
     public class Facilitator {
         public int FacilitatorID { get; set; }
-        public string Username { get;set;} 
+        public string Email { get;set;} 
         public string Role {get;set;}
+        public string Org { get; set; }
+        public string Name { get; set; }
+        public string Phone { get; set; }
+        public string ChangePassword { get; set; } = "Yes";
+        public DateTime UserSince { get; set; }
+        public byte[] Password { get; set; }
+        public byte[] PasswordSalt { get; set; }
     }
 
     public class Favorite
@@ -39,7 +46,7 @@ namespace HopeAtHand.Models
         public string Title { get; set; }
         public string DocumentBlobURL { get; set; }
         public string ImageURL { get; set; }
-        public string AgeGroup { get; set; }
+        public int TemplateId { get; set; }
         [NotMapped]
         public List<WritingThemes> Themes { get; set; }
         [NotMapped]
@@ -133,6 +140,12 @@ namespace HopeAtHand.Models
     {
         public string ThemeName { get; set; }
         public int LessonId { get; set; }
+    }
+
+    public class WritingTemplate
+    {
+        public int WritingTemplateId { get; set; }
+        public string Name { get; set; }
     }
 }
 

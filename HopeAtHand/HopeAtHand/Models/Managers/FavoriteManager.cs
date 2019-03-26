@@ -29,14 +29,14 @@ namespace HopeAtHand.Models.Managers
 
         public Favorite CreateFavoriate(FavoriteCreateDTO create)
         {
-            Facilitator f = Data.Facilitators.Where(w => w.Username == create.Username).FirstOrDefault();
+            Facilitator f = Data.Facilitators.Where(w => w.Email == create.Username).FirstOrDefault();
             Favorite favor = Data.Favorites.Where(w => w.DocumentID == create.DocumentId && w.FacilitatorID == f.FacilitatorID).FirstOrDefault();
             if (favor != null)
                 return null;
             Favorite favorite = new Favorite()
             {
                 DocumentID = create.DocumentId,
-                FacilitatorID = Data.Facilitators.Where( w => w.Username == create.Username).First().FacilitatorID,
+                FacilitatorID = Data.Facilitators.Where( w => w.Email == create.Username).First().FacilitatorID,
                 DocumentType = DetermineDocumentType(create.DocumentId)
             };
             Data.Database.OpenConnection();
@@ -56,7 +56,7 @@ namespace HopeAtHand.Models.Managers
         }
         public List<Favorite> FindFavorites(FavoriteFindDTO findDTO)
         {
-            Facilitator f = Data.Facilitators.Where(w => w.Username == findDTO.username).FirstOrDefault();
+            Facilitator f = Data.Facilitators.Where(w => w.Email == findDTO.username).FirstOrDefault();
             return Data.Favorites.Where(fav => fav.FacilitatorID == f.FacilitatorID).ToList();
         }
         public string DetermineDocumentType(int id)

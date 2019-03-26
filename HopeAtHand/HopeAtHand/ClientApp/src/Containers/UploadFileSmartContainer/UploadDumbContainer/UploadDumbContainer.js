@@ -31,7 +31,8 @@ const uploadDocumentDumbContainer = (props) => {
                         selectFile={props.selectFile} 
                         fileToUpload={props.fileToUpload} 
                         updateTheme={props.updateTheme} 
-                        poemDataChangeHandler={props.poemDataChangeHandler}>
+                        poemDataChangeHandler={props.poemDataChangeHandler}
+                        updateTemplate={props.updateTemplate}>
                         </Writing>
         break;
         case 'Art Piece':
@@ -53,7 +54,7 @@ const uploadDocumentDumbContainer = (props) => {
             <Grid container item spacing={24}>
                 <Grid item xs={12}><Typography variant="h2" align="center">Upload</Typography></Grid>
                 <Grid style={{marginTop:'2.5%'}} item xs={12}><Typography align='center'>Loading</Typography></Grid>
-                <Typography variant='body1' align='center'><CircularProgress style={{textAlign:'center'}}/></Typography>
+                <Typography variant='body1' align='center'><CircularProgress style={{margin:'auto'}}/></Typography>
             </Grid>
         )
     }

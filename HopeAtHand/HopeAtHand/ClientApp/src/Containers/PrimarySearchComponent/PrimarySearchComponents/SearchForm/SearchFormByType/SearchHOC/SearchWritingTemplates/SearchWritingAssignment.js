@@ -4,12 +4,14 @@ import { Button, TextField, Grid, Typography, Paper } from '@material-ui/core'
 import {post} from '../../../../../../../components/Axios/Instances'
 import SearchSelect from '../../../../../../../components/UI/ThemeSelect/ThemeSelect'
 import Loading from '../../../../../../../components/UI Components/Loading/Loading'
-import SearchThemes from '../../../../../../../components/UI/ThemeSelect/SearchThemes'
+import ReUsableThemes from '../../../../../../../components/UI/ReusableThemeSelect/ReusableThemeSelect'
 class SearchWriting extends Component{
+   
     state = {
         name: '',
         writingType: '',
-        
+        Loading: false,
+        WithThemes : false,
     }
 
     componentDidMount(){
@@ -26,18 +28,38 @@ class SearchWriting extends Component{
     }
     Search = () => {
         
+
+        let themes = sessionStorage.getItem("WritingAssignmentSearchThemes") === null ? '' : sessionStorage.getItem("WritingAssignmentSearchThemes").split(',')
+        
         const WritingAssignmentSearchDTO = {
             name:this.state.name,
-            ageGroups:this.state.writingType
+            ageGroups:this.state.writingType,
+            themes: themes
         }
 
-        post('/search/SearchForWritingAssignments', WritingAssignmentSearchDTO).then( resultsInner => {
-            //console.log('This is the results in poem search',resultsInner);
-            this.props.setSearchResults(resultsInner.data);
-            this.setState({Loading: false})
-        }).catch( err => console.log(err))
-        //console.log('this is results out of the method')
-        this.setState({Loading: true})
+        if(this.state.WithThemes === true && themes != ''){
+           
+            post('/search/SearchForWritingAssignmentsWithThemes', WritingAssignmentSearchDTO).then( resultsInner => {
+                this.props.setSearchResults(resultsInner.data);
+                this.setState({Loading: false})
+            }).catch( err => console.log(err))
+
+            this.setState({Loading: true})
+
+            } else {
+
+            post('/search/SearchForWritingAssignments', WritingAssignmentSearchDTO).then( resultsInner => {
+                this.props.setSearchResults(resultsInner.data);
+                this.setState({Loading: false})
+            }).catch( err => console.log(err))
+
+            this.setState({Loading: true})
+        }
+    }
+
+    SearchWithThemes = () => {
+        let withThemes = !this.state.WithThemes
+        this.setState({WithThemes : withThemes})
     }
 
     render(){
@@ -64,7 +86,7 @@ class SearchWriting extends Component{
                 <Grid item container style={{marginTop:16}} xs={12}>
                         <Grid xs={3}><Button fullWidth color='primary' variant='contained' onClick={this.Search}>Search</Button></Grid>
                         <Grid item xs={6} style={{marginLeft:16}}>
-                            <SearchThemes/>
+                            <ReUsableThemes destination={'WritingAssignmentSearchThemes'} withThemes={true} themeSearch={this.SearchWithThemes}/>
                         </Grid>
                 </Grid>
             </Grid>

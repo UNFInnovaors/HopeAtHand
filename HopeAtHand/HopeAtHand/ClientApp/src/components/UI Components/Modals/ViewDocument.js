@@ -24,7 +24,7 @@ function getModalStyle() {
   const styles = theme => ({
     paper: {
       width: '80%',
-      height: '100%',
+      height: '88%',
       backgroundColor: theme.palette.background.paper,
       boxShadow: theme.shadows[5],
       padding: theme.spacing.unit * 1,
@@ -88,25 +88,6 @@ function getModalStyle() {
       const titleForView =  this.state.Document === null ? null :  this.state.Document.title
       let viewer = <div></div>
 
-
-     /* if(fileType === 'pdf')
-      {
-        viewer = <Document
-        file={document}
-        
-      >
-      </Document>
-      Axios.get(document, {
-        headers: {AllowedOrigin:'*',
-        ExposeHeader:"Accept-Ranges",
-        ExposeHeader:"Content-Range",
-        ExposeHeader:"Content-Encoding",
-        ExposeHeader:"Content-Length"
-      }
-        
-      }).then(res => console.log(res))
-      }*/
-      //console.log(document)
       if(this.state.Document === null)
       {
           return <Filler>
@@ -138,8 +119,7 @@ function getModalStyle() {
             <div  className={classes.paper} style={getModalStyle()}>
               <Heading>{this.state.Type} Viewer</Heading>
               <div >
-                  <DocumentViewer viewDocument={this.props.viewDocument} isModal={true}/>
-                  <Button color='secondary' onClick={this.handleClose} >Close Document</Button>
+                  <DocumentViewer viewDocument={this.props.viewDocument} isModal={true} close={this.handleClose}/>
                 </div>
             </div>
           </Modal>

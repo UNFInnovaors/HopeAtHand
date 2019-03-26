@@ -55,7 +55,12 @@ class CreateSmartContainer extends Component {
       , 'This is the metaData', metaData
       ,'This is the type', type,
       'this is image' , image )
-      const imageView = URL.createObjectURL(image[0])
+      let imageView =""
+      try{
+        imageView = URL.createObjectURL(image[0])
+      } catch(err){
+        imageView = ""
+      }
       const component = {id : id.id, name : metaData["name"], type: type , image : imageView}
     this.setState({LessonPlanComponents : [...this.state.LessonPlanComponents, component]})
   }
@@ -76,7 +81,7 @@ class CreateSmartContainer extends Component {
     {
       get('/Document/GetDocument/' + documentToAdd.artPieceId).then( res => {
         console.log(res)
-        component = {id : documentToAdd.poemId, name :documentToAdd.title, type: "Art Piece", image : res.data.document.imageURL}
+        component = {id : documentToAdd.artPieceId, name :documentToAdd.title, type: "Art Piece", image : res.data.document.imageURL}
         this.setState({LessonPlanComponents : [...this.state.LessonPlanComponents, component], Loading:false})
       })
     }
@@ -183,9 +188,6 @@ class CreateSmartContainer extends Component {
   Close = () => {
     this.setState({Open:false})
   }
-  RemoveThemes = () => {
-    console.log("hmmm")
-  }
 
   LessonPlanNameChangeHandler = (event) => {
     this.setState({LessonPLanName : event.target.value})
@@ -195,6 +197,7 @@ class CreateSmartContainer extends Component {
     if(this.state.Loading === true){
       return <Heading>Loading</Heading>
     }
+
     return (
       <Filler>
         <CreateDumbComponent

@@ -133,17 +133,6 @@ class UploadFileSmartContainer extends Component {
     someData[event.target.dataset.input] = event.target.value
     this.setState({DataAsKVP:someData})
     console.log(this.state.DataAsKVP)
-    /*switch(event.target.dataset){
-      case('1'):
-        //
-      break;
-      case('2'):
-        //
-      break;
-      case('3'):
-        //
-      break;
-    }*/
   }
   handleChange = (selectedOption) => {
     this.setState({ selectedOption });
@@ -166,6 +155,12 @@ class UploadFileSmartContainer extends Component {
       break;
   }
 }
+
+  updateTemplate = (id) => {
+    var someData = JSON.parse(JSON.stringify(this.state.DataAsKVP))
+    someData["templateId"] = id
+    this.setState({DataAsKVP:someData})
+  }
   
   //Method used when uploading a file to a lesson plan
   postData = () => {
@@ -209,6 +204,7 @@ class UploadFileSmartContainer extends Component {
     this.setState({Success: false})
   }
   render() {
+    console.log('This is state of uploadfilesmart', this.state)
     return(
     <UploadDumbContainer 
                         //Properties
@@ -231,6 +227,7 @@ class UploadFileSmartContainer extends Component {
                         uploadImage={this.selectImage}
                         changeThemes={this.state.handleChange}
                         close={this.CloseSnackbar}
+                        updateTemplate={this.updateTemplate}
                         //Props
                         addComponent={this.props.addComponent} />
                         

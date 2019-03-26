@@ -3,13 +3,14 @@ import Filler from '../../../../../../../components/HOC/Filler'
 import { Button, TextField, Grid, Typography, Paper } from '@material-ui/core'
 import {post} from '../../../../../../../components/Axios/Instances'
 import Loading from '../../../../../../../components/UI Components/Loading/Loading'
-import SearchThemes from '../../../../../../../components/UI/ThemeSelect/SearchThemes'
+import ReUsableThemes from '../../../../../../../components/UI/ReusableThemeSelect/ReusableThemeSelect'
 class SearchPoems extends Component{
 
     state={
         name:'',
         author:'',
         Loading: false,
+        WithThemes : false,
     }
 
     componentDidMount(){
@@ -25,20 +26,41 @@ class SearchPoems extends Component{
         }
     }
     Search = () => {
-        
+
+        let themes = sessionStorage.getItem("PoemSearchThemes") === null ? '' : sessionStorage.getItem("PoemSearchThemes").split(',')
         const PoemSearchDTO = {
             name:this.state.name,
-            author:this.state.author
+            author:this.state.author,
+            themes:themes
         }
 
-        post('/search/SearchForPoems', PoemSearchDTO).then( resultsInner => {
-            //console.log('This is the results in poem search',resultsInner);
-            this.props.setSearchResults(resultsInner.data);
-            this.setState({Loading: false})
-        }).catch( err => console.log(err))
-        //console.log('this is results out of the method')
-        this.setState({Loading: true})
+        if(this.state.WithThemes === true && themes != ''){
+           
+            post('/search/SearchForPoemsWithThemes', PoemSearchDTO).then( resultsInner => {
+                //console.log('This is the results in poem search',resultsInner);
+                this.props.setSearchResults(resultsInner.data);
+                this.setState({Loading: false})
+            }).catch( err => console.log(err))
+            //console.log('this is results out of the method')
+            this.setState({Loading: true})
+
+        } else {
+
+            post('/search/SearchForPoems', PoemSearchDTO).then( resultsInner => {
+                //console.log('This is the results in poem search',resultsInner);
+                this.props.setSearchResults(resultsInner.data);
+                this.setState({Loading: false})
+            }).catch( err => console.log(err))
+            //console.log('this is results out of the method')
+            this.setState({Loading: true})
+        }
     }
+
+    SearchWithThemes = () => {
+        let withThemes = !this.state.WithThemes
+        this.setState({WithThemes : withThemes})
+    }
+
     render(){
         console.log(this.state, 'the state of peom boi')
         if(this.state.Loading === true){
@@ -61,7 +83,7 @@ class SearchPoems extends Component{
                     </Grid>
                     <Grid item xs={3}><Button fullWidth variant='contained' color='primary' onClick={this.Search}>Search</Button></Grid>
                     <Grid item xs={6}>
-                        <SearchThemes/>
+                        <ReUsableThemes destination={'PoemSearchThemes'} withThemes={true} themeSearch={this.SearchWithThemes}/>
                     </Grid>
                 </Grid>
             </Grid>

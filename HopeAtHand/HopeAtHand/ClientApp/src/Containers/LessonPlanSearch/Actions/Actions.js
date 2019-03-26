@@ -65,7 +65,7 @@ class Actions extends React.Component{
                     </Grid>
                     <Grid container item xs={12} >
                         <Grid item xs={1}></Grid>
-                            <Grid xs={10}><ViewDocument id={this.props.id} addFavorites={this.props.addFavorites}></ViewDocument></Grid>
+                            <Grid xs={10}><Button style={{marginRight:4, marginLeft:4}} variant='contained' color={'primary'} fullWidth onClick={this.BeginDocumentView}>View Document</Button></Grid>
                         <Grid item xs={1}></Grid>
                     </Grid>
                 </Grid>

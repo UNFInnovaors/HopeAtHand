@@ -64,7 +64,6 @@ class DocumentEditMetaData extends Component{
     determineFileEnding = (document) => {
         if(document === "" | document === null)
           return ""
-        //console.log(document.substring(document.length -5).split('.')[1])
         return(document.substring(document.length -7).split('.')[1].toLowerCase())
       }
 
