@@ -30,8 +30,8 @@ export default class App extends Component {
   
   state = {
     Theme: theme,
-    UserName : 'Bill',
-    Role:"Administrator",
+    UserName : '',
+    Role:"",
     Favorites:{
       art:[],
       lessonplans:[],
