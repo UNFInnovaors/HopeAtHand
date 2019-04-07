@@ -34,7 +34,7 @@ namespace HopeAtHand.Controllers
         {
              return Ok();
         }*/
-
+        [AllowAnonymous]
         public async Task<ActionResult> SaveLesson([FromBody] LessonPlanCreationDTO creationDTO)
         {
             LessonPlan lesson = LessonPlanCreation.SaveLessonPLan(creationDTO);
