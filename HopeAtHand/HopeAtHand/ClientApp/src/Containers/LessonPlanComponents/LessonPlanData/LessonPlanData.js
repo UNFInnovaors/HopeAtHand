@@ -125,8 +125,8 @@ class LessonPlanData extends Component{
                         </Grid>
                         <Grid style={{paddingTop:8}} item container xs={12} spacing={8}>
                             <Grid xs={1}></Grid>
-                            <Grid xs={4} item><Button variant='contained' color='primary' onClick={this.DownloadCompleteLesson} fullWidth>Download Complete Lesson Plan</Button></Grid>
-                            <Grid xs={3} item><Button variant='contained' color='primary' onClick={this.DownloadOutlineLesson} fullWidth>Download Lesson Plan Outline</Button></Grid>
+                            <Grid xs={4} item><Button variant='contained' color='primary' onClick={this.DownloadCompleteLesson} fullWidth>Download Lesson Plan</Button></Grid>
+                            <Grid xs={3} item><Button variant='contained' color='primary' onClick={this.DownloadOutlineLesson} fullWidth>Download Outline</Button></Grid>
                             <Grid xs={3} item><Button variant='contained' color='primary' onClick={this.props.enableEditing} fullWidth>Enable Editing</Button></Grid>
                             <Grid xs={1}></Grid>
                         </Grid>

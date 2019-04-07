@@ -160,7 +160,7 @@ class CreateDumbComponent extends Component {
                                 </Grid>
                                 <Grid item xs={5}>
                                     <label style={{width:'100%'}} htmlFor="Complete_Lesson">
-                                        <Button fullWidth variant="contained" color={"primary"} component="span">Upload Complete Lesson</Button>
+                                        <Button fullWidth variant="contained" color={"primary"} component="span">Upload Lesson</Button>
                                         <input onChange={ this.props.selectFile}
                                             style={{ display: 'none' }}
                                             id="Complete_Lesson"
@@ -174,7 +174,7 @@ class CreateDumbComponent extends Component {
                                 </Grid>
                                 <Grid item xs={5}>
                                     <label style={{width:'100%'}} htmlFor="OutlineDocument">
-                                        <Button fullWidth variant="contained" color={"primary"} component="span">Upload Lesson Outline Document</Button>
+                                        <Button fullWidth variant="contained" color={"primary"} component="span">Outline Document</Button>
                                         <input onChange={ this.props.selectFile}
                                             style={{ display: 'none' }}
                                             id="OutlineDocument"
