@@ -26,11 +26,6 @@ class UploadFileSmartContainer extends Component {
   initialState= {
     selectedOption: null,
     Loading: false,
-    account : {
-      name: "htmljs",
-      sas:  "se=2040-12-12&sp=rwdlac&sv=2018-03-28&ss=b&srt=sco&sig=kof64cpIlp9%2BVwnJxOKhRJbixLKu0mbria10AbNvZuM%3D"
-    },
-    blobUri : 'https://htmljs.blob.core.windows.net',
     containerName:{type:"password",validation:["lower",{min:0, max:15}],placeHolder:"containerName", required:true, disabled:false, id:"Container"},
     FileToUpload:null,
     BlobService:null,

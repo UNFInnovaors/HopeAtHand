@@ -139,39 +139,39 @@ const appBar = (props) => {
       }
       else
       {
-        return (    <div className='margin'>
-        <AppBar position="static">
-          <Grid container spacing={24}>
+        return (    
+        <div className='margin'>
+          <AppBar position="static">
+            <Grid container spacing={24}>
+              <Grid item xs={1}></Grid>
+              <Grid item xs={3} style={{ marginTop: '14px' }}>
+                <Link to="/Search" style={{ textDecoration: 'none' }}><Button variant="contained" fullWidth color="secondary">
+                  <Typography>Search</Typography>
+                </Button></Link>
+              </Grid>
+              
+              <Grid item xs={3}>
+                <InputBase
+                  style={{ marginTop: '8px' }}
+                  placeholder="Search Lesson Plans"
+                  variant="outlined"
+                  fullWidth
+                />
+              </Grid>
+              
+              <Grid item xs={3} style={{  marginTop: '14px' }}>
+                <Button variant="contained" fullWidth color="secondary" onClick={props.logOut}>
+                  <Typography>LOGOUT</Typography>
+                </Button>
+              </Grid>
+
+              <Grid item xs={1}>
+                <Account favorites={props.favorites}/>
+              </Grid>
+            </Grid>
             <Grid item xs={1}></Grid>
-
-            <Grid item xs={3} style={{ marginTop: '14px' }}>
-              <Link to="/Search" style={{ textDecoration: 'none' }}><Button variant="contained" fullWidth color="secondary">
-                <Typography>Search</Typography>
-              </Button></Link>
-            </Grid>
-            
-            <Grid item xs={3}>
-              <InputBase
-                style={{ marginTop: '8px' }}
-                placeholder="Search Lesson Plans"
-                variant="outlined"
-                fullWidth
-              />
-            </Grid>
-            
-            <Grid item xs={3} style={{  marginTop: '14px' }}>
-              <Button variant="contained" fullWidth color="secondary" onClick={props.logOut}>
-                <Typography>LOGOUT</Typography>
-              </Button>
-            </Grid>
-
-            <Grid item xs={1}>
-              <Account favorites={props.favorites}/>
-            </Grid>
-          </Grid>
-          <Grid item xs={1}></Grid>
-        </AppBar>
-      </div>)
+          </AppBar>
+        </div>)
       }
 }
 

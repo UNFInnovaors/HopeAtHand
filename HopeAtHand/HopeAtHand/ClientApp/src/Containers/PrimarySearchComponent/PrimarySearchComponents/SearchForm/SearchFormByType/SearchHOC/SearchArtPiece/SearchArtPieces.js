@@ -5,10 +5,7 @@ import {post} from '../../../../../../../components/Axios/Instances'
 import Loading from '../../../../../../../components/UI Components/Loading/Loading'
 import { Button, TextField, Grid, Typography, Paper } from '@material-ui/core'
 import Filler from '../../../../../../../components/HOC/Filler'
-import SearchSelect from '../../../../../../../components/UI/ThemeSelect/ThemeSelect'
-import SearchThemes from '../../../../../../../components/UI/ThemeSelect/SearchThemes'
 import ReUsableThemes from '../../../../../../../components/UI/ReusableThemeSelect/ReusableThemeSelect'
-import SearchTemplates from '../../../../../../../components/UI/TemplateTypeSelect/Template'
 class SearchArtPieces extends Component{
     
     state = {

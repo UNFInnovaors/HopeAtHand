@@ -7,9 +7,11 @@ using System.Linq;
 using System.Threading.Tasks;
 using HopeAtHand.Models;
 using HopeAtHand.SearchRepositories;
+using Microsoft.AspNetCore.Authorization;
 
 namespace HopeAtHand.Controllers
 {
+    [Authorize]
     [Route("api/[controller]/[Action]")]
     public class SearchController : Controller
     {
@@ -99,6 +101,11 @@ namespace HopeAtHand.Controllers
         public IActionResult SearchForThemes([FromBody] ThemeSearchDTO themeSearchDTO)
         {
             return Ok(themeSearch.SearchThemes(themeSearchDTO.Themes));
+        }
+        [HttpGet]
+        public IActionResult LessonPlans()
+        {
+            return Ok(lessonPLanSearch.LessonPlans());
         }
     }
 }

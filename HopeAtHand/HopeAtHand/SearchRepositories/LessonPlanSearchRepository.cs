@@ -32,7 +32,7 @@ namespace HopeAtHand.SearchRepositories
 
         public List<LessonPlan> LessonPlans()
         {
-            return Data.Lessonplans.ToList();
+            return Data.Lessonplans.OrderBy( o => o.Title).ToList();
         }
 
         public List<LessonPlan> SeachForLessonPlan(LessonPlanSearchDTO LessonPlanSearchDTO)

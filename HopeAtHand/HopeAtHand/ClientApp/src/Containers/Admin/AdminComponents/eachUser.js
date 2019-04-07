@@ -2,7 +2,6 @@ import React, {Component } from 'react'
 
 import {post} from '../../../components/Axios/Instances'
 import {Grid, Select, Button, MenuItem, Divider} from '@material-ui/core'
-import SnackbarContent from '@material-ui/core/SnackbarContent';
 import Filler from '../../../components/HOC/Filler'
 
 class EachUser extends Component{
@@ -54,7 +53,7 @@ class EachUser extends Component{
             
                 <Grid item xs={2}>{this.props.name}</Grid>
                 <Grid item xs={2}>{this.props.role} </Grid>
-                <Grid item xs={2}></Grid>
+                <Grid item xs={2}>{this.props.org}</Grid>
                 <Grid item xs={1}>Change Role : </Grid>
                 <Grid item xs={2}>
                 <Select

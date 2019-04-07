@@ -1,5 +1,4 @@
 import React, {Component} from 'react'
-import {createInstance} from '../../components/Axios/Instances'
 import CreateThemeInterface from './CreateThemeComponents/CreateThemeLayout'
 import {get,post} from '../../components/Axios/Instances'
 import Filler from '../../components/HOC/Filler';

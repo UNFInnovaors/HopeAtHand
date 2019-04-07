@@ -147,5 +147,9 @@ namespace HopeAtHand.Models
         public int WritingTemplateId { get; set; }
         public string Name { get; set; }
     }
+    public class AppSettings
+    {
+        public string Secret { get; set; }
+    }
 }
 

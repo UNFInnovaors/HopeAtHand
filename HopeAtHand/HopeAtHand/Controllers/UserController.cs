@@ -2,21 +2,29 @@
 using HopeAtHand.Models.Managers;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
+using System.Security.Claims;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace HopeAtHand.Controllers
 {
+    [Authorize]
     [Route("api/[controller]/[Action]")]
     public class UserController : Controller 
     {
         private readonly IUserManager userManager;
+        private readonly AppSettings appSettings;
         
-        public UserController(IUserManager userManager)
+        public UserController(IUserManager userManager, IOptions<AppSettings> appSettings)
         {
             this.userManager = userManager;
+            this.appSettings = appSettings.Value;
         }
 
         public class CreateDTO
@@ -70,7 +78,27 @@ namespace HopeAtHand.Controllers
             {
                 return Ok("Not Found");
             }
-            return Ok(result);
+            var claims = new[]
+            {
+                new Claim(ClaimTypes.Name, result.Name),
+            };
+
+            var key = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(appSettings.Secret));
+            var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha512Signature);
+
+            var tokenDescriptor = new SecurityTokenDescriptor
+            {
+                Subject = new ClaimsIdentity(claims),
+                NotBefore = DateTime.Now,
+                IssuedAt = DateTime.Now,
+                Expires = DateTime.Now.AddHours(5),
+                SigningCredentials = creds
+            };
+
+            var tokenHandler = new JwtSecurityTokenHandler();
+            var token = tokenHandler.CreateToken(tokenDescriptor);
+
+            return Ok(new { token = tokenHandler.WriteToken(token), role = result.Role, changePassword = result.ChangePassword });
         }
 
         [HttpGet]

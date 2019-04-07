@@ -152,7 +152,7 @@ class CreateSmartContainer extends Component {
         documentOutlineURL : res.data.documentOutlineURL,
       }
       console.log(LessonPlanCreationDTO, 'this is the lesson plan creation DTO')
-      Axios.post("/API/LessonPlan/SaveLesson", LessonPlanCreationDTO).then(response => {
+      post("/API/LessonPlan/SaveLesson", LessonPlanCreationDTO).then(response => {
         console.log(response)
         this.setState({...this.InitialState, Message:"The Lesson Was Successfully Uploaded", Open:true,})
       }).catch(err => {

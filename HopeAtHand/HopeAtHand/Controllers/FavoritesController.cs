@@ -1,5 +1,6 @@
 ﻿using HopeAtHand.Models;
 using HopeAtHand.Models.Managers;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -8,6 +9,7 @@ using System.Threading.Tasks;
 
 namespace HopeAtHand.Controllers
 {
+    [Authorize]
     [Route("api/[controller]/[Action]")]
     public class FavoritesController : Controller
     {

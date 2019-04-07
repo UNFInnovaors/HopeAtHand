@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import {get, post} from '../../components/Axios/Instances'
 import AdminFunctions from './AdminComponents/AdminLayout'
-import SnackbarContent from '@material-ui/core/SnackbarContent';
 class Admin extends Component {
 
     state = {

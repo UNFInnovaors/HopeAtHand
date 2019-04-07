@@ -21,6 +21,7 @@ namespace HopeAtHand.Models.Managers
         CreateResultDTO CreateWritingAssignment(CreateWritingAssignmentData createData);
         string CreateTemplateType(CreateTemplateDTO createTemplate);
         List<WritingTemplate> WritingTempaltes();
+        string Find(int id);
     }
 
     public class WritingTemplateManager : IWritingTemplateManager
@@ -105,6 +106,16 @@ namespace HopeAtHand.Models.Managers
         public List<WritingTemplate> WritingTempaltes()
         {
             return Data.WritingTemplates.OrderBy(temp => temp.Name).ToList();
+        }
+
+        public string Find(int id)
+        {
+            var result = Data.WritingTemplates.Find(id);
+            if(result == null)
+            {
+                return "Not Found";
+            }
+            return result.Name;
         }
     }
 }

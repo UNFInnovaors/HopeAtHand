@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import Filler from '../../../../../../../components/HOC/Filler'
 import { Button, TextField, Grid, Typography, Paper } from '@material-ui/core'
 import {post} from '../../../../../../../components/Axios/Instances'
-import SearchSelect from '../../../../../../../components/UI/ThemeSelect/ThemeSelect'
 import Loading from '../../../../../../../components/UI Components/Loading/Loading'
 import ReUsableThemes from '../../../../../../../components/UI/ReusableThemeSelect/ReusableThemeSelect'
+import TemplateSearch from '../../../../../../UploadFileSmartContainer/UploadDumbContainer/UploadWritingTemplate/Select'
 class SearchWriting extends Component{
    
     state = {
@@ -23,8 +23,12 @@ class SearchWriting extends Component{
         if(event.target.dataset["input"] === 'name'){
             this.setState({name: event.target.value})
         } else {
-            this.setState({writingType: event.target.value})
+            this.setState({whatHappened: event.target.value})
         }
+    }
+
+    updateTemplateInSearch = writingType => {
+        this.setState({ writingType })
     }
     Search = () => {
         
@@ -33,7 +37,7 @@ class SearchWriting extends Component{
         
         const WritingAssignmentSearchDTO = {
             name:this.state.name,
-            ageGroups:this.state.writingType,
+            TemplateID:this.state.writingType,
             themes: themes
         }
 
@@ -80,7 +84,7 @@ class SearchWriting extends Component{
                         <TextField fullWidth label="Please Name the Writing Assignment" onChange={this.handleChange}  inputProps={{"data-input":"name"}}></TextField>
                     </Grid>
                     <Grid item xs={6}>
-                        <TextField fullWidth label="Please Describe the age group of the piece" onChange={this.handleChange} inputProps={{"data-input" : "writingType"}}></TextField>
+                        <TemplateSearch updateTemplate={this.updateTemplateInSearch}></TemplateSearch>
                     </Grid>
                 </Grid>
                 <Grid item container style={{marginTop:16}} xs={12}>

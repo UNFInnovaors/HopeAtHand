@@ -1,6 +1,7 @@
 ﻿using HopeAtHand.AzureHelper;
 using HopeAtHand.Models;
 using HopeAtHand.Models.Managers;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
@@ -18,7 +19,6 @@ namespace HopeAtHand.Controllers
         private readonly ApplicationDbContext Data;
         private readonly IDocumentManager DocumentManager;
         private readonly AzureStorageConfig StorageConfig;
-
         public DocumentController(ApplicationDbContext Data, IDocumentManager DocumentManager, IOptions<AzureStorageConfig> config)
         {
             this.Data = Data;

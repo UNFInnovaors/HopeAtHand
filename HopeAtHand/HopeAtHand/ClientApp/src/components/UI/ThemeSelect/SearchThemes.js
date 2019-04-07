@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Grid, FormControlLabel, Checkbox } from '@material-ui/core';
 import Select from 'react-select';
 import ThemeBox from '../ThemeBox/ThemeBox'
-import axios from 'axios';
+import {get} from '../../Axios/Instances'
 import Filler from '../../HOC/Filler';
 
 
@@ -18,7 +18,7 @@ class ThemeSelect extends Component {
   /* This component requires that all options be configured using the following object [{ value : 'the value', label: 'What is seen'}] 
     This could be done on the server, or even the db could be configured or mapped for right now it is done on the client*/
   componentDidMount() {
-    axios.get('/api/theme/getthemes').then(response => {
+      get('/theme/getthemes').then(response => {
       console.log(response, 'These are the themes');
       let themesForDisplay = [];
       for(let x = 0 ; x < response.data.length; x++){

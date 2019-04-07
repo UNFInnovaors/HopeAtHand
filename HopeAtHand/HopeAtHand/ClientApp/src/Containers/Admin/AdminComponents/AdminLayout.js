@@ -8,7 +8,7 @@ const AdminLayout = (props) => {
     const Facilitators = props.facilitators === null ? <Heading>No Matching Results</Heading> : 
         props.facilitators.map( (fac,index) => {
             console.log(fac)
-            return <EachUser id={fac.facilitatorID} role={fac.role} name={fac.email} update={props.update}/>
+            return <EachUser id={fac.facilitatorID} role={fac.role} org={fac.org} name={fac.email} update={props.update}/>
         })
     const Search = props.searchType === 'Name' ? 
 

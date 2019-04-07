@@ -31,7 +31,7 @@ export default class App extends Component {
   state = {
     Theme: theme,
     UserName : 'Bill',
-    Role:"Facilitator",
+    Role:"Administrator",
     Favorites:{
       art:[],
       lessonplans:[],
@@ -70,7 +70,6 @@ export default class App extends Component {
     }
 
     post('/Favorites/AddFavorite', AddFavoritesDTO).then( res => {
-      console.log(res)
       
     })
   }
@@ -91,10 +90,12 @@ export default class App extends Component {
         this.setState({Invalid: true})
       } else {
         console.log('This is res', res)
+        sessionStorage.setItem("token", res.data.token)
         post('/Favorites/GetFavorites', FavoriteFindDTO).then(res2 => {
           console.log(res2)
+          sessionStorage.setItem("token", res.data.token)
           this.setState({Favorites: res2.data,
-                         UserName: res.data.email, 
+                         UserName: username, 
                          Role: res.data.role, 
                          LoginError: false, 
                          LoggedIn: true,
@@ -164,49 +165,127 @@ export default class App extends Component {
           </Paper>
         </MuiThemeProvider>
         )}
-    return (
-      <Filler>
-        <MuiThemeProvider theme={this.state.Theme}>
-          <Paper  style={{height : '100%', paddingBottom:'5%'}}>
-            <AppBar logOut={this.LogOut} LoggedIn ={this.state.UserName} favorites={this.state.Favorites} role={this.state.Role}/>
-            
-            <Route path="/" exact render={(props) => 
-                <CreateSmartComponent
-                  user={this.state.UserName}
-                  addFavorites={this.AddFavorites}
-                />
-            }/>
-            <Route path="/Create" exact render={(props) => 
-                <CreateSmartComponent
-                  user={this.state.UserName}
-                  addFavorites={this.AddFavorites}
-                  />
-            }/>
-
-            <Route path="/Search" exact render={(props) => 
-             <Search
-                  user={this.state.UserName}
-                  addFavorites={this.AddFavorites}
-                  />}/>
-            <Route path="/Upload" exact render={(props) => 
-              <UploadFileSmartContainer
-                  user={this.state.UserName} 
-                  addFavorites={this.AddFavorites}/>}>
-            </Route>
-            <Route path="/Admin" exact render={(props) => 
-              <Admin
-                  user={this.state.UserName}
-                  addFavorites={this.AddFavorites}/>}>
-            </Route>
-            <Route path="/Theme" exact render={(props) => 
-              <CreateTheme
-                  user={this.state.UserName}
-                  addFavorites={this.AddFavorites}/>}/>
-            <Route path='/test' exact render={(props) => <LessonPlanViewer/>}/>
-          </Paper>
-        </MuiThemeProvider>
-      </Filler>
-    );
+        else if(this.state.Role === "Facilitator"){
+          return(
+          <Filler>
+            <MuiThemeProvider theme={this.state.Theme}>
+              <Paper  style={{height : '100%', paddingBottom:'5%'}}>
+                <AppBar logOut={this.LogOut} LoggedIn ={this.state.UserName} favorites={this.state.Favorites} role={this.state.Role}/>
+                
+                <Route path="/" exact render={(props) => 
+                     <Search
+                      user={this.state.UserName}
+                      addFavorites={this.AddFavorites}
+                     />
+                }/>
+                
+                <Route path="/Search" exact render={(props) => 
+                <Search
+                      user={this.state.UserName}
+                      addFavorites={this.AddFavorites}
+                      />}/>
+                <Route path="/Theme" exact render={(props) => 
+                  <CreateTheme
+                      user={this.state.UserName}
+                      addFavorites={this.AddFavorites}/>}/>
+              </Paper>
+            </MuiThemeProvider>
+          </Filler>
+          )
+        } else if(this.state.Role ==="Creating Facilitator"){
+          return(
+          <Filler>
+            <MuiThemeProvider theme={this.state.Theme}>
+              <Paper  style={{height : '100%', paddingBottom:'5%'}}>
+                <AppBar logOut={this.LogOut} LoggedIn ={this.state.UserName} favorites={this.state.Favorites} role={this.state.Role}/>
+                
+                <Route path="/" exact render={(props) => 
+                    <Search
+                      user={this.state.UserName}
+                      addFavorites={this.AddFavorites}
+                    />
+                }/>
+                <Route path="/Create" exact render={(props) => 
+                    <CreateSmartComponent
+                      user={this.state.UserName}
+                      addFavorites={this.AddFavorites}
+                      />
+                }/>
+    
+                <Route path="/Search" exact render={(props) => 
+                <Search
+                      user={this.state.UserName}
+                      addFavorites={this.AddFavorites}
+                      />}/>
+                <Route path="/Upload" exact render={(props) => 
+                  <UploadFileSmartContainer
+                      user={this.state.UserName} 
+                      addFavorites={this.AddFavorites}/>}>
+                </Route>
+                <Route path="/Theme" exact render={(props) => 
+                  <CreateTheme
+                      user={this.state.UserName}
+                      addFavorites={this.AddFavorites}/>}/>
+                <Route path='/test' exact render={(props) => <LessonPlanViewer/>}/>
+              </Paper>
+            </MuiThemeProvider>
+          </Filler>
+          )
+        } else if(this.state.Role === "Administrator"){
+          return (
+            <Filler>
+              <MuiThemeProvider theme={this.state.Theme}>
+                <Paper  style={{height : '100%', paddingBottom:'5%'}}>
+                  <AppBar logOut={this.LogOut} LoggedIn ={this.state.UserName} favorites={this.state.Favorites} role={this.state.Role}/>
+                  
+                  <Route path="/" exact render={(props) => 
+                      <CreateSmartComponent
+                        user={this.state.UserName}
+                        addFavorites={this.AddFavorites}
+                      />
+                  }/>
+                  <Route path="/Create" exact render={(props) => 
+                      <CreateSmartComponent
+                        user={this.state.UserName}
+                        addFavorites={this.AddFavorites}
+                        />
+                  }/>
+      
+                  <Route path="/Search" exact render={(props) => 
+                   <Search
+                        user={this.state.UserName}
+                        addFavorites={this.AddFavorites}
+                        />}/>
+                  <Route path="/Upload" exact render={(props) => 
+                    <UploadFileSmartContainer
+                        user={this.state.UserName} 
+                        addFavorites={this.AddFavorites}/>}>
+                  </Route>
+                  <Route path="/Admin" exact render={(props) => 
+                    <Admin
+                        user={this.state.UserName}
+                        addFavorites={this.AddFavorites}/>}>
+                  </Route>
+                  <Route path="/Theme" exact render={(props) => 
+                    <CreateTheme
+                        user={this.state.UserName}
+                        addFavorites={this.AddFavorites}/>}/>
+                  <Route path='/test' exact render={(props) => <LessonPlanViewer/>}/>
+                </Paper>
+              </MuiThemeProvider>
+            </Filler>)
+        } else {
+          return (
+            <Filler>
+              <MuiThemeProvider theme={this.state.Theme}>
+              <Paper  style={{height : '100%', paddingBottom:'5%'}}>
+                <AppBar  LoggedIn ={this.state.UserName} favorites={this.state.Favorites} role={this.state.Role}/>
+                <LogIn login={this.Login} Invalid={this.state.Invalid}/>
+              </Paper>
+              </MuiThemeProvider>
+            </Filler>
+          )
+        }
   }
 }
 /*</Filler>

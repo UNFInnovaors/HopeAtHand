@@ -14,6 +14,7 @@ using System.Threading.Tasks;
 
 namespace HopeAtHand.Controllers
 {
+    [Authorize]
     [Route("api/[controller]/[Action]")]
     public class LessonPlanController : Controller
     {
@@ -77,7 +78,8 @@ namespace HopeAtHand.Controllers
         {
             return Ok(LessonPlanRepo.UpdateThemesFromEdit(updateDTO));
         }
-
+        [HttpPost]
+        [AllowAnonymous]
         public async Task<IActionResult> Complete()
         {
             int ID = Int32.Parse(HttpContext.Request.Form["Id"]);
@@ -105,7 +107,8 @@ namespace HopeAtHand.Controllers
                 return BadRequest(null);
             }
         }
-    
+        [HttpPost]
+        [AllowAnonymous]
         public async Task<IActionResult> Outline()
         {
             int ID = Int32.Parse(HttpContext.Request.Form["Id"]);
@@ -133,7 +136,8 @@ namespace HopeAtHand.Controllers
                 return BadRequest(null);
             }
         }
-
+        [HttpPost]
+        [AllowAnonymous]
         public async Task<IActionResult> Picture()
         {
             int ID = Int32.Parse(HttpContext.Request.Form["Id"]);

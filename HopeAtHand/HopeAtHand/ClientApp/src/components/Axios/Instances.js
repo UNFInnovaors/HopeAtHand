@@ -1,12 +1,19 @@
 import axios from 'axios'
     
     function createInstance(token = false){
-       return axios.create({
-           baseURL: '/api',
-           timeout: 20000000,
-          // headers: { 'Authorization' :"Bearer " + token }
-   })}
-   
+        if(sessionStorage.getItem("token")){
+            return axios.create({
+                baseURL: '/api',
+                timeout: 200000,
+                headers: { 'Authorization' :"Bearer " + sessionStorage.getItem("token") }
+            })}
+        
+        return axios.create({
+            baseURL: '/api',
+            timeout: 200000,
+        })
+    }
+    
     function get(url){
         const axe = createInstance()
         return new Promise((resolve, reject) => {

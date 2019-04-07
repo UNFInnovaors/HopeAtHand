@@ -28,19 +28,6 @@ class Login extends Component {
     login = () => {
         this.props.login(this.state.Username, this.state.Password)
     }
-    Auth = () => {
-        hello.init(
-            {windows: '9157ef49-4ec9-491b-94a2-a31b6963bf98'},
-            {redirect_uri : '../',
-             oauth_proxy : 'https://auth-server.herokuapp.com',
-             oauth_version: '2.0' // probably 1.0a with hello.js
-           },{scope: 'email'}
-          
-       );
-       hello('windows').login().then( (res) => {console.log('hello')
-                                                console.log(res) 
-                                                this.setState({Authorized:res})})
-        }
     
     render(){
 
@@ -73,5 +60,18 @@ export default Login
                         </Grid>
                     </Paper>
             </Filler>)
+        }
+        Auth = () => {
+        hello.init(
+            {windows: '9157ef49-4ec9-491b-94a2-a31b6963bf98'},
+            {redirect_uri : '../',
+             oauth_proxy : 'https://auth-server.herokuapp.com',
+             oauth_version: '2.0' // probably 1.0a with hello.js
+           },{scope: 'email'}
+          
+       );
+       hello('windows').login().then( (res) => {console.log('hello')
+                                                console.log(res) 
+                                                this.setState({Authorized:res})})
         }
     */

@@ -4,16 +4,23 @@ import Actions from '../../../../LessonPlanSearch/Actions/Actions'
 
 import { Grid, Paper, Button, Typography} from '@material-ui/core'
 import Heading from '../../../../../components/UI Components/Heading/Heading'
+import {get} from '../../../../../components/Axios/Instances'
 import Filler from '../../../../../components/HOC/Filler'
 
 class ResultsDisplayModule extends Component{
 
     state = {
-
+        TemplateType : "Loading"
     }
 
     componentDidMount(){
-
+        try{
+            if(typeof(this.props.documentData["writingAssignmentId"]) !== 'undefined' && this.props.documentData["writingAssignmentId"] !== null){
+                get("WritingTemplate    /Find/" + this.props.documentData["templateId"]).then(res => this.setState({TemplateType: res.data}))
+            }
+        } catch(err){
+            console.log(err)
+        }
     }
 
     determineFileEnding = (document) => {
@@ -27,12 +34,11 @@ class ResultsDisplayModule extends Component{
         const imageURL = this.props.documentData.imageURL.length > 0 ? this.props.documentData.imageURL : 'https://htmljs.blob.core.windows.net/images/download.jpg'
         
         if(typeof(this.props.documentData["writingAssignmentId"]) !== 'undefined' && this.props.documentData["writingAssignmentId"] !== null){
-            console.log('this was choosen')
             return(
                 <Paper style={{margin:8}}>
                     <img style={{borderColor:'black', borderBottomWidth:1, borderStyle:'solid'}} height="250" width="100%" src={imageURL} alt="No Image"></img>
                     <Typography style={{marginTop:12}} variant='headline' align='center'><b>{this.props.documentData.title}</b></Typography>
-                    <Typography style={{marginTop:12}} variant='subheading' align='center'>Suggested Age Group : {this.props.documentData.ageGroup}</Typography>
+                    <Typography style={{marginTop:12}} variant='subheading' align='center'>Template : {this.state.TemplateType}</Typography>
                     <Actions isUpload={this.props.isUpload} 
                              documentData={this.props.documentData}
                              documentLink={this.props.documentData.documentBlobURL}
