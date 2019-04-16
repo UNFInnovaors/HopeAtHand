@@ -27,7 +27,7 @@ class LessonPlanViewer extends Component{
               console.log(response)
               const blobo = new Blob([response.data])
               const url = window.URL.createObjectURL(new Blob([response.data]));
-             console.log(url)
+             //console.log(url)
             const viewer = <Document file={url} fileType={'blob'}/>
             this.setState({Viewer : viewer, Blobo:blobo})
           });

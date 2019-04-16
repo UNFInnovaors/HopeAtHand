@@ -20,7 +20,7 @@ class SearchResults extends Component{
     }
     /*results is an array of search results*/
     FormatResultsForDisplay = (results) =>{
-        console.log('This is results', results)
+        //console.log('This is results', results)
         if(results.length === 0)
         {
             return <Heading>No results</Heading>
@@ -70,7 +70,7 @@ class SearchResults extends Component{
         return TableToDisplay
     }
     render(){
-        console.log(this.props)
+        //console.log(this.props)
         const table= this.FormatResultsForDisplay(this.props.searchResults)
         
         if(this.props.isUpload === true)

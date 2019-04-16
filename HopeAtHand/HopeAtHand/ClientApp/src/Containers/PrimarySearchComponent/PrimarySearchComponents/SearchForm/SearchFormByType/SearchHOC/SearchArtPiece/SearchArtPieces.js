@@ -30,7 +30,7 @@ class SearchArtPieces extends Component{
             }
     
             post('/search/SearchForArtPiecesWithThemes', ArtPieceSearchThemesDTO).then( resultsInner => {
-                console.log(resultsInner, 'Helllllpp')
+                //console.log(resultsInner, 'Helllllpp')
                 this.props.setSearchResults(resultsInner.data);
                 this.setState({Loading: false, WithThemes: false})
             }).catch( err => console.log(err))
@@ -44,7 +44,7 @@ class SearchArtPieces extends Component{
             }
     
             post('/search/SearchForArtPieces', ArtSearchDTO).then( resultsInner => {
-                console.log(resultsInner, 'Helllllpp')
+                //console.log(resultsInner, 'Helllllpp')
                 this.props.setSearchResults(resultsInner.data);
                 this.setState({Loading: false})
             }).catch( err => console.log(err))

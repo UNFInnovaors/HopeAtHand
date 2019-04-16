@@ -29,6 +29,7 @@ namespace HopeAtHand.SearchRepositories
 
         public List<ArtPiece> SeachForArtPiece(ArtPieceSearchDTO ArtPieceSearchDTO)
         {
+            ArtPieceSearchDTO.Name = ArtPieceSearchDTO.Name.ToLower();
             List<ArtPiece> ArtPieces;
 
             if (ArtPieceSearchDTO.Name.Length > 0 && ArtPieceSearchDTO.SuppliesNeeded.Length > 0)
@@ -59,7 +60,7 @@ namespace HopeAtHand.SearchRepositories
             }
             foreach (var lesson in Data.ArtPieces)
             {
-                if (lesson.Title == artSearchDTO.Name && foundId.GetValueOrDefault(lesson.ArtPieceId) is null)
+                if (lesson.Title.ToLower().Contains(artSearchDTO.Name) && foundId.GetValueOrDefault(lesson.ArtPieceId) is null)
                     lessonPlans.Add(lesson);
             }
             List<ArtPiece   > finalized = lessonPlans.Where(l => l != null).ToList();

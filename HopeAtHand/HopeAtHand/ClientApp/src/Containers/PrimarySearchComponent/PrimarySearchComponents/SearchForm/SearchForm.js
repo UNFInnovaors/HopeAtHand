@@ -16,7 +16,7 @@ class SearchForm extends Component{
     }
     
     render(){
-        console.log(this.props, 'in searchform')
+        //console.log(this.props, 'in searchform')
         if(this.props.isUpload === true)
         {
             return(
@@ -42,7 +42,7 @@ class SearchForm extends Component{
                         <Grid item xs={3}></Grid>
                     </Grid>)
         } else {
-            console.log('this is props in sarch form', this.props)
+            //console.log('this is props in sarch form', this.props)
             return(
                 <Paper style={{padding:36}}>
                     <Grid container>

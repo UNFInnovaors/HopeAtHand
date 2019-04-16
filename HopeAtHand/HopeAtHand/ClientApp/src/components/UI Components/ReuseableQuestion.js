@@ -16,17 +16,12 @@ class ReuseableQ extends Component {
     );
     collectionOfQuestions.push(newQuestion);
     this.setState({ QuestionProps: collectionOfQuestions });
-    console.log('this is the question you just typed in', newQuestion);
+    //console.log('this is the question you just typed in', newQuestion);
   };
 
   
 
   render() {
-    console.log(
-      this.props.questionMetaData,
-      this.props.questionMetaData.QAsked
-
-    );
     if(this.props.questionMetaData.QAsked === "")
     {
       console.log('dsafdsa')

@@ -27,7 +27,7 @@ import Heading from '../Heading/Heading';
     };
 
     componentDidMount(){ //+ props.document.documentId
-      console.log(this.props, this.state, 'This is component did mount')
+      //console.log(this.props, this.state, 'This is component did mount')
       //console.log(this.props.ViewLessonPlan.lessonPlanId)
       if(!this.props.ViewLessonPlan)
       {
@@ -38,7 +38,7 @@ import Heading from '../Heading/Heading';
 
       shouldComponentUpdate(nextProps, nextState){
         if(nextProps.ViewLessonPlan && !this.props.ViewLessonPlan){
-          console.log('causafjkafnasdjkofnasjkflas')
+          //console.log('causafjkafnasdjkofnasjkflas')
           this.onLoad()
           return true
         }
@@ -60,7 +60,7 @@ import Heading from '../Heading/Heading';
         for(let x = 0 ; x < data.writingAssignments.length; x++ ){
           urls.push({image:data.writingAssignments[x].imageURL, name: data.writingAssignments[x].title})
         }
-        console.log(urls)
+        //console.log(urls)
         this.SplitNotes(data.notes)
         this.SplitLocations(data.locations)
         this.setState({Document: data,
@@ -105,23 +105,23 @@ import Heading from '../Heading/Heading';
     }
 
     SplitNotes = (Notes) => {
-      console.log('this is notes in split', Notes)
+      //console.log('this is notes in split', Notes)
       if(Notes === null){
         return
       }
       let noteArray = Notes.split(this.state.Delimiter)
-      console.log(noteArray, 'this is note array')
+      //console.log(noteArray, 'this is note array')
       if(noteArray !== null || noteArray.length > 0)
         this.setState({Notes: noteArray})
     }
 
     SplitLocations = (Locations) => {
-      console.log('this is locations in split', Locations)
+      //console.log('this is locations in split', Locations)
       if(Locations === null){
         return
       }
       let locationArray = Locations.split(this.state.Delimiter)
-      console.log('This is location array', locationArray)
+      //console.log('This is location array', locationArray)
       if(locationArray !== null || locationArray.length > 0)
         this.setState({Locations: locationArray})
     }
@@ -161,14 +161,14 @@ import Heading from '../Heading/Heading';
     RemoveNotes = (indexToRemove) => {
       let NotesAsArray = [...this.state.Notes]
       NotesAsArray.splice(indexToRemove, 1)
-      console.log(NotesAsArray)
+      //console.log(NotesAsArray)
       this.setState({Notes:NotesAsArray})
     }
 
     RemoveLocations = (indexToRemove) => {
       let LocationsArray = [...this.state.Locations]
       LocationsArray.splice(indexToRemove, 1)
-      console.log(LocationsArray)
+      //console.log(LocationsArray)
       this.setState({Locations:LocationsArray})
     } 
     UpdateNotes = () => {
@@ -199,7 +199,7 @@ import Heading from '../Heading/Heading';
         lessonPlanId : this.state.Document.lessonPlanId,
         update : sessionStorage.getItem("LessonPlanEdit")
       }
-      console.log('THis is the updateDTO', updateDTO)
+      //console.log('THis is the updateDTO', updateDTO)
       post('LessonPlan/UpdateThemesFromEdit', updateDTO).then( res => {
         this.setState({Open: true, Message:'Themes Have Been Successfully Updated'})
       })
@@ -240,13 +240,13 @@ import Heading from '../Heading/Heading';
        bodyFormData.set('file', file)
        bodyFormData.set('Id', this.state.Document.lessonPlanId)
        
-       console.log(bodyFormData)
+       //console.log(bodyFormData)
        axios.post('/api/LessonPlan/'+location,bodyFormData,{
          headers:{
                        'Content-Type': 'multipart/form-data; boundary=absdfabs',
                        'Content-Disposition': 'form-data'
         }}).then(res => {
-           console.log(res)
+           //console.log(res)
            if(res.data === null){
              this.setState({Loading: false, Error: true})
            }

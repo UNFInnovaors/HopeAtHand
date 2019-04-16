@@ -9,7 +9,7 @@ import Filler from '../../../../components/HOC/Filler';
 class  displayLessonPlan extends Component {
 
   render(){
-  console.log('This is props ', this.props.LessonPlan);
+  //console.log('This is props ', this.props.LessonPlan);
   if (this.props.LessonPlan === '') {
     return <div></div>;
   } else {

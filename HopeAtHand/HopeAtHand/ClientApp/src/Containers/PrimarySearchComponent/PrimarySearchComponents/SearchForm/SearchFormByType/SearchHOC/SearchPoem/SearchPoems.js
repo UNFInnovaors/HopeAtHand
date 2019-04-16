@@ -62,7 +62,7 @@ class SearchPoems extends Component{
     }
 
     render(){
-        console.log(this.state, 'the state of peom boi')
+        //console.log(this.state, 'the state of peom boi')
         if(this.state.Loading === true){
             return <Loading/>;
         }

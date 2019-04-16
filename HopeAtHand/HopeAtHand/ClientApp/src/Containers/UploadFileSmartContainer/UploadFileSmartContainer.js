@@ -1,10 +1,7 @@
 import React, { Component } from 'react'
-import Select from 'react-select';
-import Filler from '../../components/HOC/Filler'
 import axios from 'axios'
 import 'azure-storage'
 import UploadDumbContainer from './UploadDumbContainer/UploadDumbContainer'
-import { BlobService } from 'azure-storage';
 
 class UploadFileSmartContainer extends Component {
   state = {
@@ -20,6 +17,9 @@ class UploadFileSmartContainer extends Component {
     ImagesToUpload:[],
     Success: false,
     Error: null,
+    Name: "",
+    Message: "",
+    Open: false,
 
   }
 
@@ -36,16 +36,13 @@ class UploadFileSmartContainer extends Component {
     DataAsKVP:{},
     ShouldImageBeUploaded:false,
     ImagesToUpload:[],
-    Success: true
+    Success: true,
+    Message: "",
+    Open: false,
   }
 
   componentDidMount(){
-    /**if(this.state.BlobService === null )
-    {
-      var azure=require('azure-storage');
-      var blobService = azure.createBlobService("DefaultEndpointsProtocol=https;AccountName=htmljs;AccountKey=hp6IODplmlb1asWA/VUmHFpxfEwneb5eJWlbYuI99APRhmatAfFosx0+eOClrBJi+aEqfOjPw53QK33bIlz4Gw==;EndpointSuffix=core.windows.net")
-      this.setState({BlobService: blobService});
-    }*/
+
   }
   /** The selected Document type is used to determine what eact upload form should be displayed.  */
   selectDocumentType = (value) => {
@@ -76,35 +73,39 @@ class UploadFileSmartContainer extends Component {
     }
   }/*Add O Auth, opIdConnect*/
   /*export function createBlobServiceWithSas(host: string|StorageHost, sasToken: string): BlobService;*/
-  createContainer = () => {
-    let valid = true
-    valid = this.validator(this.state.containerName["validation"],this.state.containerName["id"])
-    if(valid !== false){
-    var azure=require('azure-storage');
-    var blobService = azure.createBlobService("DefaultEndpointsProtocol=https;AccountName=htmljs;AccountKey=hp6IODplmlb1asWA/VUmHFpxfEwneb5eJWlbYuI99APRhmatAfFosx0+eOClrBJi+aEqfOjPw53QK33bIlz4Gw==;EndpointSuffix=core.windows.net")
-    blobService.createContainerIfNotExists(document.getElementById("Container").value, {
-      publicAccessLevel: 'blob'
-    }, 
-      function(error, result, response) {
-      if (!error) {// if result = true, container was created.if result = false, container already existed.
-      }}); 
-    }
-  }
 
   selectFile = (event) => {
-    this.setState({FileToUpload: event.target.files[0]})
-    //axios.get('https://htmljs.blob.core.windows.net/images/Itinerary.docx').then(res => console.log(res))
-    //this.listFile();
+    try{
+      //console.log(event.target.files[0])
+      const ending = this.determineFileEnding(event.target.files[0].name)
+      if(ending === "pdf" ||  ending === "docx" || ending === "PDF" ||  ending === "DOCX")
+      {
+        this.setState({FileToUpload: event.target.files[0]})
+      } else {
+        this.setState({Message: "You Must Choose a .pdf or .docx file", Open:true})
+      }
+    }catch(err){
+      console.log(err)
+    }
+
   }
   selectImage=(event) => {
-    let images = JSON.parse(JSON.stringify(this.state.ImagesToUpload));
-    images.push(event.target.files[0]);
-    this.setState({ImagesToUpload:images});
+    try{
+      const ending = this.determineFileEnding(event.target.files[0].name)
+      if(ending === "jpg" || ending === "png" || ending === "JPG" || ending === "PNG")
+      {
+        let images = JSON.parse(JSON.stringify(this.state.ImagesToUpload));
+        images.push(event.target.files[0]);
+        this.setState({ImagesToUpload:images});
+      } else {
+        this.setState({Message: "You Must Choose a .jpg or .png file", Open:true})
+      }
+    }catch(err){
+      console.log(err)
+    }
+
   }
   uploadFile = () => {
-    var azure=require('azure-storage');
-    var location=require('path');
-    var file=this.state.FileToUpload;
     var bodyFormData = new FormData();
     bodyFormData.set('file',this.state.FileToUpload)
     for(let y = 0 ; y < this.state.ImagesToUpload.length; y++)
@@ -116,39 +117,44 @@ class UploadFileSmartContainer extends Component {
         'Content-Type': 'multipart/form-data; boundary=absdfabs',
         'Content-Disposition': 'form-data'
     }}).then(res => {
-    })
+      this.setState({Message: "Upload Successful", Open:true})
+    }).catch(err =>  this.setState({Message: "Upload Failed", Open:true}))
   }
-  listFile = () => {
-    var urls = axios.get('/api/blobCreator/CreateList').then(res => {
-                                                                                             this.setState({Images:res.data})})    
+
+  Close = () => {
+    this.setState({Open:false})
   }
+
   poemDataChangeHandler = (event) => {
     var someData = JSON.parse(JSON.stringify(this.state.DataAsKVP))
-    console.log(event.target.dataset.input)
     someData[event.target.dataset.input] = event.target.value
     this.setState({DataAsKVP:someData})
-    console.log(this.state.DataAsKVP)
   }
   handleChange = (selectedOption) => {
     this.setState({ selectedOption });
   }
   validatePostData = () => {
-  if(sessionStorage.getItem('Themes') === null ||sessionStorage.getItem('Themes').length === 0 ){
+  /*if(sessionStorage.getItem('Themes') === null ||sessionStorage.getItem('Themes').length === 0 ){
       this.setState({Error: "Themes"})
       return false
-  }
-  let validationArray; 
+  }*/
   switch(this.state.SelectedDocumentType){
     case 'Poem' :
-      validationArray = ["Name", "Author"]
-      break;
+      return ["name", "Author"]
     case 'Writing Template' : 
-      validationArray = ["Name", "Grade"]
-      break;
+      return ["name", "Grade"]
     case  'Art Piece' : 
-      validationArray = ["Name", "Supplies"]
-      break;
+      return ["name"]
+    default:
+      return ""
   }
+}
+
+determineFileEnding = (document) => {
+  if(document === "")
+    return ""
+  //console.log(document.substring(document.length -5).split('.')[1])
+  return(document.substring(document.length -7).split('.')[1].toLowerCase())
 }
 
   updateTemplate = (id) => {
@@ -159,11 +165,13 @@ class UploadFileSmartContainer extends Component {
   
   //Method used when uploading a file to a lesson plan
   postData = () => {
-   /*if(!this.validatePostData())
-      return*/
 
     let themesForTransfer = sessionStorage.getItem(this.state.SelectedDocumentType.replace(/\s/g, '')+'UploadThemes')
     var file=this.state.FileToUpload;
+
+    if(file === null){
+      return null
+    }
     
     var bodyFormData = new FormData();
     bodyFormData.set('type', this.state.SelectedDocumentType)
@@ -176,9 +184,7 @@ class UploadFileSmartContainer extends Component {
 
     for(let key in this.state.DataAsKVP){
       bodyFormData.set(key, this.state.DataAsKVP[key])
-      console.log(this.state.DataAsKVP[key], key, 'foreach doc')
     }
-    console.log(bodyFormData)
     axios.post('/api/blobCreator/createNewBlob',bodyFormData,{
       headers:{
                     'Content-Type': 'multipart/form-data; boundary=absdfabs',
@@ -189,7 +195,8 @@ class UploadFileSmartContainer extends Component {
           this.setState({Loading: false, Error: true})
         }
         //Should only call this method if we are sending the data to the create lesson plan component. 
-        this.props.addComponent(res.data, this.state.DataAsKVP, this.state.SelectedDocumentType, this.state.ImagesToUpload );
+        if(this.props.addComponent)
+          this.props.addComponent(res.data, this.state.DataAsKVP, this.state.SelectedDocumentType, this.state.ImagesToUpload );
         this.setState({...this.initialState})
         sessionStorage.removeItem("Themes")
     })
@@ -199,7 +206,8 @@ class UploadFileSmartContainer extends Component {
     this.setState({Success: false})
   }
   render() {
-    console.log('This is state of uploadfilesmart', this.state)
+    const validation = this.validatePostData()
+    const disabled = typeof(this.state.DataAsKVP[validation[0]]) === 'undefined' || this.state.DataAsKVP[validation[0]] === ""
     return(
     <UploadDumbContainer 
                         //Properties
@@ -212,6 +220,7 @@ class UploadFileSmartContainer extends Component {
                         uploadedImages={this.state.ImagesToUpload}
                         showImageInterface={this.showImageInterface}
                         success={this.state.Success}
+                        disabled={disabled}
                         //Methods
                         selectDocumentFunction={this.selectDocumentType} 
                         selectedDocumentType={this.state.SelectedDocumentType}
@@ -221,81 +230,18 @@ class UploadFileSmartContainer extends Component {
                         postData={this.postData}
                         uploadImage={this.selectImage}
                         changeThemes={this.state.handleChange}
-                        close={this.CloseSnackbar}
+                        closeSnack={this.CloseSnackbar}
                         updateTemplate={this.updateTemplate}
                         //Props
-                        addComponent={this.props.addComponent} />
+                        addComponent={this.props.addComponent} 
+                        message={this.state.Message}
+                        open={this.state.Open}
+                        close={this.Close}
+                        
+                        />
+                        
                         
     );
   }
 }
 export default UploadFileSmartContainer
-
-/**  const { selectedOption } = this.state;
-    const account = {
-      name: "htmljs",
-      sas:  "se=2040-12-12&sp=rwdlac&sv=2018-03-28&ss=b&srt=sco&sig=kof64cpIlp9%2BVwnJxOKhRJbixLKu0mbria10AbNvZuM%3D"
-    };
-    const blobUri = 'https://' +account.name + '.blob.core.windows.net';
-    var azure = require('azure-storage')
-    /* global AzureStorage */
-   /* const blobService = azure.createBlobServiceWithSas(blobUri, account.sas);
-    let images = <div></div>
-    if(this.state.Images !== null)
-    {
-      images = this.state.Images.map((ima,index) => {
-        return(<div><a href={ima}><img height={200} width={200} src={ima} alt={index} ></img></a><br></br></div>)
-      })
-    }
-
-    return (
-      <div>
-        <Select
-          value={selectedOption}
-          onChange={this.handleChange}
-          options={options}
-          isMulti={true}
-        />
-        
-        
-        <input type={this.state.containerName["type"]} disabled={this.state.containerName["disabled"]} required={this.state.containerName["required"]}  placeholder={this.state.containerName["placeHolder"]}></input>
-        
-        
-        <button id="create-button" onClick={this.createContainer}>Create Container</button>
-
-        <input type="file" id="fileinput" onChange={this.selectFile} />
-        <button id="upload-button" onClick={this.uploadFile}>Upload</button>
-
-        <button id="list-button">List</button>
-
-        <button id="delete-button">Delete</button>
-        <br></br>
-        {images}
-      </div>
-    );
-    const options = [
-  { value: 'chocolate', label: 'Chocolate' },
-  { value: 'strawberry', label: 'Strawberry' },
-  { value: 'vanilla', label: 'Vanilla' }
-];
-
-
-    /*var file1 = document.getElementById('fileinput').files[0]
-    console.log('This is have the file turned out', file1, file1.name, typeof(file1))
-    var blobService = azure.createBlobService("DefaultEndpointsProtocol=https;AccountName=htmljs;AccountKey=hp6IODplmlb1asWA/VUmHFpxfEwneb5eJWlbYuI99APRhmatAfFosx0+eOClrBJi+aEqfOjPw53QK33bIlz4Gw==;EndpointSuffix=core.windows.net")
-    console.log(blobService, typeof(blobService))
-    blobService.createBlockBlobFromBrowserFile('firstcontainer',file1.name,file1, (error, result) => {
-      if(error) {
-          console.log(error)
-      } else {
-          console.log('Upload is successful');
-      }})*/
-  
-    
-    /*blobService.createBlockBlobFromLocalFile('firstcontainer', 'CodeSnippits.txt', '../../../../../../../../Desktop/CodeSnippits.txt', (error, result) => {
-        if(error) {
-            console.log(error)
-        } else {
-            console.log('Upload is successful');
-        }
-    });*/

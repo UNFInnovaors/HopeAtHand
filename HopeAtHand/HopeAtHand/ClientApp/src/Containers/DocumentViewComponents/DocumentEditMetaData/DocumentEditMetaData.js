@@ -22,7 +22,7 @@ class DocumentEditMetaData extends Component{
                 string += this.props.document.themes[x].themeName
             }
         }
-        console.log('This is the value of string', string, this.props.document.themes)
+        //console.log('This is the value of string', string, this.props.document.themes)
         sessionStorage.setItem("DocumentEdit", string)
     }
 
@@ -83,16 +83,16 @@ class DocumentEditMetaData extends Component{
         }
 
     render(){
-        console.log(this.props, this.state, 'This is in the LessonPlan Viewer Data Component')
+        //console.log(this.props, this.state, 'This is in the LessonPlan Viewer Data Component')
         let themes = []
         let documents = []
-        console.log(this.props.document)
+        //console.log(this.props.document)
         if(this.props.document != null){
             for(let x = 0 ;x < this.props.document.themes.length; x++){
                 themes.push(this.props.document.themes[x].themeName)
             }
         }
-          console.log(documents)
+          //console.log(documents)
         
         if(this.props.document === null)
             return <p>Loading</p>

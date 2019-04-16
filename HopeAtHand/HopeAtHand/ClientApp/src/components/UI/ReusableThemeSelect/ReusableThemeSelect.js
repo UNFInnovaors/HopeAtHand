@@ -19,7 +19,7 @@ class ThemeSelect extends Component {
     This could be done on the server, or even the db could be configured or mapped for right now it is done on the client*/
   componentDidMount() {
       get('/theme/getthemes').then(response => {
-      console.log(response, 'These are the themes');
+      //console.log(response, 'These are the themes');
       let themesForDisplay = [];
       for(let x = 0 ; x < response.data.length; x++){
         themesForDisplay[x] = {value: response.data[x], label: response.data[x]}
@@ -31,7 +31,7 @@ class ThemeSelect extends Component {
   }
 
   handleChange = selectedOption => {
-    console.log('this is selected option')
+    //console.log('this is selected option')
     const storage = sessionStorage.getItem(this.props.destination.replace(/\s/g, '')) === null ? '' :  sessionStorage.getItem(this.props.destination.replace(/\s/g, '')).split(',')
     
     this.setState({ selectedOption });
@@ -60,7 +60,7 @@ class ThemeSelect extends Component {
       let show = !this.state.Show
       this.setState({Show:show})
       if(this.props.withThemes === true){
-        console.log('heandelsheckhappened', this.props.withThemes)
+        //console.log('heandelsheckhappened', this.props.withThemes)
         this.props.themeSearch()
       }
   }
@@ -73,10 +73,10 @@ class ThemeSelect extends Component {
       try{
           themesToDisplay = sessionStorage.getItem(this.props.destination.replace(/\s/g, '')).split(',')
         } catch(err) {
-            console.log('Error is haps')
+            //console.log('Error is haps')
             themesToDisplay = ''
         }
-        console.log('this is themesToDisplay', themesToDisplay)
+        //console.log('this is themesToDisplay', themesToDisplay)
         if(this.props.always === true)
         {
             return(

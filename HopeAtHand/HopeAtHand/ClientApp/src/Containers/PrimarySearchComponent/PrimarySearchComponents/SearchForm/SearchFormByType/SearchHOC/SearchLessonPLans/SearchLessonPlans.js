@@ -24,7 +24,7 @@ class SearchLessonPlan extends Component{
     Search = () => {
         
         let themes = sessionStorage.getItem("LessonSearchTheme") === null ? '' : sessionStorage.getItem("LessonSearchTheme").split(',')
-        console.log(themes, this.state.WithThemes)
+        //console.log(themes, this.state.WithThemes)
         let PoemSearchDTO = {
             name:this.state.name,
         }
@@ -57,7 +57,7 @@ class SearchLessonPlan extends Component{
     }
     
     SearchWithThemes = () => {
-        console.log('This is search', this.state.WithThemes)
+        //console.log('This is search', this.state.WithThemes)
         let withThemes = !this.state.WithThemes
         this.setState({WithThemes : withThemes})
     }
@@ -65,8 +65,6 @@ class SearchLessonPlan extends Component{
     
     render(){
         const {classes} = this.props
-        console.log(classes)
-        console.log(this.state, 'the state of peom boi')
         if(this.state.Loading === true){
             return <Loading/>;
         }

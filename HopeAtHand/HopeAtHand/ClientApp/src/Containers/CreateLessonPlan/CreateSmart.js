@@ -46,27 +46,26 @@ class CreateSmartContainer extends Component {
   };
 
   componentDidMount(){
-
+    sessionStorage.removeItem("LessonThemes")
   }
 
   AddLessonPlanComponent = ( id, metaData, type, image) => {
-    console.log(
-      'This is from db, ', id.id
-      , 'This is the metaData', metaData
-      ,'This is the type', type,
-      'this is image' , image )
-      let imageView =""
-      try{
-        imageView = URL.createObjectURL(image[0])
-      } catch(err){
-        imageView = ""
-      }
-      const component = {id : id.id, name : metaData["name"], type: type , image : imageView}
-    this.setState({LessonPlanComponents : [...this.state.LessonPlanComponents, component]})
+    try{
+        let imageView =""
+        try{
+          imageView = URL.createObjectURL(image[0])
+        } catch(err){
+          imageView = ""
+        }
+        const component = {id : id.id, name : metaData["name"], type: type , image : imageView}
+      this.setState({LessonPlanComponents : [...this.state.LessonPlanComponents, component]})
+    } catch(err){
+      console.log("You Choose To Not Upload That File Great Job")
+    }
+    
   }
 
   AddLessonFromSearch = (documentToAdd) => {  
-    console.log(documentToAdd, 'this is in create Lesson Smart')
     let id = null
     let component = {id : "Error", name :"Error", type: "Error"}
     if(documentToAdd.poemId)
@@ -124,7 +123,7 @@ class CreateSmartContainer extends Component {
 
     let documentIds = []
     this.state.LessonPlanComponents.forEach((document) => {
-      console.log('This is a document in in foreach', document)
+      //console.log('This is a document in in foreach', document)
       documentIds.push(document.id)
     })
     
@@ -151,8 +150,8 @@ class CreateSmartContainer extends Component {
         documentOutlinePicture : res.data.documentOutlinePicture,
         documentOutlineURL : res.data.documentOutlineURL,
       }
-      console.log(LessonPlanCreationDTO, 'this is the lesson plan creation DTO')
-      post("/API/LessonPlan/SaveLesson", LessonPlanCreationDTO).then(response => {
+      //console.log(LessonPlanCreationDTO, 'this is the lesson plan creation DTO')
+      post("/LessonPlan/SaveLesson", LessonPlanCreationDTO).then(response => {
         console.log(response)
         this.setState({...this.InitialState, Message:"The Lesson Was Successfully Uploaded", Open:true,})
       }).catch(err => {
@@ -168,20 +167,35 @@ class CreateSmartContainer extends Component {
   }
 
   SelectFile = (event) => {
-    
-    console.log(event.target.id, 'this is the event that is targeted')
-    switch(event.target.id){
-      case "Complete_Lesson":
-        this.setState({Complete_Lesson: event.target.files[0]})
-        break;
-      case "OutlineDocument":
-        this.setState({OutlineDocument: event.target.files[0]})
-        break;
-      case "OutlinePicture":
-        this.setState({OutlinePicture: event.target.files[0]})
-        break
-      default:
-        console.log("error")
+    try{
+      const ending = this.determineFileEnding(event.target.files[0].name)
+      switch(event.target.id){
+        case "Complete_Lesson":
+        if(ending === "pdf" ||  ending === "docx" || ending === "PDF" ||  ending === "DOCX"){
+          this.setState({Complete_Lesson: event.target.files[0]})
+        } else {
+          this.setState({Message:"You must choose a .pdf or .docx file", Open:true})
+        }
+          break;
+        case "OutlineDocument":
+        if(ending === "pdf" ||  ending === "docx" || ending === "PDF" ||  ending === "DOCX"){
+          this.setState({OutlineDocument: event.target.files[0]})
+        } else {
+          this.setState({Message:"You must choose a .pdf or .docx file", Open:true})
+        }
+          break;
+        case "OutlinePicture":
+          if(ending === "jpg" ||  ending === "JPG" || ending === "PNG" ||  ending === "png"){
+            this.setState({OutlinePicture: event.target.files[0]})
+          } else {
+            this.setState({Message:"You must choose a .jpg or .png file", Open:true})
+          }
+          break
+        default:
+          this.setState({Message:"There was an issue uploading the file please try again", Open:true})
+      }
+    }catch(err){
+      console.log("You just choose to not upload a lesson.")
     }
   }
   
@@ -192,8 +206,14 @@ class CreateSmartContainer extends Component {
   LessonPlanNameChangeHandler = (event) => {
     this.setState({LessonPLanName : event.target.value})
   }
+
+  determineFileEnding = (document) => {
+    if(document === "")
+      return ""
+    return(document.substring(document.length -7).split('.')[1].toLowerCase())
+  }
+
   render() {
-    console.log('This is the state of the lesson plan smart container',this.state, this.props)
     if(this.state.Loading === true){
       return <Heading>Loading</Heading>
     }

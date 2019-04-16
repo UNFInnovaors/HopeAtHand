@@ -30,6 +30,7 @@ namespace HopeAtHand.SearchRepositories
 
         public List<WritingAssignment> SeachForWritingAssignment(WritingAssignmentSearchDTO WritingAssignmentSearchDTO)
         {
+            WritingAssignmentSearchDTO.Name = WritingAssignmentSearchDTO.Name.ToLower();
             List<WritingAssignment> WritingAssignments;
 
             if (WritingAssignmentSearchDTO.Name.Length > 0 && WritingAssignmentSearchDTO.TemplateID > -1)
@@ -43,6 +44,7 @@ namespace HopeAtHand.SearchRepositories
 
         public List<WritingAssignment> SearchForWritingAssignmentsWithThemes(WritingAssignmentSearchDTO writingAssignmentSearch)
         {
+            writingAssignmentSearch.Name = writingAssignmentSearch.Name.ToLower();
             List<WritingAssignment> writingAssignments = new List<WritingAssignment>();
             Dictionary<int, string> foundId = new Dictionary<int, string>();
 
@@ -65,7 +67,7 @@ namespace HopeAtHand.SearchRepositories
             {
                 foreach (var lesson in Data.WritingAssignments)
                 {
-                    if (foundId.GetValueOrDefault(lesson.WritingAssignmentId) is null && lesson.Title == writingAssignmentSearch.Name)
+                    if (foundId.GetValueOrDefault(lesson.WritingAssignmentId) is null && lesson.Title.ToLower().Contains(writingAssignmentSearch.Name))
                     {
                         writingAssignments.Add(lesson);
                         foundId.Add(lesson.WritingAssignmentId, "");

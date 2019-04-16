@@ -40,7 +40,7 @@ class ReuseableSelect extends Component {
     } else{
         newValues.splice(index, 1)
     }
-    console.log(newValues)
+    //console.log(newValues)
     
     this.setState({ themes: themeList, selectedValues: newValues})
 

@@ -41,7 +41,7 @@ class ReuseableSelect extends Component {
     for(let x = 0 ; x < this.state.templates.length; x++){
       if(this.state.templates[x].name === event.target.value){
         id = this.state.templates[x].writingTemplateId
-        console.log('id is ', id)
+        //console.log('id is ', id)
       }
     }
     if(id > -1)
@@ -71,7 +71,7 @@ class ReuseableSelect extends Component {
     })
   }
   render() {
-    console.log('This is state in template maker', this.state)
+    //console.log('This is state in template maker', this.state)
     const options = [...this.state.baseTemplate, ...this.state.templates]
     if(this.state.selectedValue === "Create New Template Type"){
       return(

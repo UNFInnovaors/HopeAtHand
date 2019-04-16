@@ -12,7 +12,7 @@ class ThemeBox extends  Component{
     FormatForDisplay = (themes) =>{
         if(themes.length === 0)
         {
-            return <tr><td><Typography variant="body1">Please Choose One or More Theme(s) to Continue</Typography></td></tr>
+            return <Typography variant="body1">Please Choose One or More Theme(s) to Continue</Typography>
         }
         //console.log(themes)
         let formattedThemes = []
@@ -47,16 +47,16 @@ class ThemeBox extends  Component{
     }
 
     remove = (valueToRemove) => {
-        console.log(this.props.destination)
+        //console.log(this.props.destination)
         let themes = sessionStorage.getItem(this.props.destination).split(',')
-        console.log(themes, valueToRemove)
+        //console.log(themes, valueToRemove)
         for(let x = 0 ; x < themes.length; x++){
             if(themes[x] === valueToRemove){
                 themes.splice(x,1)
                 break
             }
         }
-        console.log(themes.join(','), 'is themes.join')
+        //console.log(themes.join(','), 'is themes.join')
         if(themes.length < 1){
             sessionStorage.removeItem(this.props.destination)
         } else {
@@ -67,7 +67,7 @@ class ThemeBox extends  Component{
     }
     
     render(){
-        console.log('this is', this.props.themes, this.props)
+        //console.log('this is', this.props.themes, this.props)
         var testArray = []
         for(let x = 0; x < 25; x++){
             testArray[x] = x+1;

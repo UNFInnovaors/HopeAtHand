@@ -29,44 +29,44 @@ class LessonPlanEditData extends Component{
                 string += this.props.document.themes[x].themeName
             }
         }
-        console.log('This is the value of string', string, this.props.document.themes)
+        //console.log('This is the value of string', string, this.props.document.themes)
         sessionStorage.setItem("LessonPlanEdit", string)
     }
 
     DownloadCompleteLesson = () => {
       
-            console.log(this.props.document.completeLessonPlanURL, "is being downloaded")
-            Axios({
-                url: this.props.document.completeLessonPlanURL,
-                method: 'GET',
-                responseType: 'blob', // important
-              }).then((response) => {
-                const url = window.URL.createObjectURL(new Blob([response.data]));
-                const link = document.createElement('a');
-                link.href = url;
-                link.target = '_blank';
-                link.setAttribute('download', this.props.document.title+'Complete.'+this.determineFileEnding(this.props.document.completeLessonPlanURL));
-                document.body.appendChild(link);
-                link.click();
-              });
+        //console.log(this.props.document.completeLessonPlanURL, "is being downloaded")
+        Axios({
+            url: this.props.document.completeLessonPlanURL,
+            method: 'GET',
+            responseType: 'blob', // important
+            }).then((response) => {
+            const url = window.URL.createObjectURL(new Blob([response.data]));
+            const link = document.createElement('a');
+            link.href = url;
+            link.target = '_blank';
+            link.setAttribute('download', this.props.document.title+'Complete.'+this.determineFileEnding(this.props.document.completeLessonPlanURL));
+            document.body.appendChild(link);
+            link.click();
+            });
     }
 
     DownloadOutlineLesson = () => {
        
-            console.log(this.props.document.outlineURl, "is being downloaded")
-            Axios({
-                url: this.props.document.completeLessonPlanURL,
-                method: 'GET',
-                responseType: 'blob', // important
-              }).then((response) => {
-                const url = window.URL.createObjectURL(new Blob([response.data]));
-                const link = document.createElement('a');
-                link.href = url;
-                link.target = '_blank';
-                link.setAttribute('download', this.props.document.title+'Outline.'+this.determineFileEnding(this.props.document.outlineURl));
-                document.body.appendChild(link);
-                link.click();
-              });
+        //console.log(this.props.document.outlineURl, "is being downloaded")
+        Axios({
+            url: this.props.document.completeLessonPlanURL,
+            method: 'GET',
+            responseType: 'blob', // important
+            }).then((response) => {
+            const url = window.URL.createObjectURL(new Blob([response.data]));
+            const link = document.createElement('a');
+            link.href = url;
+            link.target = '_blank';
+            link.setAttribute('download', this.props.document.title+'Outline.'+this.determineFileEnding(this.props.document.outlineURl));
+            document.body.appendChild(link);
+            link.click();
+            });
     }
 
     determineFileEnding = (document) => {
@@ -154,7 +154,7 @@ class LessonPlanEditData extends Component{
         }
 
     render(){
-        console.log(this.props, this.state, 'This is in the LessonPlan Viewer Data Component')
+        //console.log(this.props, this.state, 'This is in the LessonPlan Viewer Data Component')
         let themes = []
         let documents = []
         if(this.props.document != null){
@@ -171,7 +171,7 @@ class LessonPlanEditData extends Component{
                 documents.push(this.props.document.writingAssignments[x])
             }
         }
-          console.log(documents)
+        //console.log(documents)
         
         if(this.props.document === null)
             return <p>Loading</p>

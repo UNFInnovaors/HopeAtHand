@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Grid, Select, Divider, Button, Typography, TextField, Tooltip } from '@material-ui/core';
+import { Grid, Button, Typography, TextField } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 import Filler from '../../components/HOC/Filler'
 import ThemeSelector from '../../components/UI/ReusableThemeSelect/ReusableThemeSelect'
@@ -91,7 +91,7 @@ class CreateDumbComponent extends Component {
     handelChange = (event) => {
         var cloneState = JSON.parse(JSON.stringify(this.state.CreateForm))
         cloneState["Controls"][0]["value"] = event.target.value
-        console.log(cloneState);
+        //.log(cloneState);
         this.setState({CreateForm: cloneState})
     }
 
@@ -142,7 +142,7 @@ class CreateDumbComponent extends Component {
         {
             urls.push(this.props.components[x].image)
         }
-        console.log('This is the form', form)
+        //console.log('This is the form', form)
         return(
             <Filler>
                 <Grid container spacing={24}>
@@ -153,7 +153,7 @@ class CreateDumbComponent extends Component {
                         <Grid container item spacing={24} style={{paddingTop:28}}>
                              
                             <Grid xs={6} item container spacing={8} style={{paddingTop:6}}>
-                                <Grid xs={12} className='test1'>
+                                <Grid item xs={12} className='test1'>
                                     <TextField value={this.props.lessonPLanNameKs} placeholder="Please choose the name of your lesson plan" fullWidth error={form[0].error} helperText={form[0].errorMessage} 
                                         type={form[0].config.type} label={form[0].label} fullWidth hidden={form[0].hidden} onChange={this.props.lessonPlanNameChangeHandler} value={this.props.lessonPLanName}> 
                                     </TextField>
@@ -224,12 +224,12 @@ class CreateDumbComponent extends Component {
                                 
                                 {(validationArray.length > 0 ?
                                 <Grid container>
-                                    <Grid xs={2}></Grid>
-                                    <Grid xs={8}>
+                                    <Grid item xs={2}></Grid>
+                                    <Grid item xs={8}>
                                         <Typography variant='h4' align='center' style={{marginTop:8}}>Before you can upload your lesson plan you must complete the following</Typography>
-                                        {validationArray.map(val => <Typography variant='headline' align='center' style={{marginTop:8}}>{val}</Typography>)}
+                                        {validationArray.map((val, index) => <Typography key={index + "1"} variant='headline' align='center' style={{marginTop:8}}>{val}</Typography>)}
                                     </Grid>
-                                    <Grid xs={2}></Grid>
+                                    <Grid item xs={2}></Grid>
                                 </Grid> : "")}
                             </Grid>
                         </Paper>
@@ -268,7 +268,7 @@ class CreateDumbComponent extends Component {
                                 <Grid item xs={1}></Grid>
                             </Grid>
                          : "")}
-                            <Grid style={{marginTop:16}}>
+                            <Grid xs={12} item style={{marginTop:16}}>
                                 <ReactImageMagnify {...{
                                     smallImage: {
                                         alt: 'Upload a file to active viewer',

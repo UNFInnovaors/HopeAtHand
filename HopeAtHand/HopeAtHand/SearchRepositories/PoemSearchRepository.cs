@@ -24,6 +24,9 @@ namespace HopeAtHand.SearchRepositories
 
         public List<Poem> SeachForPoemWithThemes(PoemSearchDTO poemSearchDTO)
         {
+            poemSearchDTO.Name = poemSearchDTO.Name.ToLower();
+            poemSearchDTO.Author = poemSearchDTO.Author.ToLower();
+
             List<Poem> poems = new List<Poem>();
             Dictionary<int, string> foundId = new Dictionary<int, string>();
 
@@ -34,14 +37,17 @@ namespace HopeAtHand.SearchRepositories
                     if (theme == lesson.ThemeName)
                     {
                         if (foundId.GetValueOrDefault(lesson.PoemId) is null)
+                        { 
                             poems.Add(Data.Poems.Find(lesson.PoemId));
+                            foundId.Add(lesson.PoemId, "");
+                        }
                         break;
                     }
                 }
             }
             foreach (var lesson in Data.Poems)
             {
-                if ((foundId.GetValueOrDefault(lesson.PoemId) is null && (lesson.Title == poemSearchDTO.Name) || lesson.Author == poemSearchDTO.Author))
+                if ((foundId.GetValueOrDefault(lesson.PoemId) is null && (lesson.Title.ToLower().Contains(poemSearchDTO.Name)) || lesson.Author.ToLower().Contains(poemSearchDTO.Author)))
                     poems.Add(lesson);
             }
             List<Poem> finalized = poems.Where(l => l != null).ToList();

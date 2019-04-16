@@ -13,7 +13,7 @@ class Admin extends Component {
     componentDidMount(){
     
       get('/User/GetUsers').then( res => {
-            console.log('This is the results in admin', res);
+            //console.log('This is the results in admin', res);
             this.setState({Loading: false,
                     Facilitators: res.data})
             }).catch( err => console.log(err))
@@ -22,7 +22,7 @@ class Admin extends Component {
     }
     reload = () => {
         get('/User/GetUsers').then( res => {
-            console.log('This is the results in admin', res);
+            //console.log('This is the results in admin', res);
             this.setState({Loading: false,
                     Facilitators: res.data})
             }).catch( err => console.log(err))
@@ -31,7 +31,7 @@ class Admin extends Component {
     }
     update =() => {
         get('/User/GetUsers').then( res => {
-            console.log('This is the results in admin', res);
+            //console.log('This is the results in admin', res);
             this.setState({Loading: false,
                     Facilitators: res.data})
             }).catch( err => console.log(err))
@@ -39,7 +39,7 @@ class Admin extends Component {
         this.setState({Loading: true})
     }
     Search = () => {
-        console.log('this is happening')
+        //console.log('this is happening')
         if(this.state.SearchType === 'Name'){
             this.SearchByName()
         } else {
@@ -47,7 +47,7 @@ class Admin extends Component {
         }
     }
     SearchByName = () => {
-        console.log('And so it this')
+        //console.log('And so it this')
         const FacilitatorSearchDTO =  {
             SearchString : this.state.Search
         }
@@ -58,7 +58,7 @@ class Admin extends Component {
     }
 
     SearchByRole = () => {
-        console.log('And so it this Role')
+        //console.log('And so it this Role')
         const SearchRoleDTO =  {
             role : this.state.Search
         }

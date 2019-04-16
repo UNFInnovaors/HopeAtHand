@@ -5,7 +5,7 @@ import { Button } from '@material-ui/core';
 class ColorPicker extends Component{
 
     showChange = (event) => {
-        console.log(event.target.value)
+        //console.log(event.target.value)
         this.props.changeSecondary(event)
     }
     showChangePrim = (event) => {

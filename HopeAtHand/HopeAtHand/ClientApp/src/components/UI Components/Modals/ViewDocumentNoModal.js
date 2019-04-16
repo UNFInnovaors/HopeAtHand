@@ -45,7 +45,7 @@ class DocumentView extends Component {
         const data = res.data
         let urls = []
         urls.push({image:data.document.imageURL, name:data.document.title})
-        console.log(urls)
+        //console.log(urls)
         this.setState({Document: data.document,
                         Type:data.type,
                        URLS:urls
@@ -126,7 +126,7 @@ class DocumentView extends Component {
        bodyFormData.set('file', file)
        bodyFormData.set('Id', this.state.Id)
        
-       console.log(bodyFormData)
+       //console.log(bodyFormData)
        axios.post('/api/Document/'+location,bodyFormData,{
          headers:{
                        'Content-Type': 'multipart/form-data; boundary=absdfabs',
@@ -149,7 +149,7 @@ class DocumentView extends Component {
 
   
     render() {
-      console.log(this.state, this.props, "state and props in new Document View")
+      //console.log(this.state, this.props, "state and props in new Document View")
       const metaDataViewer = this.state.Editing === false ? 
           
           <DocumentMetaData style={{marginTop:16}} 

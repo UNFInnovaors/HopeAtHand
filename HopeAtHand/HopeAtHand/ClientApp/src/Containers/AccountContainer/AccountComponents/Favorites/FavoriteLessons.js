@@ -20,7 +20,7 @@ const styles = theme => ({
 
 function SimpleExpansionPanel(props) {
   const { classes } = props;
-  console.log('this is props in lesson', props)
+  //console.log('this is props in lesson', props)
   return (
     <div className={classes.root}>
       <ExpansionPanel>

@@ -5,7 +5,7 @@ import { Paper, Typography, Button, Grid } from '@material-ui/core';
 const ComponentsForDisplay = (props) => {
 
     let toDisplay = props.components.map((item, index) => {
-        console.log('this is the item in component', item)
+        //console.log('this is the item in component', item)
         return(
             <Grid container xs={4}>
             <Paper style={{padding:'28px', minWidth:'95%', minHeight:'95%'}}> 

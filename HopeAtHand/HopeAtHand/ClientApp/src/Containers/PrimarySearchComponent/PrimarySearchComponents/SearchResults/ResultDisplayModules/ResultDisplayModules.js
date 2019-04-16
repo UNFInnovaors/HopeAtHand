@@ -30,7 +30,7 @@ class ResultsDisplayModule extends Component{
       }
 
     render(){
-        console.log('this is props in the result display module', this.props)
+        //console.log('this is props in the result display module', this.props)
         const imageURL = this.props.documentData.imageURL.length > 0 ? this.props.documentData.imageURL : 'https://htmljs.blob.core.windows.net/images/download.jpg'
         
         if(typeof(this.props.documentData["writingAssignmentId"]) !== 'undefined' && this.props.documentData["writingAssignmentId"] !== null){
@@ -90,7 +90,7 @@ class ResultsDisplayModule extends Component{
                 </Paper>)
         }
         else if(typeof(this.props.documentData["lessonPlanId"]) !== 'undefined' && this.props.documentData["lessonPlanId"] !== null){
-            console.log('THis is the data of a lessonplan', this.props.documentData)
+            //console.log('THis is the data of a lessonplan', this.props.documentData)
             return(
             <Paper style={{margin:8}}>
                 <img style={{borderColor:'black', borderBottomWidth:1, borderStyle:'solid'}} height="250" width="100%" src={imageURL} alt="No Image"></img>
@@ -108,7 +108,7 @@ class ResultsDisplayModule extends Component{
             </Paper>)
         }
         else{
-            console.log('This is the data of an error', this.props.documentData)
+            //console.log('This is the data of an error', this.props.documentData)
             return(    
                 <Paper style={{margin:16}}>
                         <img height="250" width="100%" src={this.props.documentData.imageURL} alt="No Image"></img>

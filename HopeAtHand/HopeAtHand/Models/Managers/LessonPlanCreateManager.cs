@@ -87,6 +87,10 @@ namespace HopeAtHand.Models.Managers
                 OutlineURl = createDTO.DocumentOutlineURL,
                 ImageURL = createDTO.DocumentOutlinePicture
             };
+            while (Data.Lessonplans.Find(newLesson.LessonPlanId) != null)
+            {
+                newLesson.LessonPlanId++;
+            }
             Data.Database.OpenConnection();
             try
             {

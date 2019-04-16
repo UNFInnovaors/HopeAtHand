@@ -19,7 +19,7 @@ class SearchWriting extends Component{
     }
 
     handleChange = (event) => {
-        console.log(event.target.dataset["input"])
+        //console.log(event.target.dataset["input"])
         if(event.target.dataset["input"] === 'name'){
             this.setState({name: event.target.value})
         } else {

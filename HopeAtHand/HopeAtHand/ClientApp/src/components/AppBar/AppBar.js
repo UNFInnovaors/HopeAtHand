@@ -13,22 +13,21 @@ import './AppBar.css'
 
 
 const appBar = (props) => {
-  console.log('this is props is appbar', props)
+  //console.log('this is props is appbar', props)
     if(props.LoggedIn === null || typeof(props.LoggedIn) === 'undefined')//props.LoggedIn === null || typeof(props.LoggedIn) === 'undefined'
     {
       return(
       <div className="margin2">
         <AppBar position="static">
          <Grid container spacing={24} style={{padding:'24px'}}>
-            <Grid xs={12}><Typography variant="h2" align="center">Hope At Hand</Typography></Grid>
-          
+            <Grid item xs={12}><Typography variant="h2" align="center">Hope At Hand</Typography></Grid>
           </Grid>
         </AppBar>
       </div>)
     } else if(props.role === "Administrator") {
     return(
     <div className='margin'>
-          <AppBar position="static">
+          <AppBar position="static" style={{paddingBottom:18}}>
             <Grid container spacing={24}>
               <Grid xs={1} item/>
               <Grid item xs={1} style={{ marginTop: '14px' }}>
@@ -55,13 +54,8 @@ const appBar = (props) => {
                 </Link>
               </Grid>
               
-              <Grid item xs={3}>
-                <InputBase
-                  style={{ margin: '8px' }}
-                  placeholder="Search Lesson Plans"
-                  variant="outlined"
-                  fullWidth
-                />
+              <Grid item xs={3} style={{  marginTop: '22px' }}>
+                <Typography variant="h3" align="center">Hope At Hand</Typography>
               </Grid>
               
               <Grid item xs={1} style={{ marginTop: '14px' }}>
@@ -75,10 +69,6 @@ const appBar = (props) => {
                   <Typography>LOGOUT</Typography>
                 </Button>
               </Grid>
-
-              <Grid item xs={1}>
-                <Account favorites={props.favorites}/>
-              </Grid>
             </Grid>
           </AppBar>
         </div>
@@ -86,7 +76,7 @@ const appBar = (props) => {
       } else if(props.role === "Creating Facilitator"){
         return ( 
         <div className='margin'>
-        <AppBar position="static">
+        <AppBar position="static" style={{paddingBottom:18}}> 
           <Grid container spacing={24}>
             <Grid item xs={1}></Grid>
             <Grid item xs={1} style={{ marginTop: '14px' }}>
@@ -107,13 +97,8 @@ const appBar = (props) => {
               </Link>
             </Grid>
             
-            <Grid item xs={2}>
-              <InputBase
-                style={{ margin: '8px' }}
-                placeholder="Search Lesson Plans"
-                variant="outlined"
-                fullWidth
-              />
+            <Grid item xs={2} style={{ marginTop: '14px' }}>
+              <Typography variant="h4" align="center">Hope At Hand</Typography>
             </Grid>
             
             <Grid item xs={2} style={{ marginTop: '14px' }}>
@@ -127,11 +112,6 @@ const appBar = (props) => {
                 <Typography>LOGOUT</Typography>
               </Button>
             </Grid>
-
-            <Grid item xs={1}>
-              <Account favorites={props.favorites}/>
-            </Grid>
-
             <Grid item xs={1}></Grid>
           </Grid>
         </AppBar>
@@ -141,7 +121,7 @@ const appBar = (props) => {
       {
         return (    
         <div className='margin'>
-          <AppBar position="static">
+          <AppBar position="static" style={{paddingBottom:18}}>
             <Grid container spacing={24}>
               <Grid item xs={1}></Grid>
               <Grid item xs={3} style={{ marginTop: '14px' }}>
@@ -150,23 +130,14 @@ const appBar = (props) => {
                 </Button></Link>
               </Grid>
               
-              <Grid item xs={3}>
-                <InputBase
-                  style={{ marginTop: '8px' }}
-                  placeholder="Search Lesson Plans"
-                  variant="outlined"
-                  fullWidth
-                />
+              <Grid item xs={4}  style={{  marginTop: '14px' }}>
+                <Typography variant="h4" align="center">Hope At Hand</Typography>
               </Grid>
               
               <Grid item xs={3} style={{  marginTop: '14px' }}>
                 <Button variant="contained" fullWidth color="secondary" onClick={props.logOut}>
                   <Typography>LOGOUT</Typography>
                 </Button>
-              </Grid>
-
-              <Grid item xs={1}>
-                <Account favorites={props.favorites}/>
               </Grid>
             </Grid>
             <Grid item xs={1}></Grid>
@@ -176,3 +147,15 @@ const appBar = (props) => {
 }
 
 export default appBar
+
+/*<InputBase
+                  style={{ margin: '8px' }}
+                  placeholder="Search Lesson Plans"
+                  variant="outlined"
+                  fullWidth
+                />
+                
+                              <Grid item xs={1}>
+                <Account favorites={props.favorites}/>
+              </Grid>
+                */

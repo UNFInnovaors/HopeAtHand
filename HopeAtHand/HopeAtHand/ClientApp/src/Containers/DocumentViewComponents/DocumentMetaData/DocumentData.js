@@ -21,7 +21,7 @@ class DocumentData extends Component{
 
     DownloadDocument = () => {
       
-            console.log(this.props.document.completeLessonPlanURL, "is being downloaded")
+            //console.log(this.props.document.completeLessonPlanURL, "is being downloaded")
             Axios({
                 url: this.props.document.documentBlobURL,
                 method: 'GET',
@@ -38,7 +38,7 @@ class DocumentData extends Component{
     }
 
     DownloadPicture = () => {
-            console.log(this.props.document.outlineURl, "is being downloaded")
+            //console.log(this.props.document.outlineURl, "is being downloaded")
             Axios({
                 url: this.props.document.imageURL,
                 method: 'GET',
@@ -61,7 +61,7 @@ class DocumentData extends Component{
       }
 
     render(){
-        console.log(this.props, this.state, 'This is in the LessonPlan Viewer Data Component')
+        //console.log(this.props, this.state, 'This is in the LessonPlan Viewer Data Component')
         let themes = []
         let documents = []
         if(this.props.document != null){
@@ -69,7 +69,7 @@ class DocumentData extends Component{
                 themes.push(this.props.document.themes[x].themeName)
             }
         }
-          console.log(documents)
+          //console.log(documents)
         
         if(this.props.document === null)
             return <p>Loading</p>

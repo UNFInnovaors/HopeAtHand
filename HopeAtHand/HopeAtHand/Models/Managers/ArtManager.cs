@@ -57,7 +57,7 @@ namespace HopeAtHand.Models.Managers
         public ArtPiece TrackArtPiece(int numberToAdd)
         {
             ArtPiece art = new ArtPiece();
-            
+            ArtPiece trial = new ArtPiece();
             int count = Data.ArtPieces.Count() +1;
 
 
@@ -67,7 +67,10 @@ namespace HopeAtHand.Models.Managers
                 numberToAdd *= 10;
             }
             art.ArtPieceId = numberToAdd + count;
-
+            while(Data.ArtPieces.Find(art.ArtPieceId) != null)
+            {
+                art.ArtPieceId++;
+            }
             Data.Database.OpenConnection();
             try
             {

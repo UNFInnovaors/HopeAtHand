@@ -21,7 +21,7 @@ class SearchHOC extends Component{
     }
 
     determineSearchComponent = (searchDomain = "") => {
-        console.log('This is in the method', searchDomain)
+        //console.log('This is in the method', searchDomain)
         switch(searchDomain)
         {
             case 'All':
@@ -53,7 +53,7 @@ class SearchHOC extends Component{
     }
 
     render(){
-        console.log('This is the props in search HOC', this.props)
+        //console.log('This is the props in search HOC', this.props)
         let SearchComponent = this.determineSearchComponent(this.props.searchDomain);
         return(
             <Filler>

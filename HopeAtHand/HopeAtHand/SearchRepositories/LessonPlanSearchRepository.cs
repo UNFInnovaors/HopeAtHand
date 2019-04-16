@@ -37,11 +37,13 @@ namespace HopeAtHand.SearchRepositories
 
         public List<LessonPlan> SeachForLessonPlan(LessonPlanSearchDTO LessonPlanSearchDTO)
         {
+            LessonPlanSearchDTO.Name = LessonPlanSearchDTO.Name.ToLower();
             return Data.Lessonplans.Where(p => p.Title.ToLower().Contains(LessonPlanSearchDTO.Name)).ToList();
         }
 
         public List<LessonPlan> SearchForLessonPlan(LessonPlanThemeSearch lessonPlanSearchDTO)
         {
+            lessonPlanSearchDTO.LesssonName = lessonPlanSearchDTO.LesssonName.ToLower();
             List<LessonPlan> lessonPlans = new List<LessonPlan>();
             Dictionary<int, string> foundId = new Dictionary<int, string>();
 
@@ -52,14 +54,17 @@ namespace HopeAtHand.SearchRepositories
                     if (theme == lesson.ThemeName)
                     {
                         if(foundId.GetValueOrDefault(lesson.LessonId) is null)
+                        { 
                             lessonPlans.Add(Data.Lessonplans.Find(lesson.LessonId));
+                            foundId.Add(lesson.LessonId, "");
+                        }
                         break;
                     }
                 }
             }
             foreach(var lesson in Data.Lessonplans)
             {
-                if (lesson.Title == lessonPlanSearchDTO.LesssonName && foundId.GetValueOrDefault(lesson.LessonPlanId) is null)
+                if (lesson.Title.ToLower().Contains(lessonPlanSearchDTO.LesssonName) && foundId.GetValueOrDefault(lesson.LessonPlanId) is null)
                     lessonPlans.Add(lesson);
             }
             List<LessonPlan> finalized = lessonPlans.Where(l => l != null).ToList();

@@ -30,7 +30,7 @@ export default class App extends Component {
   
   state = {
     Theme: theme,
-    UserName : '',
+    UserName : null,
     Role:"",
     Favorites:{
       art:[],
@@ -62,7 +62,7 @@ export default class App extends Component {
   }
 
   AddFavorites = (documentId) => {
-    console.log('This is AddFavorites!!!!!!!!!!!!!!!', documentId)
+    //console.log('This is AddFavorites!!!!!!!!!!!!!!!', documentId)
 
     let AddFavoritesDTO = {
       DocumentId: documentId,
@@ -75,24 +75,24 @@ export default class App extends Component {
   }
 
   Login = (username, password) => {
-    console.log('This is the username in login', username)
+    //console.log('This is the username in login', username)
     const LoginDTO = {
       Username: username,
       Password: password
     }
     
     post('/user/Login', LoginDTO).then( res => {
-      console.log(res, 'recieved user data')
+      //console.log(res, 'recieved user data')
       const FavoriteFindDTO = {
         username : LoginDTO.Username
       }
       if(res.data === "Not Found"){
         this.setState({Invalid: true})
       } else {
-        console.log('This is res', res)
+        //console.log('This is res', res)
         sessionStorage.setItem("token", res.data.token)
         post('/Favorites/GetFavorites', FavoriteFindDTO).then(res2 => {
-          console.log(res2)
+          //console.log(res2)
           sessionStorage.setItem("token", res.data.token)
           this.setState({Favorites: res2.data,
                          UserName: username, 
@@ -113,7 +113,7 @@ export default class App extends Component {
 
   ChangeSecondary = (event) => {
     let themez = JSON.parse(JSON.stringify(this.state.Theme))
-    console.log('this is themez', themez, event.target.value, themez.palette.primary)
+    //console.log('this is themez', themez, event.target.value, themez.palette.primary)
     let newTheme = createMuiTheme({
       palette:{
         primary: 
@@ -129,7 +129,7 @@ export default class App extends Component {
   
   ChangePrimary =(event) => {
     let themez = JSON.parse(JSON.stringify(this.state.Theme))
-    console.log('this is themez', themez, event.target.value, themez.palette.primary)
+    //console.log('this is themez', themez, event.target.value, themez.palette.primary)
     let newTheme = createMuiTheme({
       palette:{
         primary: { 
@@ -142,7 +142,7 @@ export default class App extends Component {
   }
 
   render() {
-    console.log(this.state, 'this is state in appjs')
+    //console.log(this.state, 'this is state in appjs')
     if(this.state.UserName === null) //
     {
       return (

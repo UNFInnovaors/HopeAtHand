@@ -19,14 +19,14 @@ class Actions extends React.Component{
         this.props.addToLesson(this.props.documentData)
     }
     addToFavorite = () => {
-        console.log('This is id in view,', this.props.id)
+        //console.log('This is id in view,', this.props.id)
         this.props.addFavorites(this.props.id)
     }
 
    
 
     download = () => {
-        console.log(this.props.documentLink, "is being downloaded")
+        //console.log(this.props.documentLink, "is being downloaded")
         Axios({
             url: this.props.documentLink,
             method: 'GET',
@@ -43,17 +43,17 @@ class Actions extends React.Component{
     }
 
     beginLessonPlanView= () => {
-        console.log('this is happening', this.props)
+        //console.log('this is happening', this.props)
         this.props.beginLessonPlanView(this.props.documentData)
     }
 
     BeginDocumentView = () => {
-        console.log('This is to begin the document view', this.props.documentData)
+        //console.log('This is to begin the document view', this.props.documentData)
         this.props.beginDocumentView(this.props.documentData)
     }
 
     render(){
-        console.log('This is the props of actions', this.props)
+        //console.log('This is the props of actions', this.props)
         if(this.props.isUpload)
         {
             return(

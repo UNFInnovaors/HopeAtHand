@@ -27,7 +27,7 @@ const lessonPlanSearchDumbComponent = (props) => {
               <Grid xs={2}><Button variant="contained" fullWidth color="secondary">Next Page</Button></Grid>
 
             {(props.lessons.map((lesson, index) => {
-            console.log(lesson);
+            //console.log(lesson);
             let size = 4
             if(props.lessons.length > 4){
               size = 4

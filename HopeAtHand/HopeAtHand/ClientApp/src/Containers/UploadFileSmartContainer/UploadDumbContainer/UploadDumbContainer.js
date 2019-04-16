@@ -2,13 +2,15 @@ import React from 'react';
 import Poem from './UploadPoem/UploadPoem';
 import Writing from './UploadWritingTemplate/UploadWritingAssignment';
 import Art from './ArtPiece/UploadArtPiece';
-import { Grid, Paper, Typography, Button, CircularProgress, Snackbar } from '@material-ui/core';
+import { Grid, Typography, Button, CircularProgress, Snackbar } from '@material-ui/core';
 import ReusableSelect from '../../../components/UI Components/ReuseableSelect';
 import ThemeSelect from '../../../components/UI/ReusableThemeSelect/ReusableThemeSelect'
 import Filler from '../../../components/HOC/Filler';
 import UploadImage from './UploadImage/UploadImage';
+import Snackies from '../../../components/UI/SnackBar/Snackbar'
 
 const uploadDocumentDumbContainer = (props) => {
+    const disabled = props.fileToUpload === null || props.disabled
     let uploadComponent=<div></div>
     switch(props.selectedDocumentType)
     {
@@ -67,7 +69,7 @@ const uploadDocumentDumbContainer = (props) => {
             }}
             open={props.success === true}
             autoHideDuration={6000}
-            onClose={props.close}
+            onClose={props.closeSnack}
         >
         </Snackbar>
         <Grid container item spacing={24}>
@@ -85,11 +87,11 @@ const uploadDocumentDumbContainer = (props) => {
             </Grid>
             <Grid item xs={3}></Grid>
 
-            <Grid container item xs={7}>
+            <Grid container item xs={6}>
                 <Grid item xs={1}></Grid>   
                 <Grid item xs={11}>{uploadComponent}</Grid>
             </Grid>
-            <Grid container item xs={5}>
+            <Grid container item xs={6}>
                 <Grid item xs={1}></Grid>   
                 <Grid item xs={11}><UploadImage fileToUpload={props.fileToUpload} 
                                                 shouldImagesBeUploaded={props.shouldImagesBeUploaded}
@@ -112,10 +114,11 @@ const uploadDocumentDumbContainer = (props) => {
             <Grid container item xs={12} spacing={24}>
                 <Grid xs={4}></Grid>
                     <Grid item xs={4}>
-                        <Button color="secondary" fullWidth variant="contained" onClick={props.postData}>Upload Document</Button>
+                        <Button color="secondary" fullWidth variant="contained" onClick={props.postData} disabled={disabled}>Upload Document</Button>
                     </Grid>
                 <Grid xs={4}></Grid>
             </Grid></Filler> : "")}
+            <Snackies message={props.message} open={props.open} close={props.close}/>
             </Grid>
         </Filler>
     );

@@ -72,13 +72,13 @@ function getModalStyle() {
     determineFileEnding = (document) => {
       if(document === "")
         return ""
-      console.log(document.substring(document.length -5).split('.')[1])
+      //console.log(document.substring(document.length -5).split('.')[1])
       return(document.substring(document.length -7).split('.')[1].toLowerCase())
     }
   
     render() {
       const { classes } = this.props
-      console.log(this.props)
+      //console.log(this.props)
       let document = ""
       if(this.state.Document !== null)
         document = this.state.View === 'Document'  ? this.state.Document.documentBlobURL : this.state.Document.imageURL
@@ -106,7 +106,7 @@ function getModalStyle() {
                     </Modal>
                 </Filler>
       }
-      console.log(this.state,'In Viewer')
+      //console.log(this.state,'In Viewer')
       return (
         <Filler>
           <Button fullWidth color="primary" variant='contained' onClick={this.handleOpen}>View/Edit Document</Button>

@@ -22,7 +22,7 @@ const styles = theme => ({
 
 function SimpleExpansionPanel(props) {
   const { classes } = props;
-  console.log('this is props in poem', props)
+  //console.log('this is props in poem', props)
   return (
     <div className={classes.root}>
       <ExpansionPanel>

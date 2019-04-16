@@ -49,32 +49,31 @@ class ThemeBox extends  Component{
 
     remove = (valueToRemove) => {
         let themes = sessionStorage.getItem('SearchThemes').split(',')
-        console.log(themes, valueToRemove)
+        //console.log(themes, valueToRemove)
         for(let x = 0 ; x < themes.length; x++){
             if(themes[x] === valueToRemove){
                 themes.splice(x,1)
                 break
             }
         }
-        console.log(themes.join(','), 'is themes.join')
+        //console.log(themes.join(','), 'is themes.join')
         sessionStorage.setItem('SearchThemes', themes.join(','))
         this.forceUpdate()
         this.props.reset();
     }
     
     render(){
-        console.log('this is', this.props.themes)
+        //console.log('this is', this.props.themes)
         var testArray = []
         for(let x = 0; x < 25; x++){
             testArray[x] = x+1;
         }
         let something = <div></div>
         if(this.props.themes !== null){
-            console.log('they are being formatted')
+            //console.log('they are being formatted')
             something = this.FormatForDisplay(this.props.themes)
         }
         
-        let badges=<tr><td><Typography variant="body1">Please Choose One or More Theme(s) to Continue</Typography></td></tr>
         if(true)//this.props.themes.length > 0)
         return(<Filler>
                 <Grid container spacing={24}>

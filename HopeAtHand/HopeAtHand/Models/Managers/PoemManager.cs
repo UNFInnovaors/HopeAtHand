@@ -61,7 +61,10 @@ namespace HopeAtHand.Models.Managers
             }
             count += numberToAdd;
             poem.PoemId = count;
-
+            while (Data.Poems.Find(poem.PoemId) != null)
+            {
+                poem.PoemId++;
+            }
             Data.Database.OpenConnection();
             try
             { 

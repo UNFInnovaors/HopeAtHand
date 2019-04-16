@@ -26,17 +26,17 @@ class LessonPlanSearch extends Component {
     this.setState({ Theme: event.target.value });
   };
   Search = () => {
-    console.log(this.state.Theme);
-    console.log(this.state.Tags);
+    //console.log(this.state.Theme);
+    //console.log(this.state.Tags);
     let lessie = {
       theme: this.state.Theme,
       tags: this.state.Tags
     };
-    console.log(lessie);
+    //console.log(lessie);
     axios
       .post('https://localhost:44365/api/search/findlessonplan', lessie)
       .then(res => {
-        console.log(res);
+        //console.log(res);
         this.setState({ Lessons: res.data });
       });
   };
@@ -48,14 +48,14 @@ class LessonPlanSearch extends Component {
 
   ChangePoemHandler = selectedPoem => {
     let chosenLesson = JSON.parse(JSON.stringify(this.state.ChosenLesson));
-    console.log(chosenLesson);
+    //console.log(chosenLesson);
     chosenLesson.poemId = selectedPoem.poemId;
     chosenLesson.poem = selectedPoem;
     this.setState({ ChosenLesson: chosenLesson });
   };
 
   render() {
-    console.log('this is state', this.state);
+    //console.log('this is state', this.state);
     let showLesson = <div />;
     if (this.state.ChosenLesson !== '') {
       showLesson = (
@@ -66,7 +66,7 @@ class LessonPlanSearch extends Component {
       );
     }
     let displayLessonPlans = this.state.Lessons.map((lesson, index) => {
-      console.log(lesson);
+      //console.log(lesson);
       return (
         <div>
           <Typography>{lesson.name}</Typography>

@@ -28,7 +28,7 @@ class PoemSearch extends Component {
   searchTermHandler = event => {
     let poemObject = { theme: this.state.theme, tags: this.state.searchValue };
     axios
-      .post('/api/Search/GetPoemSearchText', poemObject)
+      .post('/Search/GetPoemSearchText', poemObject)
       .then(res => {
         this.setState({ PoemSearchResult: res.data });
       });

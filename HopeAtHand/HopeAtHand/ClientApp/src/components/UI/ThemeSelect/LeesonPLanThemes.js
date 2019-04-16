@@ -15,7 +15,7 @@ class ThemeSelect extends Component {
     This could be done on the server, or even the db could be configured or mapped for right now it is done on the client*/
   componentDidMount() {
       get('/theme/getthemes').then(response => {
-      console.log(response, 'These are the themes');
+      //console.log(response, 'These are the themes');
       let themesForDisplay = [];
       for(let x = 0 ; x < response.data.length; x++){
         themesForDisplay[x] = {value: response.data[x], label: response.data[x]}
@@ -36,7 +36,7 @@ class ThemeSelect extends Component {
   };
 
   render() {
-    console.log('This is props', this.props);
+    //console.log('This is props', this.props);
     return (
       <Select
         onChange={this.handleChange}

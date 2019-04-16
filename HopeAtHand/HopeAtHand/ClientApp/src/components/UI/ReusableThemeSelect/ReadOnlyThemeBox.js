@@ -40,7 +40,7 @@ class ReadonlyThemeBox extends  Component{
 
     
     render(){
-        console.log('this is', this.props.themes, this.props)
+        //console.log('this is', this.props.themes, this.props)
         let something = this.FormatForDisplay(this.props.themes)
         if(true)//this.props.themes.length > 0)
         return(<Filler>
