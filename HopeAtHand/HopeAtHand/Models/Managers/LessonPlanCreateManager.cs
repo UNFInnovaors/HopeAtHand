@@ -89,7 +89,7 @@ namespace HopeAtHand.Models.Managers
             };
             while (Data.Lessonplans.Find(newLesson.LessonPlanId) != null)
             {
-                newLesson.LessonPlanId++;
+                newLesson.LessonPlanId = newLesson.LessonPlanId * 10;
             }
             Data.Database.OpenConnection();
             try

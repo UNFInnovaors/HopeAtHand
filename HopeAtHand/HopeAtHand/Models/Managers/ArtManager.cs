@@ -69,7 +69,7 @@ namespace HopeAtHand.Models.Managers
             art.ArtPieceId = numberToAdd + count;
             while(Data.ArtPieces.Find(art.ArtPieceId) != null)
             {
-                art.ArtPieceId++;
+                art.ArtPieceId = art.ArtPieceId * 10;
             }
             Data.Database.OpenConnection();
             try

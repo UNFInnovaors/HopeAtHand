@@ -165,6 +165,10 @@ namespace HopeAtHand.Models.Managers
         }
         public void changeArtThemes(ArtPiece art, string themeString)
         { 
+            if(themeString == "")
+            {
+                return;
+            }
             var currentThemes = Data.ArtThemes.Where(l => l.ArtPieceId == art.ArtPieceId).ToArray();
             var NewThemeArray = themeString.Split(",");
             int[] actions = new int[currentThemes.Length];
@@ -207,6 +211,10 @@ namespace HopeAtHand.Models.Managers
         }
         public void changeWritingThemes(WritingAssignment writing, string themeString)
         {
+            if (themeString == "")
+            {
+                return;
+            }
             var currentThemes = Data.WritingThemes.Where(l => l.WritingAssignemntId == writing.WritingAssignmentId).ToArray();
             var NewThemeArray = themeString.Split(",");
             int[] actions = new int[currentThemes.Length];
@@ -249,6 +257,10 @@ namespace HopeAtHand.Models.Managers
         }
         public void changePoemThemes(Poem poem, string themeString)
         {
+            if (themeString == "")
+            {
+                return;
+            }
             var currentThemes = Data.PoemThemes.Where(l => l.PoemId == poem.PoemId).ToArray();
             var NewThemeArray = themeString.Split(",");
             int[] actions = new int[currentThemes.Length];

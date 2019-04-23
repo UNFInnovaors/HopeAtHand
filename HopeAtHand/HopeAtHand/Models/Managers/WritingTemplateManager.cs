@@ -72,7 +72,7 @@ namespace HopeAtHand.Models.Managers
             writing.WritingAssignmentId = numberToAdd + count;
             while (Data.WritingAssignments.Find(writing.WritingAssignmentId) != null)
             {
-                writing.WritingAssignmentId++;
+                writing.WritingAssignmentId = writing.WritingAssignmentId * 10;
             }
             Data.Database.OpenConnection();
             try

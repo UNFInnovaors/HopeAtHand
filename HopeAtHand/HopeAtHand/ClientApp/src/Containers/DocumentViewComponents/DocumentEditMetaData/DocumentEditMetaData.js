@@ -101,7 +101,7 @@ class DocumentEditMetaData extends Component{
                 <Paper style={{padding:4, margin:8}}>
                     <Grid container>
                         <Grid item xs={1} style={{paddingTop:8, textAlign:'left'}}>
-                            <Button  onClick={this.props.cancelDocumentView}><EX color='Error' style={{textAlign:'left'}} fontSize='large' onClick={this.props.cancelDocumentView}/></Button>
+                            <Button onClick={(this.props.isModal? this.props.close : this.props.cancelDocumentView)}><EX color='Error' style={{textAlign:'left'}} fontSize='large' onClick={this.props.cancelDocumentView}/></Button>
                         </Grid>
                         <Grid item xs={4} style={{paddingTop:8}}>
                             <BigHeading>Name : {this.props.document.title}</BigHeading>

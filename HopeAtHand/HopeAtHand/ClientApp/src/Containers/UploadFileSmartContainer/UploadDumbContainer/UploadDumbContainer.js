@@ -56,7 +56,7 @@ const uploadDocumentDumbContainer = (props) => {
             <Grid container item spacing={24}>
                 <Grid item xs={12}><Typography variant="h2" align="center">Upload</Typography></Grid>
                 <Grid style={{marginTop:'2.5%'}} item xs={12}><Typography align='center'>Loading</Typography></Grid>
-                <Typography variant='body1' align='center'><CircularProgress style={{margin:'auto'}}/></Typography>
+                <Grid item xs={12}><Typography variant='body1' align='center'><CircularProgress style={{margin:'auto'}}/></Typography></Grid>
             </Grid>
         )
     }

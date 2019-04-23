@@ -87,10 +87,9 @@ class ThemeSelect extends Component {
                             options={this.state.Themes}S
                             placeholder={'Select A Theme'}
                             hideSelectedOptions={true}
-                            className={'limiter'}
                         />
                 </Grid>
-                <Grid xs={12}item>
+                <Grid xs={12}item style={{marginTop:32}}>
                     <ThemeBox themes={themesToDisplay} reset={this.renderAgain} destination={this.props.destination.replace(/\s/g, '')}  />
                 </Grid>
             </Filler>
@@ -99,13 +98,12 @@ class ThemeSelect extends Component {
       if(this.state.Show === true){
         showThemes = 
             <Filler>
-                <Grid xs={12} item>
-                       <Select
+                <Grid xs={12} item >
+                       <Select 
                             onChange={this.handleChange}
                             options={this.state.Themes}
                             placeholder={'Select A Theme'}
                             hideSelectedOptions={true}
-                            className={'limiter'}
                         />
                 </Grid>
                 <Grid style={{marginTop:32}} xs={12}item>
